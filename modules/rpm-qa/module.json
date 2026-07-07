@@ -1,0 +1,27 @@
+{
+  "name": "RPM QA Lookup",
+  "slug": "rpm-qa",
+  "description": "Look up QA contacts and metadata for RPM components",
+  "icon": "search",
+  "order": 5,
+  "defaultEnabled": true,
+  "requires": [],
+  "client": {
+    "entry": "./client/index.js",
+    "navItems": [
+      { "id": "lookup", "label": "Component Lookup", "icon": "Search", "default": true }
+    ],
+    "hiddenRoutes": {
+      "detail": "lookup"
+    },
+    "settingsComponent": "./client/components/RpmQaSettings.vue"
+  },
+  "server": {
+    "entry": "./server/index.js"
+  },
+  "export": {
+    "files": [
+      { "path": "rpm-qa/components.json", "notes": "Parsed RPM component metadata records" }
+    ]
+  }
+}
