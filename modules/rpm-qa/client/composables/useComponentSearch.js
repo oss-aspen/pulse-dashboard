@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import Fuse from 'fuse.js'
 
 /**
@@ -24,6 +24,8 @@ const FUSE_OPTIONS = {
   minMatchCharLength: 2,
 }
 
+const SEARCH_DEBOUNCE_MS = 300
+
 /**
  * Provides fuzzy-search over component records using Fuse.js.
  *
@@ -31,19 +33,35 @@ const FUSE_OPTIONS = {
  * @returns {{ query: Ref<string>, results: ComputedRef<object[]> }}
  */
 export function useComponentSearch(records) {
+  /** Raw value bound to the input — updates on every keystroke */
   const query = ref('')
+  /** Debounced copy that actually drives the search — updates 300 ms after typing stops */
+  const debouncedQuery = ref('')
+
+  let debounceTimer = null
+  watch(query, (val) => {
+    clearTimeout(debounceTimer)
+    debounceTimer = setTimeout(() => {
+      debouncedQuery.value = val
+    }, SEARCH_DEBOUNCE_MS)
+  })
 
   /** Rebuild the Fuse index whenever the records array changes */
   const fuse = computed(() => new Fuse(records.value, FUSE_OPTIONS))
 
+  /**
+   * Pre-sorted default view — computed independently of query so it is cached
+   * and not recomputed every time the user types or clears the search box.
+   */
+  const sortedRecords = computed(() =>
+    [...records.value].sort((a, b) =>
+      (a['Component'] || '').localeCompare(b['Component'] || '')
+    )
+  )
+
   const results = computed(() => {
-    const q = query.value.trim()
-    if (!q) {
-      // No query: return all records sorted alphabetically by Component
-      return [...records.value].sort((a, b) =>
-        (a['Component'] || '').localeCompare(b['Component'] || '')
-      )
-    }
+    const q = debouncedQuery.value.trim()
+    if (!q) return sortedRecords.value
     // Fuse returns { item, score } — unwrap to plain records, best match first
     return fuse.value.search(q).map(r => r.item)
   })

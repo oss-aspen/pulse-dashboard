@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, inject } from 'vue'
+import { ref, computed, watch, onMounted, inject } from 'vue'
 import { Search as SearchIcon, AlertCircle as AlertCircleIcon, Package as PackageIcon } from 'lucide-vue-next'
 import { apiRequest } from '@shared/client/services/api.js'
 import { useComponentSearch } from '../composables/useComponentSearch.js'
@@ -41,6 +41,21 @@ const filteredResults = computed(() => {
 const hasActiveFilters = computed(() =>
   query.value.trim() !== '' || selectedProduct.value !== '' || selectedActive.value !== ''
 )
+
+// ── Pagination ─────────────────────────────────────────────────────────────
+
+const PAGE_SIZE = 100
+const page = ref(1)
+
+/** Reset to page 1 whenever the active filter set changes */
+watch([filteredResults], () => { page.value = 1 })
+
+const totalPages = computed(() => Math.ceil(filteredResults.value.length / PAGE_SIZE))
+
+const pagedResults = computed(() => {
+  const start = (page.value - 1) * PAGE_SIZE
+  return filteredResults.value.slice(start, start + PAGE_SIZE)
+})
 
 // ── Data loading ───────────────────────────────────────────────────────────
 
@@ -230,7 +245,7 @@ function activeLabel(active) {
             </thead>
             <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
               <tr
-                v-for="row in filteredResults"
+                v-for="row in pagedResults"
                 :key="row['Component ID'] || row['Component']"
                 class="hover:bg-gray-50/80 dark:hover:bg-gray-900/30 cursor-pointer"
                 @click="openDetail(row)"
@@ -280,6 +295,47 @@ function activeLabel(active) {
           >
             Clear filters
           </button>
+        </div>
+
+        <!-- Pagination -->
+        <div
+          v-if="totalPages > 1"
+          class="flex items-center justify-between px-4 py-3 border-t border-gray-100 dark:border-gray-700"
+        >
+          <p class="text-xs text-gray-500 dark:text-gray-400">
+            Page {{ page }} of {{ totalPages }}
+            &middot; {{ filteredResults.length }} results
+          </p>
+          <div class="flex items-center gap-1">
+            <button
+              class="px-2 py-1 text-xs rounded border border-gray-200 dark:border-gray-600
+                     text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700
+                     disabled:opacity-40 disabled:cursor-not-allowed"
+              :disabled="page === 1"
+              @click="page = 1"
+            >«</button>
+            <button
+              class="px-2 py-1 text-xs rounded border border-gray-200 dark:border-gray-600
+                     text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700
+                     disabled:opacity-40 disabled:cursor-not-allowed"
+              :disabled="page === 1"
+              @click="page--"
+            >‹</button>
+            <button
+              class="px-2 py-1 text-xs rounded border border-gray-200 dark:border-gray-600
+                     text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700
+                     disabled:opacity-40 disabled:cursor-not-allowed"
+              :disabled="page === totalPages"
+              @click="page++"
+            >›</button>
+            <button
+              class="px-2 py-1 text-xs rounded border border-gray-200 dark:border-gray-600
+                     text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700
+                     disabled:opacity-40 disabled:cursor-not-allowed"
+              :disabled="page === totalPages"
+              @click="page = totalPages"
+            >»</button>
+          </div>
         </div>
       </div>
     </template>
