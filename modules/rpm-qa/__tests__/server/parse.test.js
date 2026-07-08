@@ -60,6 +60,57 @@ describe('parseCsv', () => {
     expect(records).toHaveLength(2)
   })
 
+  // --- RFC 4180 quoted-field tests ---
+
+  it('parses a quoted field containing an embedded newline', () => {
+    const csv = 'Component;Description\nkernel;"First line\nSecond line"'
+    const { records } = parseCsv(csv)
+    expect(records).toHaveLength(1)
+    expect(records[0]['Component']).toBe('kernel')
+    expect(records[0]['Description']).toBe('First line\nSecond line')
+  })
+
+  it('parses a quoted field containing an embedded CRLF (normalised to LF)', () => {
+    const csv = 'Component;Description\r\nkernel;"First line\r\nSecond line"\r\n'
+    const { records } = parseCsv(csv)
+    expect(records).toHaveLength(1)
+    expect(records[0]['Description']).toBe('First line\nSecond line')
+  })
+
+  it('parses a quoted field containing the semicolon delimiter', () => {
+    const csv = 'Component;Description\nnetwork;"TCP; UDP; and SCTP support"'
+    const { records } = parseCsv(csv)
+    expect(records).toHaveLength(1)
+    expect(records[0]['Description']).toBe('TCP; UDP; and SCTP support')
+  })
+
+  it('parses escaped double-quotes inside a quoted field', () => {
+    const csv = 'Component;Description\nkernel;"Supports ""live"" patching"'
+    const { records } = parseCsv(csv)
+    expect(records).toHaveLength(1)
+    expect(records[0]['Description']).toBe('Supports "live" patching')
+  })
+
+  it('does not trim content inside quoted fields', () => {
+    const csv = 'Component;Description\nkernel;"  padded  "'
+    const { records } = parseCsv(csv)
+    expect(records[0]['Description']).toBe('  padded  ')
+  })
+
+  it('parses multiple records where one has a multi-line quoted description', () => {
+    const csv = [
+      'Component;Description',
+      'kernel;"Line one\nLine two"',
+      'glibc;Single line',
+    ].join('\n')
+    const { records } = parseCsv(csv)
+    expect(records).toHaveLength(2)
+    expect(records[0]['Component']).toBe('kernel')
+    expect(records[0]['Description']).toBe('Line one\nLine two')
+    expect(records[1]['Component']).toBe('glibc')
+    expect(records[1]['Description']).toBe('Single line')
+  })
+
   it('handles all 22 expected fields from the BugZilla export', () => {
     const FIELDS = [
       'Watchers', 'Embargo Developer', 'QA Contact', 'Contributors',
