@@ -4,7 +4,7 @@
   "description": "Track and manage OKRs (Objectives and Key Results) across teams",
   "icon": "Target",
   "order": 7,
-  "defaultEnabled": true,
+  "defaultEnabled": false,
   "requires": ["releases"],
   "secrets": {
     "platform": ["jira", "google"]
