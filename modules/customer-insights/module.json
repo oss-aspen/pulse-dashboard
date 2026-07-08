@@ -53,7 +53,7 @@
     ],
     "platform": ["google", "jira"]
   },
-  "defaultEnabled": true,
+  "defaultEnabled": false,
   "requires": [],
   "export": {
     "hook": "./server/export.js",

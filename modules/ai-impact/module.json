@@ -76,6 +76,6 @@
       { "path": "ai-impact/decomposer.json", "notes": "Epic-decomposer pipeline snapshot (aggregates, runs, slim strategies)" }
     ]
   },
-  "defaultEnabled": true,
+  "defaultEnabled": false,
   "requires": ["releases"]
 }
