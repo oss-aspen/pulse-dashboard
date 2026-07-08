@@ -1,25 +1,32 @@
 /**
- * Semicolon-delimited CSV parser for RPM component metadata.
+ * RFC 4180-compliant delimited-text parser.
  *
- * Handles the BugZilla component export format where fields are separated
- * by semicolons and the first row is the header.
+ * Defaults to comma(`,`) as the field delimiter
+ * but accepts any single-character delimiter via the
+ * options argument (e.g. `{ delimiter: ';' }` for bugzilla CSV).
  *
- * Compliant with RFC 4180 quoted-field rules:
+ * Quoted-field rules (RFC 4180):
  * - Fields may be wrapped in double-quotes.
- * - A quoted field may contain semicolons, bare newlines (LF/CRLF), and
- *   escaped double-quotes (represented as "").
+ * - A quoted field may contain the delimiter character, bare newlines
+ *   (LF/CRLF), and escaped double-quotes (represented as "").
  * - Unquoted field values are trimmed of leading/trailing whitespace.
  * - Quoted field values are returned verbatim (no trimming); CRLF inside
  *   a quoted field is normalised to LF.
  */
 
 /**
- * Parse a semicolon-delimited CSV string into an array of objects.
+ * Parse a delimited text string into an array of objects.
  *
- * @param {string} text - Raw CSV text with semicolon delimiters
+ * @param {string} text - Raw delimited text (first row is treated as the header)
+ * @param {{ delimiter?: string }} [options]
+ * @param {string} [options.delimiter=';'] - Single-character field delimiter
  * @returns {{ headers: string[], records: object[] }}
  */
-function parseCsv(text) {
+function parseCsv(text, { delimiter = ',' } = {}) {
+  if (delimiter.length !== 1) {
+    throw new Error('delimiter must be a single character');
+  }
+
   const len = text.length;
   let i = 0;
 
@@ -61,7 +68,7 @@ function parseCsv(text) {
 
     // Unquoted field — read until the next delimiter, CR, LF, or end-of-input.
     let field = '';
-    while (i < len && text[i] !== ';' && text[i] !== '\r' && text[i] !== '\n') {
+    while (i < len && text[i] !== delimiter && text[i] !== '\r' && text[i] !== '\n') {
       field += text[i++];
     }
     return field.trim();
@@ -73,7 +80,7 @@ function parseCsv(text) {
    */
   function parseRecord() {
     const fields = [parseField()];
-    while (i < len && text[i] === ';') {
+    while (i < len && text[i] === delimiter) {
       i++; // consume field delimiter
       fields.push(parseField());
     }
