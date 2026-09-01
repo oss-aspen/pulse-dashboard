@@ -106,8 +106,11 @@ npm run dev:server            # Backend only (Express, needs .env)
 npm test                      # Run all tests
 npm run test:watch            # Tests in watch mode
 npm run lint                  # ESLint
-npm run build                 # Production build
-npm run setup                   # Symlink core platform into workspace
+npm run build                    # Production build (OpenShift frontend image)
+npm run build:static             # Static SPA with fixture-backed /api shim (GitLab Pages)
+npm run preview:static           # Preview the static build locally (no Express)
+npm run dev:static               # Vite only, with the static /api shim (no backend)
+npm run setup                    # Symlink core platform into workspace
 npm run validate:modules      # Validate module manifests
 npm run validate:openapi      # Validate OpenAPI annotations
 npm run validate:dockerfile-deps  # Verify Dockerfile deps match package.json
@@ -130,6 +133,33 @@ make test-module MODULE=<name>  # Run integration tests for a module
 ## Deployment
 
 Deployed to OpenShift via ArgoCD. AI Eng images extend core images from `@org-pulse/core`. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for the full deployment guide.
+
+### Static hosting (GitLab Pages)
+
+The default `npm run build` still expects Express at `/api`. For a read-only Pages deploy, use the static build — it intercepts `/api` in the browser and serves demo fixtures. No core fork: a Vite plugin injects `static-host/install.js` only when `VITE_STATIC_HOST=true`.
+
+```bash
+npm run setup
+npm run build:static
+```
+
+`dist/` is a hash-routed SPA (`#/module/view`). Relative asset URLs (`base: './'`) work on project Pages and custom domains.
+
+Example GitLab CI job:
+
+```yaml
+pages:
+  image: node:22
+  script:
+    - npm ci
+    - npm run setup
+    - npm run build:static
+    - mv dist public
+  artifacts:
+    paths: [public]
+```
+
+This snapshot is read-only: no login, no writes, no live Jira/GitHub/GitLab, and Upstream Pulse is disabled (it proxies another API). Refresh and Settings are hidden because the synthetic user is not an admin. Re-run the Pages job to refresh fixture data.
 
 ## Contributing
 

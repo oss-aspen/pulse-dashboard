@@ -98,6 +98,7 @@ scripts/
 tests/
   smoke/              # Playwright smoke tests (container images)
   integration/        # Playwright module integration tests
+static-host/          # Optional static /api shim for GitLab Pages (`npm run build:static`)
 fixtures/             # Demo mode fixture data (AI Eng modules)
 data/                 # Local dev data (gitignored)
 secrets/              # Service account keys (gitignored)
