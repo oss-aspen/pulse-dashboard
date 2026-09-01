@@ -136,7 +136,9 @@ Deployed to OpenShift via ArgoCD. AI Eng images extend core images from `@org-pu
 
 ### Static hosting (GitLab Pages)
 
-The default `npm run build` still expects Express at `/api`. For a read-only Pages deploy, use the static build — it intercepts `/api` in the browser and serves demo fixtures. No core fork: a Vite plugin injects `static-host/install.js` only when `VITE_STATIC_HOST=true`.
+The default `npm run build` still expects Express at `/api`. For a read-only Pages deploy, use the static build — it intercepts `/api` in the browser. No core fork: a Vite plugin injects `static-host/install.js` only when `VITE_STATIC_HOST=true`.
+
+By default the static build **only bundles Product Upstreams** (`STATIC_ENABLED_SLUGS` in `static-host/static-nav.js`). Other `modules/` packages are omitted from Vite globs, so they do not appear in the sidebar and their client JS is not in the bundle. Home and About stay (they are shell pages). `/api/whoami` returns 401 so core hides the user/login chip, Settings, and Refresh. Backend health polling is stubbed so the “Reconnecting…” modal does not appear.
 
 ```bash
 npm run setup
@@ -159,7 +161,7 @@ pages:
     paths: [public]
 ```
 
-This snapshot is read-only: no login, no writes, no live Jira/GitHub/GitLab, and Upstream Pulse is disabled (it proxies another API). Refresh and Settings are hidden because the synthetic user is not an admin. Re-run the Pages job to refresh fixture data.
+This snapshot is read-only: no login, no writes, no live Jira/GitHub/GitLab. Add another static catalog module by implementing GET handlers and appending its slug to `STATIC_ENABLED_SLUGS` (that also includes it in the Vite glob). Re-run the Pages job when the catalog JSON changes.
 
 ## Contributing
 

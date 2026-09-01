@@ -1,8 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { handleStaticApi, STATIC_ENABLED_SLUGS, matchRoute, READ_ONLY } from '../handlers.js'
 import { isApiRequest, dispatchApi } from '../router.js'
-import { deriveRoster } from '../roster.js'
-import { readFromStorage } from '../fixtures.js'
 
 async function get(path) {
   return handleStaticApi('GET', path, new URLSearchParams())
@@ -10,54 +8,34 @@ async function get(path) {
 
 describe('matchRoute', () => {
   it('extracts params', () => {
-    expect(matchRoute('/modules/releases/registry/rhai-3.5-ea1', '/modules/releases/registry/:id'))
-      .toEqual({ id: 'rhai-3.5-ea1' })
+    expect(matchRoute('/modules/product-upstreams/products/rhoai', '/modules/product-upstreams/products/:id'))
+      .toEqual({ id: 'rhoai' })
   })
   it('rejects length mismatch', () => {
-    expect(matchRoute('/modules/releases/registry', '/modules/releases/registry/:id')).toBeNull()
-  })
-})
-
-describe('static fixtures', () => {
-  it('loads core team-data registry', () => {
-    const registry = readFromStorage('team-data/registry.json')
-    expect(registry?.people?.achen?.name).toBe('Alice Chen')
-  })
-  it('loads local ai-impact rfe data', () => {
-    const data = readFromStorage('ai-impact/rfe-data.json')
-    expect(Array.isArray(data?.issues)).toBe(true)
-  })
-})
-
-describe('deriveRoster', () => {
-  it('builds in-app orgs from demo registry', () => {
-    const roster = deriveRoster()
-    expect(roster.teamDataSource).toBe('in-app')
-    expect(roster.orgs.length).toBeGreaterThan(0)
-    expect(roster.orgs.some(o => o.key === 'achen')).toBe(true)
+    expect(matchRoute('/modules/product-upstreams/catalog', '/modules/product-upstreams/products/:id')).toBeNull()
   })
 })
 
 describe('handleStaticApi', () => {
-  it('serves healthz and whoami without admin', async () => {
+  it('serves healthz', async () => {
     expect((await get('/api/healthz')).body).toEqual({ status: 'ok' })
+  })
+
+  it('leaves whoami unauthenticated so the shell hides login/user chrome', async () => {
     const who = await get('/api/whoami')
-    expect(who.status).toBe(200)
-    expect(who.body.isAdmin).toBe(false)
-    expect(who.body.email).toBe('public@example.com')
+    expect(who.status).toBe(401)
   })
 
-  it('enables built-in modules except live proxies', async () => {
+  it('enables only Product Upstreams in the shell', async () => {
     const state = await get('/api/built-in-modules/state')
-    expect(state.body.enabledSlugs).toEqual(STATIC_ENABLED_SLUGS)
-    expect(state.body.enabledSlugs).not.toContain('upstream-pulse')
+    expect(state.body.enabledSlugs).toEqual(['product-upstreams'])
+    expect(STATIC_ENABLED_SLUGS).toEqual(['product-upstreams'])
   })
 
-  it('returns roster orgs', async () => {
+  it('returns an empty roster instead of demo people', async () => {
     const res = await get('/api/roster')
     expect(res.status).toBe(200)
-    expect(Array.isArray(res.body.orgs)).toBe(true)
-    expect(res.body.orgs.length).toBeGreaterThan(0)
+    expect(res.body.orgs).toEqual([])
   })
 
   it('returns product-upstreams catalog', async () => {
@@ -66,34 +44,16 @@ describe('handleStaticApi', () => {
     expect(res.body.products.length).toBeGreaterThan(0)
   })
 
-  it('returns quality report list projection', async () => {
-    const res = await get('/api/modules/system-health/quality/reports')
+  it('returns a single product', async () => {
+    const res = await get('/api/modules/product-upstreams/products/rhoai')
     expect(res.status).toBe(200)
-    expect(res.body.reports['kserve--kserve']).toBeTruthy()
-    expect(res.body.reports['kserve--kserve'].overallScore).toBeTypeOf('number')
-  })
-
-  it('returns execution feature index', async () => {
-    const res = await get('/api/modules/releases/execution/features')
-    expect(res.status).toBe(200)
-    expect(res.body.featureCount).toBeGreaterThan(0)
-  })
-
-  it('returns a single execution feature file', async () => {
-    const res = await get('/api/modules/releases/execution/features/TEST1-99')
-    expect(res.status).toBe(200)
-    expect(res.body.key).toBe('TEST1-99')
+    expect(res.body.product.id).toBe('rhoai')
   })
 
   it('no-ops writes', async () => {
     const res = await handleStaticApi('POST', '/api/refresh', new URLSearchParams())
     expect(res.status).toBe(200)
     expect(res.body).toEqual(READ_ONLY)
-  })
-
-  it('stubs upstream-pulse as unavailable', async () => {
-    const res = await get('/api/modules/upstream-pulse/dashboard')
-    expect(res.status).toBe(502)
   })
 })
 
@@ -104,8 +64,8 @@ describe('router', () => {
     expect(isApiRequest('/redhat-logo.svg')).toBe(false)
   })
 
-  it('dispatches whoami', async () => {
+  it('dispatches whoami as unauthenticated', async () => {
     const result = await dispatchApi('/api/whoami', { method: 'GET' })
-    expect(result.body.displayName).toBe('Public viewer')
+    expect(result.status).toBe(401)
   })
 })

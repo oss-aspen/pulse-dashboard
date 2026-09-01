@@ -1,6 +1,6 @@
 /**
  * Patches window.fetch so /api calls resolve from bundled fixtures.
- * Loaded as a Vite HTML module entry before src/main.js.
+ * Imported from core src/main.js (and injected in index.html) before the app boots.
  */
 import { isApiRequest, dispatchApi, toResponse } from './router.js'
 
@@ -10,6 +10,11 @@ window.fetch = async function patchedFetch(input, init) {
   if (!isApiRequest(input)) {
     return originalFetch(input, init)
   }
-  const result = await dispatchApi(input, init)
-  return toResponse(result)
+  try {
+    const result = await dispatchApi(input, init)
+    return toResponse(result)
+  } catch (err) {
+    console.warn('[static-host] API shim error', err)
+    return toResponse({ status: 200, body: {} })
+  }
 }
