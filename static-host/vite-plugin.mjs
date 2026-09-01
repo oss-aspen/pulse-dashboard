@@ -9,7 +9,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { isBackendHealthModuleId, isCoreMainId, isModuleLoaderId, isNavDiscoveryId, restrictModuleLoaderGlobs, filterNavDiscoveryModule } from './patch-core.js'
+import { isBackendHealthModuleId, isCoreMainId, isModuleLoaderId, isNavDiscoveryId, isLandingPageId, restrictModuleLoaderGlobs, filterNavDiscoveryModule, stripLandingPageApiDocs } from './patch-core.js'
 
 const pluginDir = path.dirname(fileURLToPath(import.meta.url))
 const backendHealthStub = path.resolve(pluginDir, 'useBackendHealth-stub.js')
@@ -42,6 +42,13 @@ export function staticHostPlugin() {
       }
       if (isNavDiscoveryId(id)) {
         return { code: filterNavDiscoveryModule(code), map: null }
+      }
+      if (isLandingPageId(id)) {
+        try {
+          return { code: stripLandingPageApiDocs(code), map: null }
+        } catch (err) {
+          this.warn(err.message)
+        }
       }
     },
     transformIndexHtml(html) {
