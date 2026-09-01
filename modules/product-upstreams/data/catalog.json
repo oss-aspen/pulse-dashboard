@@ -278,7 +278,7 @@
       "category": "Platform",
       "version": null,
       "available": false,
-      "unavailableReason": "Catalog in progress — check back soon, or request custom data if you need this mapping now.",
+      "unavailableReason": "Catalog in progress \u2014 check back soon, or request custom data if you need this mapping now.",
       "upstreams": []
     },
     {
@@ -291,6 +291,6041 @@
       "available": false,
       "unavailableReason": "Listed for awareness; upstream mapping has not been published yet.",
       "upstreams": []
+    },
+    {
+      "id": "hummingbird",
+      "name": "Hummingbird",
+      "shortName": "Hummingbird",
+      "description": "Fedora Hummingbird image packages mapped to their upstream repositories.",
+      "category": "Platform",
+      "version": null,
+      "available": true,
+      "upstreams": [
+        {
+          "id": "file-path",
+          "name": "File-Path",
+          "url": "https://github.com/jkeenan/File-Path",
+          "description": "Upstream repository for perl-File-Path.",
+          "packages": [
+            {
+              "name": "perl-File-Path",
+              "version": "2.18"
+            }
+          ]
+        },
+        {
+          "id": "file-temp",
+          "name": "File-Temp",
+          "url": "https://github.com/Perl-Toolchain-Gang/File-Temp",
+          "description": "Upstream repository for perl-File-Temp.",
+          "packages": [
+            {
+              "name": "perl-File-Temp",
+              "version": "0.231.200"
+            }
+          ]
+        },
+        {
+          "id": "http-tiny",
+          "name": "HTTP-Tiny",
+          "url": "https://github.com/Perl-Toolchain-Gang/HTTP-Tiny",
+          "description": "Upstream repository for perl-HTTP-Tiny.",
+          "packages": [
+            {
+              "name": "perl-HTTP-Tiny",
+              "version": "0.096"
+            }
+          ]
+        },
+        {
+          "id": "mime-base32",
+          "name": "MIME-Base32",
+          "url": "https://github.com/perl5-utils/MIME-Base32",
+          "description": "Upstream repository for perl-MIME-Base32.",
+          "packages": [
+            {
+              "name": "perl-MIME-Base32",
+              "version": "1.303"
+            }
+          ]
+        },
+        {
+          "id": "networkmanager",
+          "name": "NetworkManager",
+          "url": "https://gitlab.freedesktop.org/NetworkManager/NetworkManager",
+          "description": "Upstream repository for NetworkManager.",
+          "packages": [
+            {
+              "name": "NetworkManager",
+              "version": "1.58.0"
+            }
+          ]
+        },
+        {
+          "id": "openblas",
+          "name": "OpenBLAS",
+          "url": "https://github.com/OpenMathLib/OpenBLAS",
+          "description": "Upstream repository for openblas.",
+          "packages": [
+            {
+              "name": "openblas",
+              "version": "0.3.34"
+            }
+          ]
+        },
+        {
+          "id": "pod-escapes",
+          "name": "Pod-Escapes",
+          "url": "https://github.com/neilbowers/Pod-Escapes",
+          "description": "Upstream repository for perl-Pod-Escapes.",
+          "packages": [
+            {
+              "name": "perl-Pod-Escapes",
+              "version": "1.07"
+            }
+          ]
+        },
+        {
+          "id": "pod-perldoc",
+          "name": "Pod-Perldoc",
+          "url": "https://github.com/mrallen1/Pod-Perldoc",
+          "description": "Upstream repository for perl-Pod-Perldoc.",
+          "packages": [
+            {
+              "name": "perl-Pod-Perldoc",
+              "version": "3.28.01"
+            }
+          ]
+        },
+        {
+          "id": "pod-usage",
+          "name": "Pod-Usage",
+          "url": "https://github.com/Dual-Life/Pod-Usage",
+          "description": "Upstream repository for perl-Pod-Usage.",
+          "packages": [
+            {
+              "name": "perl-Pod-Usage",
+              "version": "2.05"
+            }
+          ]
+        },
+        {
+          "id": "r-rpm-macros",
+          "name": "R-rpm-macros",
+          "url": "https://github.com/rpm-software-management/R-rpm-macros",
+          "description": "Upstream repository for R-rpm-macros.",
+          "packages": [
+            {
+              "name": "R-rpm-macros",
+              "version": "1.3.7"
+            }
+          ]
+        },
+        {
+          "id": "svt-av1",
+          "name": "SVT-AV1",
+          "url": "https://gitlab.com/AOMediaCodec/SVT-AV1",
+          "description": "Upstream repository for svt-av1.",
+          "packages": [
+            {
+              "name": "svt-av1",
+              "version": "3.1.2"
+            }
+          ]
+        },
+        {
+          "id": "scalar-list-utils",
+          "name": "Scalar-List-Utils",
+          "url": "https://github.com/Dual-Life/Scalar-List-Utils",
+          "description": "Upstream repository for perl-Scalar-List-Utils.",
+          "packages": [
+            {
+              "name": "perl-Scalar-List-Utils",
+              "version": "1.70"
+            }
+          ]
+        },
+        {
+          "id": "term-cap",
+          "name": "Term-Cap",
+          "url": "https://github.com/jonathanstowe/Term-Cap",
+          "description": "Upstream repository for perl-Term-Cap.",
+          "packages": [
+            {
+              "name": "perl-Term-Cap",
+              "version": "1.18"
+            }
+          ]
+        },
+        {
+          "id": "termreadkey",
+          "name": "TermReadKey",
+          "url": "https://github.com/jonathanstowe/TermReadKey",
+          "description": "Upstream repository for perl-TermReadKey.",
+          "packages": [
+            {
+              "name": "perl-TermReadKey",
+              "version": "2.38"
+            }
+          ]
+        },
+        {
+          "id": "text-parsewords",
+          "name": "Text-ParseWords",
+          "url": "https://github.com/neilb/Text-ParseWords",
+          "description": "Upstream repository for perl-Text-ParseWords.",
+          "packages": [
+            {
+              "name": "perl-Text-ParseWords",
+              "version": "3.31"
+            }
+          ]
+        },
+        {
+          "id": "text-tabs",
+          "name": "Text-Tabs",
+          "url": "https://github.com/ap/Text-Tabs",
+          "description": "Upstream repository for perl-Text-Tabs+Wrap.",
+          "packages": [
+            {
+              "name": "perl-Text-Tabs+Wrap",
+              "version": "2024.001"
+            }
+          ]
+        },
+        {
+          "id": "time-local",
+          "name": "Time-Local",
+          "url": "https://github.com/houseabsolute/Time-Local",
+          "description": "Upstream repository for perl-Time-Local.",
+          "packages": [
+            {
+              "name": "perl-Time-Local",
+              "version": "1.350"
+            }
+          ]
+        },
+        {
+          "id": "uri",
+          "name": "URI",
+          "url": "https://github.com/libwww-perl/URI",
+          "description": "Upstream repository for perl-URI.",
+          "packages": [
+            {
+              "name": "perl-URI",
+              "version": "5.35"
+            }
+          ]
+        },
+        {
+          "id": "aardvark-dns",
+          "name": "aardvark-dns",
+          "url": "https://github.com/containers/aardvark-dns",
+          "description": "Upstream repository for aardvark-dns.",
+          "packages": [
+            {
+              "name": "aardvark-dns",
+              "version": "2.0.0"
+            }
+          ]
+        },
+        {
+          "id": "acl",
+          "name": "acl",
+          "url": "https://git.savannah.nongnu.org/git/acl",
+          "description": "Upstream repository for acl.",
+          "packages": [
+            {
+              "name": "acl",
+              "version": "2.4.0"
+            }
+          ]
+        },
+        {
+          "id": "add-determinism",
+          "name": "add-determinism",
+          "url": "https://github.com/keszybz/add-determinism",
+          "description": "Upstream repository for rust-add-determinism.",
+          "packages": [
+            {
+              "name": "rust-add-determinism",
+              "version": "0.7.3"
+            }
+          ]
+        },
+        {
+          "id": "alsa-lib",
+          "name": "alsa-lib",
+          "url": "https://github.com/alsa-project/alsa-lib",
+          "description": "Upstream repository for alsa-lib.",
+          "packages": [
+            {
+              "name": "alsa-lib",
+              "version": "1.2.16.1"
+            }
+          ]
+        },
+        {
+          "id": "annobin",
+          "name": "annobin",
+          "url": "https://sourceware.org/git/annobin",
+          "description": "Upstream repository for annobin.",
+          "packages": [
+            {
+              "name": "annobin",
+              "version": "13.29"
+            }
+          ]
+        },
+        {
+          "id": "ansible-packaging",
+          "name": "ansible-packaging",
+          "url": "https://src.fedoraproject.org/rpms/ansible-packaging",
+          "description": "Upstream repository for ansible-packaging.",
+          "packages": [
+            {
+              "name": "ansible-packaging",
+              "version": "1"
+            }
+          ]
+        },
+        {
+          "id": "ansicolor",
+          "name": "ansicolor",
+          "url": "https://github.com/rra/ansicolor",
+          "description": "Upstream repository for perl-Term-ANSIColor.",
+          "packages": [
+            {
+              "name": "perl-Term-ANSIColor",
+              "version": "5.01"
+            }
+          ]
+        },
+        {
+          "id": "aom",
+          "name": "aom",
+          "url": "https://aomedia.googlesource.com/aom",
+          "description": "Upstream repository for aom.",
+          "packages": [
+            {
+              "name": "aom",
+              "version": "3.14.0"
+            }
+          ]
+        },
+        {
+          "id": "apr",
+          "name": "apr",
+          "url": "https://github.com/apache/apr",
+          "description": "Upstream repository for apr.",
+          "packages": [
+            {
+              "name": "apr",
+              "version": "1.7.6"
+            }
+          ]
+        },
+        {
+          "id": "apr-util",
+          "name": "apr-util",
+          "url": "https://github.com/apache/apr-util",
+          "description": "Upstream repository for apr-util.",
+          "packages": [
+            {
+              "name": "apr-util",
+              "version": "1.6.3"
+            }
+          ]
+        },
+        {
+          "id": "apt",
+          "name": "apt",
+          "url": "https://salsa.debian.org/apt-team/apt",
+          "description": "Upstream repository for apt.",
+          "packages": [
+            {
+              "name": "apt",
+              "version": "3.3.2"
+            }
+          ]
+        },
+        {
+          "id": "archery",
+          "name": "archery",
+          "url": "https://github.com/orium/archery",
+          "description": "Upstream repository for rust-archery.",
+          "packages": [
+            {
+              "name": "rust-archery",
+              "version": "1.2.2"
+            }
+          ]
+        },
+        {
+          "id": "attr",
+          "name": "attr",
+          "url": "https://git.savannah.nongnu.org/git/attr",
+          "description": "Upstream repository for attr.",
+          "packages": [
+            {
+              "name": "attr",
+              "version": "2.6.0"
+            }
+          ]
+        },
+        {
+          "id": "attrs",
+          "name": "attrs",
+          "url": "https://github.com/python-attrs/attrs",
+          "description": "Upstream repository for python-attrs.",
+          "packages": [
+            {
+              "name": "python-attrs",
+              "version": "26.1.0"
+            }
+          ]
+        },
+        {
+          "id": "audit-userspace",
+          "name": "audit-userspace",
+          "url": "https://github.com/linux-audit/audit-userspace",
+          "description": "Upstream repository for audit.",
+          "packages": [
+            {
+              "name": "audit",
+              "version": "4.2.1"
+            }
+          ]
+        },
+        {
+          "id": "authselect",
+          "name": "authselect",
+          "url": "https://github.com/authselect/authselect",
+          "description": "Upstream repository for authselect.",
+          "packages": [
+            {
+              "name": "authselect",
+              "version": "1.7.1"
+            }
+          ]
+        },
+        {
+          "id": "autoconf",
+          "name": "autoconf",
+          "url": "https://git.savannah.gnu.org/git/autoconf",
+          "description": "Upstream repository for autoconf.",
+          "packages": [
+            {
+              "name": "autoconf",
+              "version": "2.73"
+            }
+          ]
+        },
+        {
+          "id": "automake",
+          "name": "automake",
+          "url": "https://git.savannah.gnu.org/git/automake",
+          "description": "Upstream repository for automake.",
+          "packages": [
+            {
+              "name": "automake",
+              "version": "1.18.1"
+            }
+          ]
+        },
+        {
+          "id": "avahi",
+          "name": "avahi",
+          "url": "https://github.com/avahi/avahi",
+          "description": "Upstream repository for avahi.",
+          "packages": [
+            {
+              "name": "avahi",
+              "version": "0.9~rc4"
+            }
+          ]
+        },
+        {
+          "id": "babeltrace",
+          "name": "babeltrace",
+          "url": "https://github.com/efficios/babeltrace",
+          "description": "Upstream repository for babeltrace.",
+          "packages": [
+            {
+              "name": "babeltrace",
+              "version": "1.5.11"
+            }
+          ]
+        },
+        {
+          "id": "bash",
+          "name": "bash",
+          "url": "https://git.savannah.gnu.org/git/bash",
+          "description": "Upstream repository for bash.",
+          "packages": [
+            {
+              "name": "bash",
+              "version": "5.3.15"
+            }
+          ]
+        },
+        {
+          "id": "bash-completion",
+          "name": "bash-completion",
+          "url": "https://github.com/scop/bash-completion",
+          "description": "Upstream repository for bash-completion.",
+          "packages": [
+            {
+              "name": "bash-completion",
+              "version": "2.18"
+            }
+          ]
+        },
+        {
+          "id": "bind9",
+          "name": "bind9",
+          "url": "https://gitlab.isc.org/isc-projects/bind9",
+          "description": "Upstream repository for bind.",
+          "packages": [
+            {
+              "name": "bind",
+              "version": "9.20.26"
+            }
+          ]
+        },
+        {
+          "id": "binutils-gdb",
+          "name": "binutils-gdb",
+          "url": "https://sourceware.org/git/binutils-gdb",
+          "description": "Upstream repository for binutils, gdb.",
+          "packages": [
+            {
+              "name": "binutils",
+              "version": "2.46.1"
+            },
+            {
+              "name": "gdb",
+              "version": "17.2"
+            }
+          ]
+        },
+        {
+          "id": "boost",
+          "name": "boost",
+          "url": "https://github.com/boostorg/boost",
+          "description": "Upstream repository for boost.",
+          "packages": [
+            {
+              "name": "boost",
+              "version": "1.90.0"
+            }
+          ]
+        },
+        {
+          "id": "bootc",
+          "name": "bootc",
+          "url": "https://github.com/containers/bootc",
+          "description": "Upstream repository for bootc.",
+          "packages": [
+            {
+              "name": "bootc",
+              "version": "1.16.7"
+            }
+          ]
+        },
+        {
+          "id": "brotli",
+          "name": "brotli",
+          "url": "https://github.com/google/brotli",
+          "description": "Upstream repository for brotli.",
+          "packages": [
+            {
+              "name": "brotli",
+              "version": "1.2.0"
+            }
+          ]
+        },
+        {
+          "id": "btrfs-progs",
+          "name": "btrfs-progs",
+          "url": "https://github.com/kdave/btrfs-progs",
+          "description": "Upstream repository for btrfs-progs.",
+          "packages": [
+            {
+              "name": "btrfs-progs",
+              "version": "7.0"
+            }
+          ]
+        },
+        {
+          "id": "bubblewrap",
+          "name": "bubblewrap",
+          "url": "https://github.com/containers/bubblewrap",
+          "description": "Upstream repository for bubblewrap.",
+          "packages": [
+            {
+              "name": "bubblewrap",
+              "version": "0.11.2"
+            }
+          ]
+        },
+        {
+          "id": "buildah",
+          "name": "buildah",
+          "url": "https://github.com/containers/buildah",
+          "description": "Upstream repository for buildah.",
+          "packages": [
+            {
+              "name": "buildah",
+              "version": "1.45.0"
+            }
+          ]
+        },
+        {
+          "id": "busybox",
+          "name": "busybox",
+          "url": "https://git.busybox.net/busybox",
+          "description": "Upstream repository for busybox.",
+          "packages": [
+            {
+              "name": "busybox",
+              "version": "1.37.0"
+            }
+          ]
+        },
+        {
+          "id": "bzip2",
+          "name": "bzip2",
+          "url": "https://sourceware.org/git/bzip2",
+          "description": "Upstream repository for bzip2.",
+          "packages": [
+            {
+              "name": "bzip2",
+              "version": "1.0.8"
+            }
+          ]
+        },
+        {
+          "id": "c-ares",
+          "name": "c-ares",
+          "url": "https://github.com/c-ares/c-ares",
+          "description": "Upstream repository for c-ares.",
+          "packages": [
+            {
+              "name": "c-ares",
+              "version": "1.34.8"
+            }
+          ]
+        },
+        {
+          "id": "ca-certificates",
+          "name": "ca-certificates",
+          "url": "https://src.fedoraproject.org/rpms/ca-certificates",
+          "description": "Upstream repository for ca-certificates.",
+          "packages": [
+            {
+              "name": "ca-certificates",
+              "version": "2025.2.80_v9.0.304"
+            }
+          ]
+        },
+        {
+          "id": "caddy",
+          "name": "caddy",
+          "url": "https://github.com/caddyserver/caddy",
+          "description": "Upstream repository for caddy.",
+          "packages": [
+            {
+              "name": "caddy",
+              "version": "2.11.4"
+            }
+          ]
+        },
+        {
+          "id": "cantarell-fonts",
+          "name": "cantarell-fonts",
+          "url": "https://gitlab.gnome.org/GNOME/cantarell-fonts",
+          "description": "Upstream repository for abattis-cantarell-fonts.",
+          "packages": [
+            {
+              "name": "abattis-cantarell-fonts",
+              "version": "0.301"
+            }
+          ]
+        },
+        {
+          "id": "capstone",
+          "name": "capstone",
+          "url": "https://github.com/capstone-engine/capstone",
+          "description": "Upstream repository for capstone.",
+          "packages": [
+            {
+              "name": "capstone",
+              "version": "5.0.8"
+            }
+          ]
+        },
+        {
+          "id": "cargo-rpm-macros",
+          "name": "cargo-rpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/cargo-rpm-macros",
+          "description": "Upstream repository for cargo-rpm-macros.",
+          "packages": [
+            {
+              "name": "cargo-rpm-macros",
+              "version": "28.5"
+            }
+          ]
+        },
+        {
+          "id": "cargo2rpm",
+          "name": "cargo2rpm",
+          "url": "https://codeberg.org/rust2rpm/cargo2rpm",
+          "description": "Upstream repository for cargo2rpm.",
+          "packages": [
+            {
+              "name": "cargo2rpm",
+              "version": "0.3.4"
+            }
+          ]
+        },
+        {
+          "id": "catatonit",
+          "name": "catatonit",
+          "url": "https://github.com/openSUSE/catatonit",
+          "description": "Upstream repository for catatonit.",
+          "packages": [
+            {
+              "name": "catatonit",
+              "version": "0.2.1"
+            }
+          ]
+        },
+        {
+          "id": "cffi",
+          "name": "cffi",
+          "url": "https://github.com/python-cffi/cffi",
+          "description": "Upstream repository for python-cffi.",
+          "packages": [
+            {
+              "name": "python-cffi",
+              "version": "2.0.0"
+            }
+          ]
+        },
+        {
+          "id": "charset-normalizer",
+          "name": "charset_normalizer",
+          "url": "https://github.com/Ousret/charset_normalizer",
+          "description": "Upstream repository for python-charset-normalizer.",
+          "packages": [
+            {
+              "name": "python-charset-normalizer",
+              "version": "3.4.9"
+            }
+          ]
+        },
+        {
+          "id": "chkconfig",
+          "name": "chkconfig",
+          "url": "https://github.com/fedora-sysv/chkconfig",
+          "description": "Upstream repository for chkconfig.",
+          "packages": [
+            {
+              "name": "chkconfig",
+              "version": "1.33"
+            }
+          ]
+        },
+        {
+          "id": "chunkah",
+          "name": "chunkah",
+          "url": "https://github.com/coreos/chunkah",
+          "description": "Upstream repository for chunkah.",
+          "packages": [
+            {
+              "name": "chunkah",
+              "version": "0.6.0"
+            }
+          ]
+        },
+        {
+          "id": "cloud-init",
+          "name": "cloud-init",
+          "url": "https://github.com/canonical/cloud-init",
+          "description": "Upstream repository for cloud-init.",
+          "packages": [
+            {
+              "name": "cloud-init",
+              "version": "26.1"
+            }
+          ]
+        },
+        {
+          "id": "cloud-utils",
+          "name": "cloud-utils",
+          "url": "https://github.com/canonical/cloud-utils",
+          "description": "Upstream repository for cloud-utils.",
+          "packages": [
+            {
+              "name": "cloud-utils",
+              "version": "0.34"
+            }
+          ]
+        },
+        {
+          "id": "cmake",
+          "name": "cmake",
+          "url": "https://gitlab.kitware.com/cmake/cmake",
+          "description": "Upstream repository for cmake.",
+          "packages": [
+            {
+              "name": "cmake",
+              "version": "4.3.0"
+            }
+          ]
+        },
+        {
+          "id": "common",
+          "name": "common",
+          "url": "https://github.com/containers/common",
+          "description": "Upstream repository for containers-common.",
+          "packages": [
+            {
+              "name": "containers-common",
+              "version": "0.69.0"
+            }
+          ]
+        },
+        {
+          "id": "composefs",
+          "name": "composefs",
+          "url": "https://github.com/composefs/composefs",
+          "description": "Upstream repository for composefs.",
+          "packages": [
+            {
+              "name": "composefs",
+              "version": "1.0.8"
+            }
+          ]
+        },
+        {
+          "id": "composer",
+          "name": "composer",
+          "url": "https://github.com/composer/composer",
+          "description": "Upstream repository for composer.",
+          "packages": [
+            {
+              "name": "composer",
+              "version": "2.10.2"
+            }
+          ]
+        },
+        {
+          "id": "container-selinux",
+          "name": "container-selinux",
+          "url": "https://github.com/containers/container-selinux",
+          "description": "Upstream repository for container-selinux.",
+          "packages": [
+            {
+              "name": "container-selinux",
+              "version": "2.250.0"
+            }
+          ]
+        },
+        {
+          "id": "content",
+          "name": "content",
+          "url": "https://github.com/ComplianceAsCode/content",
+          "description": "Upstream repository for scap-security-guide.",
+          "packages": [
+            {
+              "name": "scap-security-guide",
+              "version": "0.1.81"
+            }
+          ]
+        },
+        {
+          "id": "coreutils",
+          "name": "coreutils",
+          "url": "https://git.savannah.gnu.org/git/coreutils",
+          "description": "Upstream repository for coreutils.",
+          "packages": [
+            {
+              "name": "coreutils",
+              "version": "9.11"
+            }
+          ]
+        },
+        {
+          "id": "cosign",
+          "name": "cosign",
+          "url": "https://github.com/sigstore/cosign",
+          "description": "Upstream repository for cosign.",
+          "packages": [
+            {
+              "name": "cosign",
+              "version": "3.1.3"
+            }
+          ]
+        },
+        {
+          "id": "cpio",
+          "name": "cpio",
+          "url": "https://git.savannah.gnu.org/git/cpio",
+          "description": "Upstream repository for cpio.",
+          "packages": [
+            {
+              "name": "cpio",
+              "version": "2.15"
+            }
+          ]
+        },
+        {
+          "id": "cpython",
+          "name": "cpython",
+          "url": "https://github.com/python/cpython",
+          "description": "Upstream repository for python3.10, python3.11, python3.12, python3.13, python3.14.",
+          "packages": [
+            {
+              "name": "python3.10",
+              "version": "3.10.20"
+            },
+            {
+              "name": "python3.11",
+              "version": "3.11.15"
+            },
+            {
+              "name": "python3.12",
+              "version": "3.12.13"
+            },
+            {
+              "name": "python3.13",
+              "version": "3.13.15"
+            },
+            {
+              "name": "python3.14",
+              "version": "3.14.7"
+            }
+          ]
+        },
+        {
+          "id": "cracklib",
+          "name": "cracklib",
+          "url": "https://github.com/cracklib/cracklib",
+          "description": "Upstream repository for cracklib.",
+          "packages": [
+            {
+              "name": "cracklib",
+              "version": "2.10.3"
+            }
+          ]
+        },
+        {
+          "id": "createrepo-c",
+          "name": "createrepo_c",
+          "url": "https://github.com/rpm-software-management/createrepo_c",
+          "description": "Upstream repository for createrepo_c.",
+          "packages": [
+            {
+              "name": "createrepo_c",
+              "version": "1.2.1"
+            }
+          ]
+        },
+        {
+          "id": "cryptography",
+          "name": "cryptography",
+          "url": "https://github.com/pyca/cryptography",
+          "description": "Upstream repository for python-cryptography.",
+          "packages": [
+            {
+              "name": "python-cryptography",
+              "version": "49.0.0"
+            }
+          ]
+        },
+        {
+          "id": "cryptsetup",
+          "name": "cryptsetup",
+          "url": "https://gitlab.com/cryptsetup/cryptsetup",
+          "description": "Upstream repository for cryptsetup.",
+          "packages": [
+            {
+              "name": "cryptsetup",
+              "version": "2.8.7"
+            }
+          ]
+        },
+        {
+          "id": "ctags",
+          "name": "ctags",
+          "url": "https://github.com/universal-ctags/ctags",
+          "description": "Upstream repository for ctags.",
+          "packages": [
+            {
+              "name": "ctags",
+              "version": "6.2.1"
+            }
+          ]
+        },
+        {
+          "id": "cups",
+          "name": "cups",
+          "url": "https://github.com/OpenPrinting/cups",
+          "description": "Upstream repository for cups.",
+          "packages": [
+            {
+              "name": "cups",
+              "version": "2.4.19"
+            }
+          ]
+        },
+        {
+          "id": "curl",
+          "name": "curl",
+          "url": "https://github.com/curl/curl",
+          "description": "Upstream repository for curl.",
+          "packages": [
+            {
+              "name": "curl",
+              "version": "8.21.0"
+            }
+          ]
+        },
+        {
+          "id": "cyrus-sasl",
+          "name": "cyrus-sasl",
+          "url": "https://github.com/cyrusimap/cyrus-sasl",
+          "description": "Upstream repository for cyrus-sasl.",
+          "packages": [
+            {
+              "name": "cyrus-sasl",
+              "version": "2.1.28"
+            }
+          ]
+        },
+        {
+          "id": "dav1d",
+          "name": "dav1d",
+          "url": "https://code.videolan.org/videolan/dav1d",
+          "description": "Upstream repository for dav1d.",
+          "packages": [
+            {
+              "name": "dav1d",
+              "version": "1.5.3"
+            }
+          ]
+        },
+        {
+          "id": "dbus",
+          "name": "dbus",
+          "url": "https://gitlab.freedesktop.org/dbus/dbus",
+          "description": "Upstream repository for dbus.",
+          "packages": [
+            {
+              "name": "dbus",
+              "version": "1.16.2"
+            }
+          ]
+        },
+        {
+          "id": "dbus-broker",
+          "name": "dbus-broker",
+          "url": "https://github.com/bus1/dbus-broker",
+          "description": "Upstream repository for dbus-broker.",
+          "packages": [
+            {
+              "name": "dbus-broker",
+              "version": "37"
+            }
+          ]
+        },
+        {
+          "id": "dbus-python",
+          "name": "dbus-python",
+          "url": "https://gitlab.freedesktop.org/dbus/dbus-python",
+          "description": "Upstream repository for dbus-python.",
+          "packages": [
+            {
+              "name": "dbus-python",
+              "version": "1.4.0"
+            }
+          ]
+        },
+        {
+          "id": "debugedit",
+          "name": "debugedit",
+          "url": "https://sourceware.org/git/debugedit",
+          "description": "Upstream repository for debugedit.",
+          "packages": [
+            {
+              "name": "debugedit",
+              "version": "5.3"
+            }
+          ]
+        },
+        {
+          "id": "dex",
+          "name": "dex",
+          "url": "https://github.com/dexidp/dex",
+          "description": "Upstream repository for dex.",
+          "packages": [
+            {
+              "name": "dex",
+              "version": "2.45.1"
+            }
+          ]
+        },
+        {
+          "id": "diffutils",
+          "name": "diffutils",
+          "url": "https://git.savannah.gnu.org/git/diffutils",
+          "description": "Upstream repository for diffutils.",
+          "packages": [
+            {
+              "name": "diffutils",
+              "version": "3.12"
+            }
+          ]
+        },
+        {
+          "id": "digest",
+          "name": "digest",
+          "url": "https://github.com/Dual-Life/digest",
+          "description": "Upstream repository for perl-Digest.",
+          "packages": [
+            {
+              "name": "perl-Digest",
+              "version": "1.20"
+            }
+          ]
+        },
+        {
+          "id": "digest-md5",
+          "name": "digest-md5",
+          "url": "https://github.com/Dual-Life/digest-md5",
+          "description": "Upstream repository for perl-Digest-MD5.",
+          "packages": [
+            {
+              "name": "perl-Digest-MD5",
+              "version": "2.59"
+            }
+          ]
+        },
+        {
+          "id": "distribution",
+          "name": "distribution",
+          "url": "https://github.com/distribution/distribution",
+          "description": "Upstream repository for distribution.",
+          "packages": [
+            {
+              "name": "distribution",
+              "version": "3.1.1"
+            }
+          ]
+        },
+        {
+          "id": "dnf",
+          "name": "dnf",
+          "url": "https://github.com/rpm-software-management/dnf",
+          "description": "Upstream repository for dnf.",
+          "packages": [
+            {
+              "name": "dnf",
+              "version": "4.24.0"
+            }
+          ]
+        },
+        {
+          "id": "dnf5",
+          "name": "dnf5",
+          "url": "https://github.com/rpm-software-management/dnf5",
+          "description": "Upstream repository for dnf5.",
+          "packages": [
+            {
+              "name": "dnf5",
+              "version": "5.4.2.1"
+            }
+          ]
+        },
+        {
+          "id": "dns-root-data",
+          "name": "dns-root-data",
+          "url": "https://src.fedoraproject.org/rpms/dns-root-data",
+          "description": "Upstream repository for dns-root-data.",
+          "packages": [
+            {
+              "name": "dns-root-data",
+              "version": "2026260100"
+            }
+          ]
+        },
+        {
+          "id": "dosfstools",
+          "name": "dosfstools",
+          "url": "https://github.com/dosfstools/dosfstools",
+          "description": "Upstream repository for dosfstools.",
+          "packages": [
+            {
+              "name": "dosfstools",
+              "version": "4.2"
+            }
+          ]
+        },
+        {
+          "id": "doxygen",
+          "name": "doxygen",
+          "url": "https://github.com/doxygen/doxygen",
+          "description": "Upstream repository for doxygen.",
+          "packages": [
+            {
+              "name": "doxygen",
+              "version": "1.17.0"
+            }
+          ]
+        },
+        {
+          "id": "dracut-ng",
+          "name": "dracut-ng",
+          "url": "https://github.com/dracut-ng/dracut-ng",
+          "description": "Upstream repository for dracut.",
+          "packages": [
+            {
+              "name": "dracut",
+              "version": "111"
+            }
+          ]
+        },
+        {
+          "id": "drpm",
+          "name": "drpm",
+          "url": "https://github.com/rpm-software-management/drpm",
+          "description": "Upstream repository for drpm.",
+          "packages": [
+            {
+              "name": "drpm",
+              "version": "0.5.3"
+            }
+          ]
+        },
+        {
+          "id": "duktape",
+          "name": "duktape",
+          "url": "https://github.com/svaarala/duktape",
+          "description": "Upstream repository for duktape.",
+          "packages": [
+            {
+              "name": "duktape",
+              "version": "2.7.0"
+            }
+          ]
+        },
+        {
+          "id": "dwz",
+          "name": "dwz",
+          "url": "https://sourceware.org/git/dwz",
+          "description": "Upstream repository for dwz.",
+          "packages": [
+            {
+              "name": "dwz",
+              "version": "0.17"
+            }
+          ]
+        },
+        {
+          "id": "e2fsprogs",
+          "name": "e2fsprogs",
+          "url": "https://github.com/tytso/e2fsprogs",
+          "description": "Upstream repository for e2fsprogs.",
+          "packages": [
+            {
+              "name": "e2fsprogs",
+              "version": "1.47.4"
+            }
+          ]
+        },
+        {
+          "id": "ecj",
+          "name": "ecj",
+          "url": "https://src.fedoraproject.org/rpms/ecj",
+          "description": "Upstream repository for ecj.",
+          "packages": [
+            {
+              "name": "ecj",
+              "version": "4.23"
+            }
+          ]
+        },
+        {
+          "id": "ed",
+          "name": "ed",
+          "url": "https://git.savannah.gnu.org/git/ed",
+          "description": "Upstream repository for ed.",
+          "packages": [
+            {
+              "name": "ed",
+              "version": "1.22.5"
+            }
+          ]
+        },
+        {
+          "id": "efi-rpm-macros",
+          "name": "efi-rpm-macros",
+          "url": "https://github.com/rhboot/efi-rpm-macros",
+          "description": "Upstream repository for efi-rpm-macros.",
+          "packages": [
+            {
+              "name": "efi-rpm-macros",
+              "version": "6"
+            }
+          ]
+        },
+        {
+          "id": "elfutils",
+          "name": "elfutils",
+          "url": "https://sourceware.org/git/elfutils",
+          "description": "Upstream repository for elfutils.",
+          "packages": [
+            {
+              "name": "elfutils",
+              "version": "0.195"
+            }
+          ]
+        },
+        {
+          "id": "emacs",
+          "name": "emacs",
+          "url": "https://git.savannah.gnu.org/git/emacs",
+          "description": "Upstream repository for emacs-filesystem.",
+          "packages": [
+            {
+              "name": "emacs-filesystem",
+              "version": "30.2"
+            }
+          ]
+        },
+        {
+          "id": "erlang-rpm-macros",
+          "name": "erlang-rpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/erlang-rpm-macros",
+          "description": "Upstream repository for erlang-rpm-macros.",
+          "packages": [
+            {
+              "name": "erlang-rpm-macros",
+              "version": "0.3.11"
+            }
+          ]
+        },
+        {
+          "id": "etcd",
+          "name": "etcd",
+          "url": "https://github.com/etcd-io/etcd",
+          "description": "Upstream repository for etcd.",
+          "packages": [
+            {
+              "name": "etcd",
+              "version": "3.7.1"
+            }
+          ]
+        },
+        {
+          "id": "fedora-crypto-policies",
+          "name": "fedora-crypto-policies",
+          "url": "https://gitlab.com/redhat-crypto/fedora-crypto-policies",
+          "description": "Upstream repository for crypto-policies.",
+          "packages": [
+            {
+              "name": "crypto-policies",
+              "version": "20260731"
+            }
+          ]
+        },
+        {
+          "id": "fedora-logos",
+          "name": "fedora-logos",
+          "url": "https://src.fedoraproject.org/rpms/fedora-logos",
+          "description": "Upstream repository for fedora-logos.",
+          "packages": [
+            {
+              "name": "fedora-logos",
+              "version": "42.0.1"
+            }
+          ]
+        },
+        {
+          "id": "fedora-repos",
+          "name": "fedora-repos",
+          "url": "https://src.fedoraproject.org/rpms/fedora-repos",
+          "description": "Upstream repository for fedora-repos.",
+          "packages": [
+            {
+              "name": "fedora-repos",
+              "version": "44"
+            }
+          ]
+        },
+        {
+          "id": "fftw3",
+          "name": "fftw3",
+          "url": "https://github.com/FFTW/fftw3",
+          "description": "Upstream repository for fftw.",
+          "packages": [
+            {
+              "name": "fftw",
+              "version": "3.3.11"
+            }
+          ]
+        },
+        {
+          "id": "file",
+          "name": "file",
+          "url": "https://github.com/file/file",
+          "description": "Upstream repository for file.",
+          "packages": [
+            {
+              "name": "file",
+              "version": "5.48"
+            }
+          ]
+        },
+        {
+          "id": "filesystem",
+          "name": "filesystem",
+          "url": "https://src.fedoraproject.org/rpms/filesystem",
+          "description": "Upstream repository for filesystem.",
+          "packages": [
+            {
+              "name": "filesystem",
+              "version": "3.18"
+            }
+          ]
+        },
+        {
+          "id": "findutils",
+          "name": "findutils",
+          "url": "https://git.savannah.gnu.org/git/findutils",
+          "description": "Upstream repository for findutils.",
+          "packages": [
+            {
+              "name": "findutils",
+              "version": "4.11.0"
+            }
+          ]
+        },
+        {
+          "id": "firewalld",
+          "name": "firewalld",
+          "url": "https://github.com/firewalld/firewalld",
+          "description": "Upstream repository for firewalld.",
+          "packages": [
+            {
+              "name": "firewalld",
+              "version": "2.5.1"
+            }
+          ]
+        },
+        {
+          "id": "fmt",
+          "name": "fmt",
+          "url": "https://github.com/fmtlib/fmt",
+          "description": "Upstream repository for fmt.",
+          "packages": [
+            {
+              "name": "fmt",
+              "version": "12.1.0"
+            }
+          ]
+        },
+        {
+          "id": "font",
+          "name": "font",
+          "url": "https://gitlab.freedesktop.org/xorg/font",
+          "description": "Upstream repository for xorg-x11-fonts.",
+          "packages": [
+            {
+              "name": "xorg-x11-fonts",
+              "version": "7.5"
+            }
+          ]
+        },
+        {
+          "id": "fontconfig",
+          "name": "fontconfig",
+          "url": "https://gitlab.freedesktop.org/fontconfig/fontconfig",
+          "description": "Upstream repository for fontconfig.",
+          "packages": [
+            {
+              "name": "fontconfig",
+              "version": "2.17.1"
+            }
+          ]
+        },
+        {
+          "id": "fonts-rpm-macros",
+          "name": "fonts-rpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/fonts-rpm-macros",
+          "description": "Upstream repository for fonts-rpm-macros.",
+          "packages": [
+            {
+              "name": "fonts-rpm-macros",
+              "version": "5.0.0"
+            }
+          ]
+        },
+        {
+          "id": "forge-srpm-macros",
+          "name": "forge-srpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/forge-srpm-macros",
+          "description": "Upstream repository for forge-srpm-macros.",
+          "packages": [
+            {
+              "name": "forge-srpm-macros",
+              "version": "0.4.0"
+            }
+          ]
+        },
+        {
+          "id": "fpc-srpm-macros",
+          "name": "fpc-srpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/fpc-srpm-macros",
+          "description": "Upstream repository for fpc-srpm-macros.",
+          "packages": [
+            {
+              "name": "fpc-srpm-macros",
+              "version": "1.3"
+            }
+          ]
+        },
+        {
+          "id": "freetype",
+          "name": "freetype",
+          "url": "https://gitlab.freedesktop.org/freetype/freetype",
+          "description": "Upstream repository for freetype.",
+          "packages": [
+            {
+              "name": "freetype",
+              "version": "2.14.3"
+            }
+          ]
+        },
+        {
+          "id": "fstrm",
+          "name": "fstrm",
+          "url": "https://github.com/farsightsec/fstrm",
+          "description": "Upstream repository for fstrm.",
+          "packages": [
+            {
+              "name": "fstrm",
+              "version": "0.6.1"
+            }
+          ]
+        },
+        {
+          "id": "fsverity-utils",
+          "name": "fsverity-utils",
+          "url": "https://github.com/ebiggers/fsverity-utils",
+          "description": "Upstream repository for fsverity-utils.",
+          "packages": [
+            {
+              "name": "fsverity-utils",
+              "version": "1.7"
+            }
+          ]
+        },
+        {
+          "id": "fuse-overlayfs",
+          "name": "fuse-overlayfs",
+          "url": "https://github.com/containers/fuse-overlayfs",
+          "description": "Upstream repository for fuse-overlayfs.",
+          "packages": [
+            {
+              "name": "fuse-overlayfs",
+              "version": "1.17"
+            }
+          ]
+        },
+        {
+          "id": "gap-srpm-macros",
+          "name": "gap-srpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/gap-srpm-macros",
+          "description": "Upstream repository for gap-srpm-macros.",
+          "packages": [
+            {
+              "name": "gap-srpm-macros",
+              "version": "2"
+            }
+          ]
+        },
+        {
+          "id": "gawk",
+          "name": "gawk",
+          "url": "https://git.savannah.gnu.org/git/gawk",
+          "description": "Upstream repository for gawk.",
+          "packages": [
+            {
+              "name": "gawk",
+              "version": "5.4.1"
+            }
+          ]
+        },
+        {
+          "id": "gcc",
+          "name": "gcc",
+          "url": "https://gcc.gnu.org/git/gcc",
+          "description": "Upstream repository for gcc, gcc13.",
+          "packages": [
+            {
+              "name": "gcc",
+              "version": "16.2.1"
+            },
+            {
+              "name": "gcc13",
+              "version": "13.4.0"
+            }
+          ]
+        },
+        {
+          "id": "gdbm",
+          "name": "gdbm",
+          "url": "https://git.savannah.gnu.org/git/gdbm",
+          "description": "Upstream repository for gdbm.",
+          "packages": [
+            {
+              "name": "gdbm",
+              "version": "1.23"
+            }
+          ]
+        },
+        {
+          "id": "gettext",
+          "name": "gettext",
+          "url": "https://git.savannah.gnu.org/git/gettext",
+          "description": "Upstream repository for gettext.",
+          "packages": [
+            {
+              "name": "gettext",
+              "version": "1.0"
+            }
+          ]
+        },
+        {
+          "id": "ghc-srpm-macros",
+          "name": "ghc-srpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/ghc-srpm-macros",
+          "description": "Upstream repository for ghc-srpm-macros.",
+          "packages": [
+            {
+              "name": "ghc-srpm-macros",
+              "version": "1.10"
+            }
+          ]
+        },
+        {
+          "id": "git",
+          "name": "git",
+          "url": "https://github.com/git/git",
+          "description": "Upstream repository for git.",
+          "packages": [
+            {
+              "name": "git",
+              "version": "2.55.0"
+            }
+          ]
+        },
+        {
+          "id": "git-lfs",
+          "name": "git-lfs",
+          "url": "https://github.com/git-lfs/git-lfs",
+          "description": "Upstream repository for git-lfs.",
+          "packages": [
+            {
+              "name": "git-lfs",
+              "version": "3.7.1"
+            }
+          ]
+        },
+        {
+          "id": "git-sync",
+          "name": "git-sync",
+          "url": "https://github.com/kubernetes/git-sync",
+          "description": "Upstream repository for git-sync.",
+          "packages": [
+            {
+              "name": "git-sync",
+              "version": "4.7.1"
+            }
+          ]
+        },
+        {
+          "id": "glib",
+          "name": "glib",
+          "url": "https://gitlab.gnome.org/GNOME/glib",
+          "description": "Upstream repository for glib2.",
+          "packages": [
+            {
+              "name": "glib2",
+              "version": "2.89.3"
+            }
+          ]
+        },
+        {
+          "id": "glibc",
+          "name": "glibc",
+          "url": "https://sourceware.org/git/glibc",
+          "description": "Upstream repository for glibc.",
+          "packages": [
+            {
+              "name": "glibc",
+              "version": "2.43"
+            }
+          ]
+        },
+        {
+          "id": "gmp",
+          "name": "gmp",
+          "url": "https://git.savannah.nongnu.org/git/gmp",
+          "description": "Upstream repository for gmp.",
+          "packages": [
+            {
+              "name": "gmp",
+              "version": "6.3.0"
+            }
+          ]
+        },
+        {
+          "id": "gnat-srpm-macros",
+          "name": "gnat-srpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/gnat-srpm-macros",
+          "description": "Upstream repository for gnat-srpm-macros.",
+          "packages": [
+            {
+              "name": "gnat-srpm-macros",
+              "version": "7"
+            }
+          ]
+        },
+        {
+          "id": "gnulib",
+          "name": "gnulib",
+          "url": "https://git.savannah.gnu.org/git/gnulib",
+          "description": "Upstream repository for gnulib-l10n.",
+          "packages": [
+            {
+              "name": "gnulib-l10n",
+              "version": "20241231"
+            }
+          ]
+        },
+        {
+          "id": "gnupg",
+          "name": "gnupg",
+          "url": "https://dev.gnupg.org/source/gnupg",
+          "description": "Upstream repository for gnupg2.",
+          "packages": [
+            {
+              "name": "gnupg2",
+              "version": "2.4.9"
+            }
+          ]
+        },
+        {
+          "id": "gnutls",
+          "name": "gnutls",
+          "url": "https://gitlab.com/gnutls/gnutls",
+          "description": "Upstream repository for gnutls.",
+          "packages": [
+            {
+              "name": "gnutls",
+              "version": "3.8.13"
+            }
+          ]
+        },
+        {
+          "id": "go",
+          "name": "go",
+          "url": "https://github.com/golang/go",
+          "description": "Upstream repository for golang1.25, golang1.26.",
+          "packages": [
+            {
+              "name": "golang1.25",
+              "version": "1.25.12"
+            },
+            {
+              "name": "golang1.26",
+              "version": "1.26.5"
+            }
+          ]
+        },
+        {
+          "id": "go-fdo-client",
+          "name": "go-fdo-client",
+          "url": "https://github.com/fido-device-onboard/go-fdo-client",
+          "description": "Upstream repository for go-fdo-client.",
+          "packages": [
+            {
+              "name": "go-fdo-client",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        {
+          "id": "go-fdo-server",
+          "name": "go-fdo-server",
+          "url": "https://github.com/fido-device-onboard/go-fdo-server",
+          "description": "Upstream repository for go-fdo-server.",
+          "packages": [
+            {
+              "name": "go-fdo-server",
+              "version": "1.0.1"
+            }
+          ]
+        },
+        {
+          "id": "go-md2man",
+          "name": "go-md2man",
+          "url": "https://github.com/cpuguy83/go-md2man",
+          "description": "Upstream repository for go-md2man.",
+          "packages": [
+            {
+              "name": "go-md2man",
+              "version": "2.0.7"
+            }
+          ]
+        },
+        {
+          "id": "go-rpm-macros",
+          "name": "go-rpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/go-rpm-macros",
+          "description": "Upstream repository for go-rpm-macros.",
+          "packages": [
+            {
+              "name": "go-rpm-macros",
+              "version": "3.8.0"
+            }
+          ]
+        },
+        {
+          "id": "golist",
+          "name": "golist",
+          "url": "https://src.fedoraproject.org/rpms/golist",
+          "description": "Upstream repository for golist.",
+          "packages": [
+            {
+              "name": "golist",
+              "version": "0.11.0"
+            }
+          ]
+        },
+        {
+          "id": "gorget",
+          "name": "gorget",
+          "url": "https://github.com/gorget-project/gorget",
+          "description": "Upstream repository for gorget.",
+          "packages": [
+            {
+              "name": "gorget",
+              "version": "0.1.18"
+            }
+          ]
+        },
+        {
+          "id": "gperftools",
+          "name": "gperftools",
+          "url": "https://github.com/gperftools/gperftools",
+          "description": "Upstream repository for gperftools.",
+          "packages": [
+            {
+              "name": "gperftools",
+              "version": "2.18.1"
+            }
+          ]
+        },
+        {
+          "id": "gpgme",
+          "name": "gpgme",
+          "url": "https://dev.gnupg.org/source/gpgme",
+          "description": "Upstream repository for gpgme.",
+          "packages": [
+            {
+              "name": "gpgme",
+              "version": "2.0.1"
+            }
+          ]
+        },
+        {
+          "id": "gpgverify",
+          "name": "gpgverify",
+          "url": "https://src.fedoraproject.org/rpms/gpgverify",
+          "description": "Upstream repository for gpgverify.",
+          "packages": [
+            {
+              "name": "gpgverify",
+              "version": "2.2"
+            }
+          ]
+        },
+        {
+          "id": "grafana",
+          "name": "grafana",
+          "url": "https://github.com/grafana/grafana",
+          "description": "Upstream repository for grafana12.4, grafana13.1.",
+          "packages": [
+            {
+              "name": "grafana12.4",
+              "version": "12.4.8"
+            },
+            {
+              "name": "grafana13.1",
+              "version": "13.1.3"
+            }
+          ]
+        },
+        {
+          "id": "graphite",
+          "name": "graphite",
+          "url": "https://github.com/silnrsi/graphite",
+          "description": "Upstream repository for graphite2.",
+          "packages": [
+            {
+              "name": "graphite2",
+              "version": "1.3.14"
+            }
+          ]
+        },
+        {
+          "id": "graphviz",
+          "name": "graphviz",
+          "url": "https://gitlab.com/graphviz/graphviz",
+          "description": "Upstream repository for graphviz.",
+          "packages": [
+            {
+              "name": "graphviz",
+              "version": "15.1.1"
+            }
+          ]
+        },
+        {
+          "id": "grep",
+          "name": "grep",
+          "url": "https://git.savannah.gnu.org/git/grep",
+          "description": "Upstream repository for grep.",
+          "packages": [
+            {
+              "name": "grep",
+              "version": "3.12"
+            }
+          ]
+        },
+        {
+          "id": "groff",
+          "name": "groff",
+          "url": "https://git.savannah.gnu.org/git/groff",
+          "description": "Upstream repository for groff.",
+          "packages": [
+            {
+              "name": "groff",
+              "version": "1.24.1"
+            }
+          ]
+        },
+        {
+          "id": "grype",
+          "name": "grype",
+          "url": "https://github.com/anchore/grype",
+          "description": "Upstream repository for grype.",
+          "packages": [
+            {
+              "name": "grype",
+              "version": "0.117.0"
+            }
+          ]
+        },
+        {
+          "id": "gzip",
+          "name": "gzip",
+          "url": "https://git.savannah.gnu.org/git/gzip",
+          "description": "Upstream repository for gzip.",
+          "packages": [
+            {
+              "name": "gzip",
+              "version": "1.14"
+            }
+          ]
+        },
+        {
+          "id": "haproxy",
+          "name": "haproxy",
+          "url": "https://git.haproxy.org/git/haproxy",
+          "description": "Upstream repository for haproxy.",
+          "packages": [
+            {
+              "name": "haproxy",
+              "version": "3.0.26"
+            }
+          ]
+        },
+        {
+          "id": "harfbuzz",
+          "name": "harfbuzz",
+          "url": "https://github.com/harfbuzz/harfbuzz",
+          "description": "Upstream repository for harfbuzz.",
+          "packages": [
+            {
+              "name": "harfbuzz",
+              "version": "14.3.1"
+            }
+          ]
+        },
+        {
+          "id": "hdf5",
+          "name": "hdf5",
+          "url": "https://github.com/HDFGroup/hdf5",
+          "description": "Upstream repository for hdf5.",
+          "packages": [
+            {
+              "name": "hdf5",
+              "version": "2.2.0"
+            }
+          ]
+        },
+        {
+          "id": "hello",
+          "name": "hello",
+          "url": "https://ftp.gnu.org/gnu/hello",
+          "description": "Upstream repository for hello.",
+          "packages": [
+            {
+              "name": "hello",
+              "version": "2.12.3"
+            }
+          ]
+        },
+        {
+          "id": "helm",
+          "name": "helm",
+          "url": "https://github.com/helm/helm",
+          "description": "Upstream repository for helm3, helm4.",
+          "packages": [
+            {
+              "name": "helm3",
+              "version": "3.21.3"
+            },
+            {
+              "name": "helm4",
+              "version": "4.2.4"
+            }
+          ]
+        },
+        {
+          "id": "hiredis",
+          "name": "hiredis",
+          "url": "https://github.com/redis/hiredis",
+          "description": "Upstream repository for hiredis.",
+          "packages": [
+            {
+              "name": "hiredis",
+              "version": "1.2.0"
+            }
+          ]
+        },
+        {
+          "id": "hostname",
+          "name": "hostname",
+          "url": "https://src.fedoraproject.org/rpms/hostname",
+          "description": "Upstream repository for hostname.",
+          "packages": [
+            {
+              "name": "hostname",
+              "version": "3.25"
+            }
+          ]
+        },
+        {
+          "id": "httpd",
+          "name": "httpd",
+          "url": "https://github.com/apache/httpd",
+          "description": "Upstream repository for httpd.",
+          "packages": [
+            {
+              "name": "httpd",
+              "version": "2.4.68"
+            }
+          ]
+        },
+        {
+          "id": "hugo",
+          "name": "hugo",
+          "url": "https://github.com/gohugoio/hugo",
+          "description": "Upstream repository for hugo.",
+          "packages": [
+            {
+              "name": "hugo",
+              "version": "0.165.0"
+            }
+          ]
+        },
+        {
+          "id": "hwloc",
+          "name": "hwloc",
+          "url": "https://github.com/open-mpi/hwloc",
+          "description": "Upstream repository for hwloc.",
+          "packages": [
+            {
+              "name": "hwloc",
+              "version": "2.14.0"
+            }
+          ]
+        },
+        {
+          "id": "icu",
+          "name": "icu",
+          "url": "https://github.com/unicode-org/icu",
+          "description": "Upstream repository for icu.",
+          "packages": [
+            {
+              "name": "icu",
+              "version": "78.3"
+            }
+          ]
+        },
+        {
+          "id": "idna",
+          "name": "idna",
+          "url": "https://github.com/kjd/idna",
+          "description": "Upstream repository for python-idna.",
+          "packages": [
+            {
+              "name": "python-idna",
+              "version": "3.18"
+            }
+          ]
+        },
+        {
+          "id": "ima-evm-utils",
+          "name": "ima-evm-utils",
+          "url": "https://github.com/linux-integrity/ima-evm-utils",
+          "description": "Upstream repository for ima-evm-utils.",
+          "packages": [
+            {
+              "name": "ima-evm-utils",
+              "version": "1.6.2"
+            }
+          ]
+        },
+        {
+          "id": "iniconfig",
+          "name": "iniconfig",
+          "url": "https://github.com/pytest-dev/iniconfig",
+          "description": "Upstream repository for python-iniconfig.",
+          "packages": [
+            {
+              "name": "python-iniconfig",
+              "version": "2.3.0"
+            }
+          ]
+        },
+        {
+          "id": "iproute2",
+          "name": "iproute2",
+          "url": "https://git.kernel.org/pub/scm/network/iproute2/iproute2",
+          "description": "Upstream repository for iproute.",
+          "packages": [
+            {
+              "name": "iproute",
+              "version": "7.0.0"
+            }
+          ]
+        },
+        {
+          "id": "iptables",
+          "name": "iptables",
+          "url": "https://git.netfilter.org/iptables",
+          "description": "Upstream repository for iptables.",
+          "packages": [
+            {
+              "name": "iptables",
+              "version": "1.8.13"
+            }
+          ]
+        },
+        {
+          "id": "jaeger",
+          "name": "jaeger",
+          "url": "https://github.com/jaegertracing/jaeger",
+          "description": "Upstream repository for jaeger.",
+          "packages": [
+            {
+              "name": "jaeger",
+              "version": "2.20.0"
+            }
+          ]
+        },
+        {
+          "id": "jansson",
+          "name": "jansson",
+          "url": "https://github.com/akheron/jansson",
+          "description": "Upstream repository for jansson.",
+          "packages": [
+            {
+              "name": "jansson",
+              "version": "2.14"
+            }
+          ]
+        },
+        {
+          "id": "java-rpm-macros",
+          "name": "java-rpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/java-rpm-macros",
+          "description": "Upstream repository for java-rpm-macros.",
+          "packages": [
+            {
+              "name": "java-rpm-macros",
+              "version": "1"
+            }
+          ]
+        },
+        {
+          "id": "javapackages",
+          "name": "javapackages",
+          "url": "https://github.com/fedora-java/javapackages",
+          "description": "Upstream repository for javapackages-tools.",
+          "packages": [
+            {
+              "name": "javapackages-tools",
+              "version": "6.5.1"
+            }
+          ]
+        },
+        {
+          "id": "jbigkit",
+          "name": "jbigkit",
+          "url": "https://src.fedoraproject.org/rpms/jbigkit",
+          "description": "Upstream repository for jbigkit.",
+          "packages": [
+            {
+              "name": "jbigkit",
+              "version": "2.1"
+            }
+          ]
+        },
+        {
+          "id": "jdk17u",
+          "name": "jdk17u",
+          "url": "https://github.com/openjdk/jdk17u",
+          "description": "Upstream repository for java-17-openjdk-portable.",
+          "packages": [
+            {
+              "name": "java-17-openjdk-portable",
+              "version": "17.0.20.0.8"
+            }
+          ]
+        },
+        {
+          "id": "jdk21u",
+          "name": "jdk21u",
+          "url": "https://github.com/openjdk/jdk21u",
+          "description": "Upstream repository for java-21-openjdk, java-21-openjdk-portable.",
+          "packages": [
+            {
+              "name": "java-21-openjdk",
+              "version": "21.0.12.0.8"
+            },
+            {
+              "name": "java-21-openjdk-portable",
+              "version": "21.0.12.0.8"
+            }
+          ]
+        },
+        {
+          "id": "jdk25u",
+          "name": "jdk25u",
+          "url": "https://github.com/openjdk/jdk25u",
+          "description": "Upstream repository for java-25-openjdk, java-25-openjdk-portable.",
+          "packages": [
+            {
+              "name": "java-25-openjdk",
+              "version": "25.0.4.0.7"
+            },
+            {
+              "name": "java-25-openjdk-portable",
+              "version": "25.0.4.0.7"
+            }
+          ]
+        },
+        {
+          "id": "jemalloc",
+          "name": "jemalloc",
+          "url": "https://github.com/jemalloc/jemalloc",
+          "description": "Upstream repository for jemalloc.",
+          "packages": [
+            {
+              "name": "jemalloc",
+              "version": "5.3.0"
+            }
+          ]
+        },
+        {
+          "id": "jinja",
+          "name": "jinja",
+          "url": "https://github.com/pallets/jinja",
+          "description": "Upstream repository for python-jinja2.",
+          "packages": [
+            {
+              "name": "python-jinja2",
+              "version": "3.1.6"
+            }
+          ]
+        },
+        {
+          "id": "jinja2-cli",
+          "name": "jinja2-cli",
+          "url": "https://github.com/mattrobenolt/jinja2-cli",
+          "description": "Upstream repository for python-jinja2-cli.",
+          "packages": [
+            {
+              "name": "python-jinja2-cli",
+              "version": "0.8.2"
+            }
+          ]
+        },
+        {
+          "id": "jq",
+          "name": "jq",
+          "url": "https://github.com/jqlang/jq",
+          "description": "Upstream repository for jq.",
+          "packages": [
+            {
+              "name": "jq",
+              "version": "1.8.2"
+            }
+          ]
+        },
+        {
+          "id": "json-c",
+          "name": "json-c",
+          "url": "https://github.com/json-c/json-c",
+          "description": "Upstream repository for json-c.",
+          "packages": [
+            {
+              "name": "json-c",
+              "version": "0.18"
+            }
+          ]
+        },
+        {
+          "id": "jsonschema",
+          "name": "jsonschema",
+          "url": "https://github.com/python-jsonschema/jsonschema",
+          "description": "Upstream repository for python-jsonschema.",
+          "packages": [
+            {
+              "name": "python-jsonschema",
+              "version": "4.26.0"
+            }
+          ]
+        },
+        {
+          "id": "jsonschema-specifications",
+          "name": "jsonschema-specifications",
+          "url": "https://github.com/python-jsonschema/jsonschema-specifications",
+          "description": "Upstream repository for python-jsonschema-specifications.",
+          "packages": [
+            {
+              "name": "python-jsonschema-specifications",
+              "version": "2025.9.1"
+            }
+          ]
+        },
+        {
+          "id": "jsqueeze",
+          "name": "jsqueeze",
+          "url": "https://github.com/tchwork/jsqueeze",
+          "description": "Upstream repository for php-patchwork-jsqueeze.",
+          "packages": [
+            {
+              "name": "php-patchwork-jsqueeze",
+              "version": "2.0.5"
+            }
+          ]
+        },
+        {
+          "id": "k6",
+          "name": "k6",
+          "url": "https://github.com/grafana/k6",
+          "description": "Upstream repository for k6v1, k6v2.",
+          "packages": [
+            {
+              "name": "k6v1",
+              "version": "1.8.1"
+            },
+            {
+              "name": "k6v2",
+              "version": "2.2.0"
+            }
+          ]
+        },
+        {
+          "id": "kbd",
+          "name": "kbd",
+          "url": "https://git.kernel.org/pub/scm/linux/kernel/git/legion/kbd",
+          "description": "Upstream repository for kbd.",
+          "packages": [
+            {
+              "name": "kbd",
+              "version": "2.10.0"
+            }
+          ]
+        },
+        {
+          "id": "kernel-srpm-macros",
+          "name": "kernel-srpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/kernel-srpm-macros",
+          "description": "Upstream repository for kernel-srpm-macros.",
+          "packages": [
+            {
+              "name": "kernel-srpm-macros",
+              "version": "1.0"
+            }
+          ]
+        },
+        {
+          "id": "keyutils",
+          "name": "keyutils",
+          "url": "https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils",
+          "description": "Upstream repository for keyutils.",
+          "packages": [
+            {
+              "name": "keyutils",
+              "version": "1.6.3"
+            }
+          ]
+        },
+        {
+          "id": "kmod",
+          "name": "kmod",
+          "url": "https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod",
+          "description": "Upstream repository for kmod.",
+          "packages": [
+            {
+              "name": "kmod",
+              "version": "34.2"
+            }
+          ]
+        },
+        {
+          "id": "krb5",
+          "name": "krb5",
+          "url": "https://github.com/krb5/krb5",
+          "description": "Upstream repository for krb5.",
+          "packages": [
+            {
+              "name": "krb5",
+              "version": "1.22.2"
+            }
+          ]
+        },
+        {
+          "id": "kube-state-metrics",
+          "name": "kube-state-metrics",
+          "url": "https://github.com/kubernetes/kube-state-metrics",
+          "description": "Upstream repository for kube-state-metrics.",
+          "packages": [
+            {
+              "name": "kube-state-metrics",
+              "version": "2.19.1"
+            }
+          ]
+        },
+        {
+          "id": "kubernetes",
+          "name": "kubernetes",
+          "url": "https://github.com/kubernetes/kubernetes",
+          "description": "Upstream repository for kubernetes1.35, kubernetes1.36.",
+          "packages": [
+            {
+              "name": "kubernetes1.35",
+              "version": "1.35.7"
+            },
+            {
+              "name": "kubernetes1.36",
+              "version": "1.36.3"
+            }
+          ]
+        },
+        {
+          "id": "langpacks",
+          "name": "langpacks",
+          "url": "https://src.fedoraproject.org/rpms/langpacks",
+          "description": "Upstream repository for langpacks.",
+          "packages": [
+            {
+              "name": "langpacks",
+              "version": "4.3"
+            }
+          ]
+        },
+        {
+          "id": "lerc",
+          "name": "lerc",
+          "url": "https://github.com/Esri/lerc",
+          "description": "Upstream repository for liblerc.",
+          "packages": [
+            {
+              "name": "liblerc",
+              "version": "4.2.0"
+            }
+          ]
+        },
+        {
+          "id": "less",
+          "name": "less",
+          "url": "https://github.com/gwsw/less",
+          "description": "Upstream repository for less.",
+          "packages": [
+            {
+              "name": "less",
+              "version": "704"
+            }
+          ]
+        },
+        {
+          "id": "libaio",
+          "name": "libaio",
+          "url": "https://pagure.io/libaio",
+          "description": "Upstream repository for libaio.",
+          "packages": [
+            {
+              "name": "libaio",
+              "version": "0.3.111"
+            }
+          ]
+        },
+        {
+          "id": "libarchive",
+          "name": "libarchive",
+          "url": "https://github.com/libarchive/libarchive",
+          "description": "Upstream repository for libarchive.",
+          "packages": [
+            {
+              "name": "libarchive",
+              "version": "3.8.8"
+            }
+          ]
+        },
+        {
+          "id": "libassuan",
+          "name": "libassuan",
+          "url": "https://dev.gnupg.org/source/libassuan",
+          "description": "Upstream repository for libassuan.",
+          "packages": [
+            {
+              "name": "libassuan",
+              "version": "2.5.7"
+            }
+          ]
+        },
+        {
+          "id": "libavif",
+          "name": "libavif",
+          "url": "https://github.com/AOMediaCodec/libavif",
+          "description": "Upstream repository for libavif.",
+          "packages": [
+            {
+              "name": "libavif",
+              "version": "1.3.0"
+            }
+          ]
+        },
+        {
+          "id": "libb2",
+          "name": "libb2",
+          "url": "https://github.com/BLAKE2/libb2",
+          "description": "Upstream repository for libb2.",
+          "packages": [
+            {
+              "name": "libb2",
+              "version": "0.98.1"
+            }
+          ]
+        },
+        {
+          "id": "libbpf",
+          "name": "libbpf",
+          "url": "https://github.com/libbpf/libbpf",
+          "description": "Upstream repository for libbpf.",
+          "packages": [
+            {
+              "name": "libbpf",
+              "version": "1.7.0"
+            }
+          ]
+        },
+        {
+          "id": "libcap",
+          "name": "libcap",
+          "url": "https://git.kernel.org/pub/scm/libs/libcap/libcap",
+          "description": "Upstream repository for libcap.",
+          "packages": [
+            {
+              "name": "libcap",
+              "version": "2.78"
+            }
+          ]
+        },
+        {
+          "id": "libcap-ng",
+          "name": "libcap-ng",
+          "url": "https://github.com/stevegrubb/libcap-ng",
+          "description": "Upstream repository for libcap-ng.",
+          "packages": [
+            {
+              "name": "libcap-ng",
+              "version": "0.9.3"
+            }
+          ]
+        },
+        {
+          "id": "libcbor",
+          "name": "libcbor",
+          "url": "https://github.com/PJK/libcbor",
+          "description": "Upstream repository for libcbor.",
+          "packages": [
+            {
+              "name": "libcbor",
+              "version": "0.14.0"
+            }
+          ]
+        },
+        {
+          "id": "libcomps",
+          "name": "libcomps",
+          "url": "https://github.com/rpm-software-management/libcomps",
+          "description": "Upstream repository for libcomps.",
+          "packages": [
+            {
+              "name": "libcomps",
+              "version": "0.1.24"
+            }
+          ]
+        },
+        {
+          "id": "libdnf",
+          "name": "libdnf",
+          "url": "https://github.com/rpm-software-management/libdnf",
+          "description": "Upstream repository for libdnf.",
+          "packages": [
+            {
+              "name": "libdnf",
+              "version": "0.75.0"
+            }
+          ]
+        },
+        {
+          "id": "libeconf",
+          "name": "libeconf",
+          "url": "https://github.com/openSUSE/libeconf",
+          "description": "Upstream repository for libeconf.",
+          "packages": [
+            {
+              "name": "libeconf",
+              "version": "0.7.9"
+            }
+          ]
+        },
+        {
+          "id": "libevent",
+          "name": "libevent",
+          "url": "https://github.com/libevent/libevent",
+          "description": "Upstream repository for libevent.",
+          "packages": [
+            {
+              "name": "libevent",
+              "version": "2.1.12"
+            }
+          ]
+        },
+        {
+          "id": "libexpat",
+          "name": "libexpat",
+          "url": "https://github.com/libexpat/libexpat",
+          "description": "Upstream repository for expat.",
+          "packages": [
+            {
+              "name": "expat",
+              "version": "2.8.2"
+            }
+          ]
+        },
+        {
+          "id": "libfabric",
+          "name": "libfabric",
+          "url": "https://github.com/ofiwg/libfabric",
+          "description": "Upstream repository for libfabric.",
+          "packages": [
+            {
+              "name": "libfabric",
+              "version": "2.6.0"
+            }
+          ]
+        },
+        {
+          "id": "libffi",
+          "name": "libffi",
+          "url": "https://github.com/libffi/libffi",
+          "description": "Upstream repository for libffi.",
+          "packages": [
+            {
+              "name": "libffi",
+              "version": "3.5.2"
+            }
+          ]
+        },
+        {
+          "id": "libfido2",
+          "name": "libfido2",
+          "url": "https://github.com/Yubico/libfido2",
+          "description": "Upstream repository for libfido2.",
+          "packages": [
+            {
+              "name": "libfido2",
+              "version": "1.17.0"
+            }
+          ]
+        },
+        {
+          "id": "libfontenc",
+          "name": "libfontenc",
+          "url": "https://gitlab.freedesktop.org/xorg/lib/libfontenc",
+          "description": "Upstream repository for libfontenc.",
+          "packages": [
+            {
+              "name": "libfontenc",
+              "version": "1.1.8"
+            }
+          ]
+        },
+        {
+          "id": "libfuse",
+          "name": "libfuse",
+          "url": "https://github.com/libfuse/libfuse",
+          "description": "Upstream repository for fuse3.",
+          "packages": [
+            {
+              "name": "fuse3",
+              "version": "3.18.2"
+            }
+          ]
+        },
+        {
+          "id": "libgcrypt",
+          "name": "libgcrypt",
+          "url": "https://dev.gnupg.org/source/libgcrypt",
+          "description": "Upstream repository for libgcrypt.",
+          "packages": [
+            {
+              "name": "libgcrypt",
+              "version": "1.12.2"
+            }
+          ]
+        },
+        {
+          "id": "libgd",
+          "name": "libgd",
+          "url": "https://github.com/libgd/libgd",
+          "description": "Upstream repository for gd.",
+          "packages": [
+            {
+              "name": "gd",
+              "version": "2.3.3"
+            }
+          ]
+        },
+        {
+          "id": "libgit2",
+          "name": "libgit2",
+          "url": "https://github.com/libgit2/libgit2",
+          "description": "Upstream repository for libgit2.",
+          "packages": [
+            {
+              "name": "libgit2",
+              "version": "1.9.4"
+            }
+          ]
+        },
+        {
+          "id": "libgpg-error",
+          "name": "libgpg-error",
+          "url": "https://dev.gnupg.org/source/libgpg-error",
+          "description": "Upstream repository for libgpg-error.",
+          "packages": [
+            {
+              "name": "libgpg-error",
+              "version": "1.61"
+            }
+          ]
+        },
+        {
+          "id": "libidn2",
+          "name": "libidn2",
+          "url": "https://gitlab.com/libidn/libidn2",
+          "description": "Upstream repository for libidn2.",
+          "packages": [
+            {
+              "name": "libidn2",
+              "version": "2.3.8"
+            }
+          ]
+        },
+        {
+          "id": "libimagequant",
+          "name": "libimagequant",
+          "url": "https://github.com/ImageOptim/libimagequant",
+          "description": "Upstream repository for rust-imagequant-sys.",
+          "packages": [
+            {
+              "name": "rust-imagequant-sys",
+              "version": "4.1.0"
+            }
+          ]
+        },
+        {
+          "id": "libipt",
+          "name": "libipt",
+          "url": "https://github.com/intel/libipt",
+          "description": "Upstream repository for libipt.",
+          "packages": [
+            {
+              "name": "libipt",
+              "version": "2.2"
+            }
+          ]
+        },
+        {
+          "id": "libjpeg-turbo",
+          "name": "libjpeg-turbo",
+          "url": "https://github.com/libjpeg-turbo/libjpeg-turbo",
+          "description": "Upstream repository for libjpeg-turbo.",
+          "packages": [
+            {
+              "name": "libjpeg-turbo",
+              "version": "3.1.4.1"
+            }
+          ]
+        },
+        {
+          "id": "libkcapi",
+          "name": "libkcapi",
+          "url": "https://github.com/smuellerDD/libkcapi",
+          "description": "Upstream repository for libkcapi.",
+          "packages": [
+            {
+              "name": "libkcapi",
+              "version": "1.5.0"
+            }
+          ]
+        },
+        {
+          "id": "libksba",
+          "name": "libksba",
+          "url": "https://dev.gnupg.org/source/libksba",
+          "description": "Upstream repository for libksba.",
+          "packages": [
+            {
+              "name": "libksba",
+              "version": "1.8.0"
+            }
+          ]
+        },
+        {
+          "id": "libmaxminddb",
+          "name": "libmaxminddb",
+          "url": "https://github.com/maxmind/libmaxminddb",
+          "description": "Upstream repository for libmaxminddb.",
+          "packages": [
+            {
+              "name": "libmaxminddb",
+              "version": "1.13.3"
+            }
+          ]
+        },
+        {
+          "id": "libmnl",
+          "name": "libmnl",
+          "url": "https://git.netfilter.org/libmnl",
+          "description": "Upstream repository for libmnl.",
+          "packages": [
+            {
+              "name": "libmnl",
+              "version": "1.0.5"
+            }
+          ]
+        },
+        {
+          "id": "libmodulemd",
+          "name": "libmodulemd",
+          "url": "https://github.com/fedora-modularity/libmodulemd",
+          "description": "Upstream repository for libmodulemd.",
+          "packages": [
+            {
+              "name": "libmodulemd",
+              "version": "2.15.3"
+            }
+          ]
+        },
+        {
+          "id": "libndp",
+          "name": "libndp",
+          "url": "https://github.com/jpirko/libndp",
+          "description": "Upstream repository for libndp.",
+          "packages": [
+            {
+              "name": "libndp",
+              "version": "1.9"
+            }
+          ]
+        },
+        {
+          "id": "libnetfilter-conntrack",
+          "name": "libnetfilter_conntrack",
+          "url": "https://git.netfilter.org/libnetfilter_conntrack",
+          "description": "Upstream repository for libnetfilter_conntrack.",
+          "packages": [
+            {
+              "name": "libnetfilter_conntrack",
+              "version": "1.1.1"
+            }
+          ]
+        },
+        {
+          "id": "libnfnetlink",
+          "name": "libnfnetlink",
+          "url": "https://git.netfilter.org/libnfnetlink",
+          "description": "Upstream repository for libnfnetlink.",
+          "packages": [
+            {
+              "name": "libnfnetlink",
+              "version": "1.0.2"
+            }
+          ]
+        },
+        {
+          "id": "libnftnl",
+          "name": "libnftnl",
+          "url": "https://git.netfilter.org/libnftnl",
+          "description": "Upstream repository for libnftnl.",
+          "packages": [
+            {
+              "name": "libnftnl",
+              "version": "1.3.1"
+            }
+          ]
+        },
+        {
+          "id": "libnl",
+          "name": "libnl",
+          "url": "https://github.com/thom311/libnl",
+          "description": "Upstream repository for libnl3.",
+          "packages": [
+            {
+              "name": "libnl3",
+              "version": "3.12.0"
+            }
+          ]
+        },
+        {
+          "id": "libnsl",
+          "name": "libnsl",
+          "url": "https://github.com/thkukuk/libnsl",
+          "description": "Upstream repository for libnsl2.",
+          "packages": [
+            {
+              "name": "libnsl2",
+              "version": "2.0.1"
+            }
+          ]
+        },
+        {
+          "id": "libpipeline",
+          "name": "libpipeline",
+          "url": "https://gitlab.com/cjwatson/libpipeline",
+          "description": "Upstream repository for libpipeline.",
+          "packages": [
+            {
+              "name": "libpipeline",
+              "version": "1.5.8"
+            }
+          ]
+        },
+        {
+          "id": "libpng",
+          "name": "libpng",
+          "url": "https://github.com/pnggroup/libpng",
+          "description": "Upstream repository for libpng.",
+          "packages": [
+            {
+              "name": "libpng",
+              "version": "1.6.58"
+            }
+          ]
+        },
+        {
+          "id": "libpsl",
+          "name": "libpsl",
+          "url": "https://github.com/rockdaboot/libpsl",
+          "description": "Upstream repository for libpsl.",
+          "packages": [
+            {
+              "name": "libpsl",
+              "version": "0.23.1"
+            }
+          ]
+        },
+        {
+          "id": "libpwquality",
+          "name": "libpwquality",
+          "url": "https://github.com/libpwquality/libpwquality",
+          "description": "Upstream repository for libpwquality.",
+          "packages": [
+            {
+              "name": "libpwquality",
+              "version": "1.4.5"
+            }
+          ]
+        },
+        {
+          "id": "librepo",
+          "name": "librepo",
+          "url": "https://github.com/rpm-software-management/librepo",
+          "description": "Upstream repository for librepo.",
+          "packages": [
+            {
+              "name": "librepo",
+              "version": "1.20.0"
+            }
+          ]
+        },
+        {
+          "id": "libseccomp",
+          "name": "libseccomp",
+          "url": "https://github.com/seccomp/libseccomp",
+          "description": "Upstream repository for libseccomp.",
+          "packages": [
+            {
+              "name": "libseccomp",
+              "version": "2.6.1"
+            }
+          ]
+        },
+        {
+          "id": "libsodium",
+          "name": "libsodium",
+          "url": "https://github.com/jedisct1/libsodium",
+          "description": "Upstream repository for libsodium.",
+          "packages": [
+            {
+              "name": "libsodium",
+              "version": "1.0.22"
+            }
+          ]
+        },
+        {
+          "id": "libsolv",
+          "name": "libsolv",
+          "url": "https://github.com/openSUSE/libsolv",
+          "description": "Upstream repository for libsolv.",
+          "packages": [
+            {
+              "name": "libsolv",
+              "version": "0.7.39"
+            }
+          ]
+        },
+        {
+          "id": "libssh",
+          "name": "libssh",
+          "url": "https://git.libssh.org/projects/libssh",
+          "description": "Upstream repository for libssh.",
+          "packages": [
+            {
+              "name": "libssh",
+              "version": "0.12.2"
+            }
+          ]
+        },
+        {
+          "id": "libssh2",
+          "name": "libssh2",
+          "url": "https://github.com/libssh2/libssh2",
+          "description": "Upstream repository for libssh2.",
+          "packages": [
+            {
+              "name": "libssh2",
+              "version": "1.11.1"
+            }
+          ]
+        },
+        {
+          "id": "libtasn1",
+          "name": "libtasn1",
+          "url": "https://gitlab.com/gnutls/libtasn1",
+          "description": "Upstream repository for libtasn1.",
+          "packages": [
+            {
+              "name": "libtasn1",
+              "version": "4.21.0"
+            }
+          ]
+        },
+        {
+          "id": "libtiff",
+          "name": "libtiff",
+          "url": "https://github.com/libsdl-org/libtiff",
+          "description": "Upstream repository for libtiff.",
+          "packages": [
+            {
+              "name": "libtiff",
+              "version": "4.7.2"
+            }
+          ]
+        },
+        {
+          "id": "libtirpc",
+          "name": "libtirpc",
+          "url": "https://src.fedoraproject.org/rpms/libtirpc",
+          "description": "Upstream repository for libtirpc.",
+          "packages": [
+            {
+              "name": "libtirpc",
+              "version": "1.3.7"
+            }
+          ]
+        },
+        {
+          "id": "libtommath",
+          "name": "libtommath",
+          "url": "https://github.com/libtom/libtommath",
+          "description": "Upstream repository for libtommath.",
+          "packages": [
+            {
+              "name": "libtommath",
+              "version": "1.3.0"
+            }
+          ]
+        },
+        {
+          "id": "libtool",
+          "name": "libtool",
+          "url": "https://git.savannah.gnu.org/git/libtool",
+          "description": "Upstream repository for libtool.",
+          "packages": [
+            {
+              "name": "libtool",
+              "version": "2.5.4"
+            }
+          ]
+        },
+        {
+          "id": "libunistring",
+          "name": "libunistring",
+          "url": "https://git.savannah.gnu.org/git/libunistring",
+          "description": "Upstream repository for libunistring.",
+          "packages": [
+            {
+              "name": "libunistring",
+              "version": "1.1"
+            }
+          ]
+        },
+        {
+          "id": "libunwind",
+          "name": "libunwind",
+          "url": "https://github.com/libunwind/libunwind",
+          "description": "Upstream repository for libunwind.",
+          "packages": [
+            {
+              "name": "libunwind",
+              "version": "1.8.3"
+            }
+          ]
+        },
+        {
+          "id": "libusb",
+          "name": "libusb",
+          "url": "https://github.com/libusb/libusb",
+          "description": "Upstream repository for libusb1.",
+          "packages": [
+            {
+              "name": "libusb1",
+              "version": "1.0.30"
+            }
+          ]
+        },
+        {
+          "id": "libuv",
+          "name": "libuv",
+          "url": "https://github.com/libuv/libuv",
+          "description": "Upstream repository for libuv.",
+          "packages": [
+            {
+              "name": "libuv",
+              "version": "1.52.1"
+            }
+          ]
+        },
+        {
+          "id": "libverto",
+          "name": "libverto",
+          "url": "https://github.com/latchset/libverto",
+          "description": "Upstream repository for libverto.",
+          "packages": [
+            {
+              "name": "libverto",
+              "version": "0.3.2"
+            }
+          ]
+        },
+        {
+          "id": "libwebp",
+          "name": "libwebp",
+          "url": "https://github.com/webmproject/libwebp",
+          "description": "Upstream repository for libwebp.",
+          "packages": [
+            {
+              "name": "libwebp",
+              "version": "1.6.0"
+            }
+          ]
+        },
+        {
+          "id": "libx11",
+          "name": "libx11",
+          "url": "https://gitlab.freedesktop.org/xorg/lib/libx11",
+          "description": "Upstream repository for libX11.",
+          "packages": [
+            {
+              "name": "libX11",
+              "version": "1.8.13"
+            }
+          ]
+        },
+        {
+          "id": "libxau",
+          "name": "libxau",
+          "url": "https://gitlab.freedesktop.org/xorg/lib/libxau",
+          "description": "Upstream repository for libXau.",
+          "packages": [
+            {
+              "name": "libXau",
+              "version": "1.0.12"
+            }
+          ]
+        },
+        {
+          "id": "libxcb",
+          "name": "libxcb",
+          "url": "https://gitlab.freedesktop.org/xorg/lib/libxcb",
+          "description": "Upstream repository for libxcb.",
+          "packages": [
+            {
+              "name": "libxcb",
+              "version": "1.17.0"
+            }
+          ]
+        },
+        {
+          "id": "libxcomposite",
+          "name": "libxcomposite",
+          "url": "https://gitlab.freedesktop.org/xorg/lib/libxcomposite",
+          "description": "Upstream repository for libXcomposite.",
+          "packages": [
+            {
+              "name": "libXcomposite",
+              "version": "0.4.6"
+            }
+          ]
+        },
+        {
+          "id": "libxcrypt",
+          "name": "libxcrypt",
+          "url": "https://github.com/besser82/libxcrypt",
+          "description": "Upstream repository for libxcrypt.",
+          "packages": [
+            {
+              "name": "libxcrypt",
+              "version": "4.5.2"
+            }
+          ]
+        },
+        {
+          "id": "libxext",
+          "name": "libxext",
+          "url": "https://gitlab.freedesktop.org/xorg/lib/libxext",
+          "description": "Upstream repository for libXext.",
+          "packages": [
+            {
+              "name": "libXext",
+              "version": "1.3.6"
+            }
+          ]
+        },
+        {
+          "id": "libxft",
+          "name": "libxft",
+          "url": "https://gitlab.freedesktop.org/xorg/lib/libxft",
+          "description": "Upstream repository for libXft.",
+          "packages": [
+            {
+              "name": "libXft",
+              "version": "2.3.8"
+            }
+          ]
+        },
+        {
+          "id": "libxi",
+          "name": "libxi",
+          "url": "https://gitlab.freedesktop.org/xorg/lib/libxi",
+          "description": "Upstream repository for libXi.",
+          "packages": [
+            {
+              "name": "libXi",
+              "version": "1.8.3"
+            }
+          ]
+        },
+        {
+          "id": "libxkbcommon",
+          "name": "libxkbcommon",
+          "url": "https://github.com/xkbcommon/libxkbcommon",
+          "description": "Upstream repository for libxkbcommon.",
+          "packages": [
+            {
+              "name": "libxkbcommon",
+              "version": "1.13.1"
+            }
+          ]
+        },
+        {
+          "id": "libxml2",
+          "name": "libxml2",
+          "url": "https://gitlab.gnome.org/GNOME/libxml2",
+          "description": "Upstream repository for libxml2.",
+          "packages": [
+            {
+              "name": "libxml2",
+              "version": "2.15.3"
+            }
+          ]
+        },
+        {
+          "id": "libxpm",
+          "name": "libxpm",
+          "url": "https://gitlab.freedesktop.org/xorg/lib/libxpm",
+          "description": "Upstream repository for libXpm.",
+          "packages": [
+            {
+              "name": "libXpm",
+              "version": "3.5.19"
+            }
+          ]
+        },
+        {
+          "id": "libxrender",
+          "name": "libxrender",
+          "url": "https://gitlab.freedesktop.org/xorg/lib/libxrender",
+          "description": "Upstream repository for libXrender.",
+          "packages": [
+            {
+              "name": "libXrender",
+              "version": "0.9.12"
+            }
+          ]
+        },
+        {
+          "id": "libxslt",
+          "name": "libxslt",
+          "url": "https://gitlab.gnome.org/GNOME/libxslt",
+          "description": "Upstream repository for libxslt.",
+          "packages": [
+            {
+              "name": "libxslt",
+              "version": "1.1.45"
+            }
+          ]
+        },
+        {
+          "id": "libxtst",
+          "name": "libxtst",
+          "url": "https://gitlab.freedesktop.org/xorg/lib/libxtst",
+          "description": "Upstream repository for libXtst.",
+          "packages": [
+            {
+              "name": "libXtst",
+              "version": "1.2.5"
+            }
+          ]
+        },
+        {
+          "id": "libyaml",
+          "name": "libyaml",
+          "url": "https://github.com/yaml/libyaml",
+          "description": "Upstream repository for libyaml.",
+          "packages": [
+            {
+              "name": "libyaml",
+              "version": "0.2.5"
+            }
+          ]
+        },
+        {
+          "id": "libyuv",
+          "name": "libyuv",
+          "url": "https://chromium.googlesource.com/libyuv/libyuv",
+          "description": "Upstream repository for libyuv.",
+          "packages": [
+            {
+              "name": "libyuv",
+              "version": "0"
+            }
+          ]
+        },
+        {
+          "id": "libzip",
+          "name": "libzip",
+          "url": "https://github.com/nih-at/libzip",
+          "description": "Upstream repository for libzip.",
+          "packages": [
+            {
+              "name": "libzip",
+              "version": "1.11.4"
+            }
+          ]
+        },
+        {
+          "id": "libzmq",
+          "name": "libzmq",
+          "url": "https://github.com/zeromq/libzmq",
+          "description": "Upstream repository for zeromq.",
+          "packages": [
+            {
+              "name": "zeromq",
+              "version": "4.3.5"
+            }
+          ]
+        },
+        {
+          "id": "linux",
+          "name": "linux",
+          "url": "https://github.com/torvalds/linux",
+          "description": "Upstream repository for kernel-headers.",
+          "packages": [
+            {
+              "name": "kernel-headers",
+              "version": "7.1.0"
+            }
+          ]
+        },
+        {
+          "id": "linux-pam",
+          "name": "linux-pam",
+          "url": "https://github.com/linux-pam/linux-pam",
+          "description": "Upstream repository for pam.",
+          "packages": [
+            {
+              "name": "pam",
+              "version": "1.7.2"
+            }
+          ]
+        },
+        {
+          "id": "list",
+          "name": "list",
+          "url": "https://github.com/publicsuffix/list",
+          "description": "Upstream repository for publicsuffix-list.",
+          "packages": [
+            {
+              "name": "publicsuffix-list",
+              "version": "20260624"
+            }
+          ]
+        },
+        {
+          "id": "lksctp-tools",
+          "name": "lksctp-tools",
+          "url": "https://github.com/sctp/lksctp-tools",
+          "description": "Upstream repository for lksctp-tools.",
+          "packages": [
+            {
+              "name": "lksctp-tools",
+              "version": "1.0.21"
+            }
+          ]
+        },
+        {
+          "id": "llhttp",
+          "name": "llhttp",
+          "url": "https://github.com/nodejs/llhttp",
+          "description": "Upstream repository for llhttp.",
+          "packages": [
+            {
+              "name": "llhttp",
+              "version": "9.4.2"
+            }
+          ]
+        },
+        {
+          "id": "llvm-project",
+          "name": "llvm-project",
+          "url": "https://github.com/llvm/llvm-project",
+          "description": "Upstream repository for llvm, llvm21.",
+          "packages": [
+            {
+              "name": "llvm",
+              "version": "22.1.8"
+            },
+            {
+              "name": "llvm21",
+              "version": "21.1.8"
+            }
+          ]
+        },
+        {
+          "id": "lmdb",
+          "name": "lmdb",
+          "url": "https://github.com/LMDB/lmdb",
+          "description": "Upstream repository for lmdb.",
+          "packages": [
+            {
+              "name": "lmdb",
+              "version": "0.9.34"
+            }
+          ]
+        },
+        {
+          "id": "logrotate",
+          "name": "logrotate",
+          "url": "https://github.com/logrotate/logrotate",
+          "description": "Upstream repository for logrotate.",
+          "packages": [
+            {
+              "name": "logrotate",
+              "version": "3.22.0"
+            }
+          ]
+        },
+        {
+          "id": "loki",
+          "name": "loki",
+          "url": "https://github.com/grafana/loki",
+          "description": "Upstream repository for loki3.6, loki3.7.",
+          "packages": [
+            {
+              "name": "loki3.6",
+              "version": "3.6.15"
+            },
+            {
+              "name": "loki3.7",
+              "version": "3.7.6"
+            }
+          ]
+        },
+        {
+          "id": "lua",
+          "name": "lua",
+          "url": "https://github.com/lua/lua",
+          "description": "Upstream repository for lua.",
+          "packages": [
+            {
+              "name": "lua",
+              "version": "5.5.1"
+            }
+          ]
+        },
+        {
+          "id": "lua-rpm-macros",
+          "name": "lua-rpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/lua-rpm-macros",
+          "description": "Upstream repository for lua-rpm-macros.",
+          "packages": [
+            {
+              "name": "lua-rpm-macros",
+              "version": "1"
+            }
+          ]
+        },
+        {
+          "id": "lujavrite",
+          "name": "lujavrite",
+          "url": "https://github.com/mizdebsk/lujavrite",
+          "description": "Upstream repository for lujavrite.",
+          "packages": [
+            {
+              "name": "lujavrite",
+              "version": "1.2.3"
+            }
+          ]
+        },
+        {
+          "id": "lvm2",
+          "name": "lvm2",
+          "url": "https://gitlab.com/lvmteam/lvm2",
+          "description": "Upstream repository for lvm2.",
+          "packages": [
+            {
+              "name": "lvm2",
+              "version": "2.03.42"
+            }
+          ]
+        },
+        {
+          "id": "lz4",
+          "name": "lz4",
+          "url": "https://github.com/lz4/lz4",
+          "description": "Upstream repository for lz4.",
+          "packages": [
+            {
+              "name": "lz4",
+              "version": "1.10.0"
+            }
+          ]
+        },
+        {
+          "id": "lzo",
+          "name": "lzo",
+          "url": "https://src.fedoraproject.org/rpms/lzo",
+          "description": "Upstream repository for lzo.",
+          "packages": [
+            {
+              "name": "lzo",
+              "version": "2.10"
+            }
+          ]
+        },
+        {
+          "id": "m4",
+          "name": "m4",
+          "url": "https://git.savannah.gnu.org/git/m4",
+          "description": "Upstream repository for m4.",
+          "packages": [
+            {
+              "name": "m4",
+              "version": "1.4.21"
+            }
+          ]
+        },
+        {
+          "id": "mailcap",
+          "name": "mailcap",
+          "url": "https://src.fedoraproject.org/rpms/mailcap",
+          "description": "Upstream repository for mailcap.",
+          "packages": [
+            {
+              "name": "mailcap",
+              "version": "2.1.54"
+            }
+          ]
+        },
+        {
+          "id": "make",
+          "name": "make",
+          "url": "https://git.savannah.gnu.org/git/make",
+          "description": "Upstream repository for make.",
+          "packages": [
+            {
+              "name": "make",
+              "version": "4.4.1"
+            }
+          ]
+        },
+        {
+          "id": "man-db",
+          "name": "man-db",
+          "url": "https://gitlab.com/man-db/man-db",
+          "description": "Upstream repository for man-db.",
+          "packages": [
+            {
+              "name": "man-db",
+              "version": "2.13.1"
+            }
+          ]
+        },
+        {
+          "id": "mariadb-connector-c",
+          "name": "mariadb-connector-c",
+          "url": "https://github.com/MariaDB/mariadb-connector-c",
+          "description": "Upstream repository for mariadb-connector-c.",
+          "packages": [
+            {
+              "name": "mariadb-connector-c",
+              "version": "3.4.9"
+            }
+          ]
+        },
+        {
+          "id": "markupsafe",
+          "name": "markupsafe",
+          "url": "https://github.com/pallets/markupsafe",
+          "description": "Upstream repository for python-markupsafe.",
+          "packages": [
+            {
+              "name": "python-markupsafe",
+              "version": "3.0.2"
+            }
+          ]
+        },
+        {
+          "id": "mawk-snapshots",
+          "name": "mawk-snapshots",
+          "url": "https://github.com/ThomasDickey/mawk-snapshots",
+          "description": "Upstream repository for mawk.",
+          "packages": [
+            {
+              "name": "mawk",
+              "version": "1.3.4"
+            }
+          ]
+        },
+        {
+          "id": "memcached",
+          "name": "memcached",
+          "url": "https://github.com/memcached/memcached",
+          "description": "Upstream repository for memcached.",
+          "packages": [
+            {
+              "name": "memcached",
+              "version": "1.6.45"
+            }
+          ]
+        },
+        {
+          "id": "meson",
+          "name": "meson",
+          "url": "https://github.com/mesonbuild/meson",
+          "description": "Upstream repository for meson.",
+          "packages": [
+            {
+              "name": "meson",
+              "version": "1.12.0"
+            }
+          ]
+        },
+        {
+          "id": "mime-base64",
+          "name": "mime-base64",
+          "url": "https://github.com/Dual-Life/mime-base64",
+          "description": "Upstream repository for perl-MIME-Base64.",
+          "packages": [
+            {
+              "name": "perl-MIME-Base64",
+              "version": "3.16"
+            }
+          ]
+        },
+        {
+          "id": "mkfontscale",
+          "name": "mkfontscale",
+          "url": "https://gitlab.freedesktop.org/xorg/app/mkfontscale",
+          "description": "Upstream repository for mkfontscale.",
+          "packages": [
+            {
+              "name": "mkfontscale",
+              "version": "1.2.4"
+            }
+          ]
+        },
+        {
+          "id": "modules",
+          "name": "modules",
+          "url": "https://github.com/envmodules/modules",
+          "description": "Upstream repository for environment-modules.",
+          "packages": [
+            {
+              "name": "environment-modules",
+              "version": "5.6.1"
+            }
+          ]
+        },
+        {
+          "id": "mpc",
+          "name": "mpc",
+          "url": "https://gitlab.inria.fr/mpc/mpc",
+          "description": "Upstream repository for libmpc.",
+          "packages": [
+            {
+              "name": "libmpc",
+              "version": "1.4.1"
+            }
+          ]
+        },
+        {
+          "id": "mpdecimal",
+          "name": "mpdecimal",
+          "url": "https://src.fedoraproject.org/rpms/mpdecimal",
+          "description": "Upstream repository for mpdecimal.",
+          "packages": [
+            {
+              "name": "mpdecimal",
+              "version": "4.0.1"
+            }
+          ]
+        },
+        {
+          "id": "mpfr",
+          "name": "mpfr",
+          "url": "https://gitlab.inria.fr/mpfr/mpfr",
+          "description": "Upstream repository for mpfr.",
+          "packages": [
+            {
+              "name": "mpfr",
+              "version": "4.2.2"
+            }
+          ]
+        },
+        {
+          "id": "munge",
+          "name": "munge",
+          "url": "https://github.com/dun/munge",
+          "description": "Upstream repository for munge.",
+          "packages": [
+            {
+              "name": "munge",
+              "version": "0.5.18"
+            }
+          ]
+        },
+        {
+          "id": "mypy",
+          "name": "mypy",
+          "url": "https://github.com/python/mypy",
+          "description": "Upstream repository for python3-mypy.",
+          "packages": [
+            {
+              "name": "python3-mypy",
+              "version": "1.18.2"
+            }
+          ]
+        },
+        {
+          "id": "mypy-extensions",
+          "name": "mypy_extensions",
+          "url": "https://github.com/python/mypy_extensions",
+          "description": "Upstream repository for python-mypy_extensions.",
+          "packages": [
+            {
+              "name": "python-mypy_extensions",
+              "version": "1.1.0"
+            }
+          ]
+        },
+        {
+          "id": "nats-server",
+          "name": "nats-server",
+          "url": "https://github.com/nats-io/nats-server",
+          "description": "Upstream repository for nats-server2.12, nats-server2.14.",
+          "packages": [
+            {
+              "name": "nats-server2.12",
+              "version": "2.12.15"
+            },
+            {
+              "name": "nats-server2.14",
+              "version": "2.14.5"
+            }
+          ]
+        },
+        {
+          "id": "ncurses",
+          "name": "ncurses",
+          "url": "https://src.fedoraproject.org/rpms/ncurses",
+          "description": "Upstream repository for ncurses.",
+          "packages": [
+            {
+              "name": "ncurses",
+              "version": "6.6"
+            }
+          ]
+        },
+        {
+          "id": "netavark",
+          "name": "netavark",
+          "url": "https://github.com/containers/netavark",
+          "description": "Upstream repository for netavark.",
+          "packages": [
+            {
+              "name": "netavark",
+              "version": "2.0.0"
+            }
+          ]
+        },
+        {
+          "id": "nettle",
+          "name": "nettle",
+          "url": "https://git.lysator.liu.se/nettle/nettle",
+          "description": "Upstream repository for nettle.",
+          "packages": [
+            {
+              "name": "nettle",
+              "version": "4.0"
+            }
+          ]
+        },
+        {
+          "id": "nftables",
+          "name": "nftables",
+          "url": "https://git.netfilter.org/nftables",
+          "description": "Upstream repository for nftables.",
+          "packages": [
+            {
+              "name": "nftables",
+              "version": "1.1.6"
+            }
+          ]
+        },
+        {
+          "id": "nghttp2",
+          "name": "nghttp2",
+          "url": "https://github.com/nghttp2/nghttp2",
+          "description": "Upstream repository for nghttp2.",
+          "packages": [
+            {
+              "name": "nghttp2",
+              "version": "1.69.0"
+            }
+          ]
+        },
+        {
+          "id": "nghttp3",
+          "name": "nghttp3",
+          "url": "https://github.com/ngtcp2/nghttp3",
+          "description": "Upstream repository for nghttp3.",
+          "packages": [
+            {
+              "name": "nghttp3",
+              "version": "1.18.0"
+            }
+          ]
+        },
+        {
+          "id": "nginx",
+          "name": "nginx",
+          "url": "https://github.com/nginx/nginx",
+          "description": "Upstream repository for nginx.",
+          "packages": [
+            {
+              "name": "nginx",
+              "version": "1.30.4"
+            }
+          ]
+        },
+        {
+          "id": "ngtcp2",
+          "name": "ngtcp2",
+          "url": "https://github.com/ngtcp2/ngtcp2",
+          "description": "Upstream repository for ngtcp2.",
+          "packages": [
+            {
+              "name": "ngtcp2",
+              "version": "1.22.1"
+            }
+          ]
+        },
+        {
+          "id": "ninja",
+          "name": "ninja",
+          "url": "https://github.com/ninja-build/ninja",
+          "description": "Upstream repository for ninja-build.",
+          "packages": [
+            {
+              "name": "ninja-build",
+              "version": "1.13.2"
+            }
+          ]
+        },
+        {
+          "id": "node",
+          "name": "node",
+          "url": "https://github.com/nodejs/node",
+          "description": "Upstream repository for nodejs20, nodejs22, nodejs24, nodejs25, nodejs26.",
+          "packages": [
+            {
+              "name": "nodejs20",
+              "version": "20.20.2"
+            },
+            {
+              "name": "nodejs22",
+              "version": "22.23.2"
+            },
+            {
+              "name": "nodejs24",
+              "version": "24.18.1"
+            },
+            {
+              "name": "nodejs25",
+              "version": "25.9.0"
+            },
+            {
+              "name": "nodejs26",
+              "version": "26.7.0"
+            }
+          ]
+        },
+        {
+          "id": "notofonts-github-io",
+          "name": "notofonts.github.io",
+          "url": "https://github.com/notofonts/notofonts.github.io",
+          "description": "Upstream repository for google-noto-fonts.",
+          "packages": [
+            {
+              "name": "google-noto-fonts",
+              "version": "20260601"
+            }
+          ]
+        },
+        {
+          "id": "npth",
+          "name": "npth",
+          "url": "https://dev.gnupg.org/source/npth",
+          "description": "Upstream repository for npth.",
+          "packages": [
+            {
+              "name": "npth",
+              "version": "1.8"
+            }
+          ]
+        },
+        {
+          "id": "nss",
+          "name": "nss",
+          "url": "https://github.com/nss-dev/nss",
+          "description": "Upstream repository for nss, nss-fips.",
+          "packages": [
+            {
+              "name": "nss",
+              "version": "3.126.0"
+            },
+            {
+              "name": "nss-fips",
+              "version": "3.90.0"
+            }
+          ]
+        },
+        {
+          "id": "numactl",
+          "name": "numactl",
+          "url": "https://github.com/numactl/numactl",
+          "description": "Upstream repository for numactl.",
+          "packages": [
+            {
+              "name": "numactl",
+              "version": "2.0.19"
+            }
+          ]
+        },
+        {
+          "id": "oauth2-proxy",
+          "name": "oauth2-proxy",
+          "url": "https://github.com/oauth2-proxy/oauth2-proxy",
+          "description": "Upstream repository for oauth2-proxy.",
+          "packages": [
+            {
+              "name": "oauth2-proxy",
+              "version": "7.15.3"
+            }
+          ]
+        },
+        {
+          "id": "ocaml-srpm-macros",
+          "name": "ocaml-srpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/ocaml-srpm-macros",
+          "description": "Upstream repository for ocaml-srpm-macros.",
+          "packages": [
+            {
+              "name": "ocaml-srpm-macros",
+              "version": "11"
+            }
+          ]
+        },
+        {
+          "id": "ompi",
+          "name": "ompi",
+          "url": "https://github.com/open-mpi/ompi",
+          "description": "Upstream repository for openmpi.",
+          "packages": [
+            {
+              "name": "openmpi",
+              "version": "5.0.10"
+            }
+          ]
+        },
+        {
+          "id": "onetbb",
+          "name": "oneTBB",
+          "url": "https://github.com/uxlfoundation/oneTBB",
+          "description": "Upstream repository for tbb.",
+          "packages": [
+            {
+              "name": "tbb",
+              "version": "2023.1.0"
+            }
+          ]
+        },
+        {
+          "id": "oniguruma",
+          "name": "oniguruma",
+          "url": "https://github.com/kkos/oniguruma",
+          "description": "Upstream repository for oniguruma.",
+          "packages": [
+            {
+              "name": "oniguruma",
+              "version": "6.9.10"
+            }
+          ]
+        },
+        {
+          "id": "opa-psm2",
+          "name": "opa-psm2",
+          "url": "https://github.com/cornelisnetworks/opa-psm2",
+          "description": "Upstream repository for libpsm2.",
+          "packages": [
+            {
+              "name": "libpsm2",
+              "version": "12.0.1"
+            }
+          ]
+        },
+        {
+          "id": "openblas-srpm-macros",
+          "name": "openblas-srpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/openblas-srpm-macros",
+          "description": "Upstream repository for openblas-srpm-macros.",
+          "packages": [
+            {
+              "name": "openblas-srpm-macros",
+              "version": "2"
+            }
+          ]
+        },
+        {
+          "id": "opendbx",
+          "name": "opendbx",
+          "url": "https://src.fedoraproject.org/rpms/opendbx",
+          "description": "Upstream repository for opendbx.",
+          "packages": [
+            {
+              "name": "opendbx",
+              "version": "1.4.6"
+            }
+          ]
+        },
+        {
+          "id": "openldap",
+          "name": "openldap",
+          "url": "https://git.openldap.org/openldap/openldap",
+          "description": "Upstream repository for openldap.",
+          "packages": [
+            {
+              "name": "openldap",
+              "version": "2.6.13"
+            }
+          ]
+        },
+        {
+          "id": "openpmix",
+          "name": "openpmix",
+          "url": "https://github.com/openpmix/openpmix",
+          "description": "Upstream repository for pmix.",
+          "packages": [
+            {
+              "name": "pmix",
+              "version": "6.1.0"
+            }
+          ]
+        },
+        {
+          "id": "openscap",
+          "name": "openscap",
+          "url": "https://github.com/OpenSCAP/openscap",
+          "description": "Upstream repository for openscap.",
+          "packages": [
+            {
+              "name": "openscap",
+              "version": "1.4.4"
+            }
+          ]
+        },
+        {
+          "id": "openssh-portable",
+          "name": "openssh-portable",
+          "url": "https://github.com/openssh/openssh-portable",
+          "description": "Upstream repository for openssh.",
+          "packages": [
+            {
+              "name": "openssh",
+              "version": "10.4p1"
+            }
+          ]
+        },
+        {
+          "id": "openssl",
+          "name": "openssl",
+          "url": "https://github.com/openssl/openssl",
+          "description": "Upstream repository for openssl, openssl-fips-provider, openssl3.",
+          "packages": [
+            {
+              "name": "openssl",
+              "version": "3.5.6"
+            },
+            {
+              "name": "openssl-fips-provider",
+              "version": "3.0.7"
+            },
+            {
+              "name": "openssl3",
+              "version": "3.5.7"
+            }
+          ]
+        },
+        {
+          "id": "opentelemetry-collector-releases",
+          "name": "opentelemetry-collector-releases",
+          "url": "https://github.com/open-telemetry/opentelemetry-collector-releases",
+          "description": "Upstream repository for opentelemetry-collector, opentelemetry-collector-contrib, opentelemetry-collector-k8s.",
+          "packages": [
+            {
+              "name": "opentelemetry-collector",
+              "version": "0.158.0"
+            },
+            {
+              "name": "opentelemetry-collector-contrib",
+              "version": "0.158.0"
+            },
+            {
+              "name": "opentelemetry-collector-k8s",
+              "version": "0.158.0"
+            }
+          ]
+        },
+        {
+          "id": "opentofu",
+          "name": "opentofu",
+          "url": "https://github.com/opentofu/opentofu",
+          "description": "Upstream repository for opentofu1.10, opentofu1.11, opentofu1.12.",
+          "packages": [
+            {
+              "name": "opentofu1.10",
+              "version": "1.10.10"
+            },
+            {
+              "name": "opentofu1.11",
+              "version": "1.11.13"
+            },
+            {
+              "name": "opentofu1.12",
+              "version": "1.12.5"
+            }
+          ]
+        },
+        {
+          "id": "orangefs",
+          "name": "orangefs",
+          "url": "https://github.com/waltligon/orangefs",
+          "description": "Upstream repository for orangefs.",
+          "packages": [
+            {
+              "name": "orangefs",
+              "version": "2.10.1"
+            }
+          ]
+        },
+        {
+          "id": "oras",
+          "name": "oras",
+          "url": "https://github.com/oras-project/oras",
+          "description": "Upstream repository for oras.",
+          "packages": [
+            {
+              "name": "oras",
+              "version": "1.3.3"
+            }
+          ]
+        },
+        {
+          "id": "ostree",
+          "name": "ostree",
+          "url": "https://github.com/ostreedev/ostree",
+          "description": "Upstream repository for ostree.",
+          "packages": [
+            {
+              "name": "ostree",
+              "version": "2026.2"
+            }
+          ]
+        },
+        {
+          "id": "otp",
+          "name": "otp",
+          "url": "https://github.com/erlang/otp",
+          "description": "Upstream repository for erlang27.",
+          "packages": [
+            {
+              "name": "erlang27",
+              "version": "27.3.4.16"
+            }
+          ]
+        },
+        {
+          "id": "p11-kit",
+          "name": "p11-kit",
+          "url": "https://github.com/p11-glue/p11-kit",
+          "description": "Upstream repository for p11-kit.",
+          "packages": [
+            {
+              "name": "p11-kit",
+              "version": "0.26.5"
+            }
+          ]
+        },
+        {
+          "id": "p5-encode",
+          "name": "p5-encode",
+          "url": "https://github.com/dankogai/p5-encode",
+          "description": "Upstream repository for perl-Encode.",
+          "packages": [
+            {
+              "name": "perl-Encode",
+              "version": "3.24"
+            }
+          ]
+        },
+        {
+          "id": "p5-io-socket-ssl",
+          "name": "p5-io-socket-ssl",
+          "url": "https://github.com/noxxi/p5-io-socket-ssl",
+          "description": "Upstream repository for perl-IO-Socket-SSL.",
+          "packages": [
+            {
+              "name": "perl-IO-Socket-SSL",
+              "version": "2.099"
+            }
+          ]
+        },
+        {
+          "id": "p5-net-ssleay",
+          "name": "p5-net-ssleay",
+          "url": "https://github.com/radiator-software/p5-net-ssleay",
+          "description": "Upstream repository for perl-Net-SSLeay.",
+          "packages": [
+            {
+              "name": "perl-Net-SSLeay",
+              "version": "1.96"
+            }
+          ]
+        },
+        {
+          "id": "package-notes",
+          "name": "package-notes",
+          "url": "https://github.com/systemd/package-notes",
+          "description": "Upstream repository for package-notes.",
+          "packages": [
+            {
+              "name": "package-notes",
+              "version": "0.20"
+            }
+          ]
+        },
+        {
+          "id": "packaging",
+          "name": "packaging",
+          "url": "https://github.com/pypa/packaging",
+          "description": "Upstream repository for python-packaging.",
+          "packages": [
+            {
+              "name": "python-packaging",
+              "version": "26.2"
+            }
+          ]
+        },
+        {
+          "id": "parent",
+          "name": "parent",
+          "url": "https://github.com/Corion/parent",
+          "description": "Upstream repository for perl-parent.",
+          "packages": [
+            {
+              "name": "perl-parent",
+              "version": "0.244"
+            }
+          ]
+        },
+        {
+          "id": "passt",
+          "name": "passt",
+          "url": "https://passt.top/passt",
+          "description": "Upstream repository for passt.",
+          "packages": [
+            {
+              "name": "passt",
+              "version": "0^20260728.gf8df3f1"
+            }
+          ]
+        },
+        {
+          "id": "patch",
+          "name": "patch",
+          "url": "https://git.savannah.gnu.org/git/patch",
+          "description": "Upstream repository for patch.",
+          "packages": [
+            {
+              "name": "patch",
+              "version": "2.8"
+            }
+          ]
+        },
+        {
+          "id": "pcre2",
+          "name": "pcre2",
+          "url": "https://github.com/PCRE2Project/pcre2",
+          "description": "Upstream repository for pcre2.",
+          "packages": [
+            {
+              "name": "pcre2",
+              "version": "10.47"
+            }
+          ]
+        },
+        {
+          "id": "perl-getopt-long",
+          "name": "perl-Getopt-Long",
+          "url": "https://github.com/sciurius/perl-Getopt-Long",
+          "description": "Upstream repository for perl-Getopt-Long.",
+          "packages": [
+            {
+              "name": "perl-Getopt-Long",
+              "version": "2.58"
+            }
+          ]
+        },
+        {
+          "id": "perl-error-pm",
+          "name": "perl-error.pm",
+          "url": "https://github.com/shlomif/perl-error.pm",
+          "description": "Upstream repository for perl-Error.",
+          "packages": [
+            {
+              "name": "perl-Error",
+              "version": "0.17030"
+            }
+          ]
+        },
+        {
+          "id": "perl-libnet",
+          "name": "perl-libnet",
+          "url": "https://github.com/steve-m-hay/perl-libnet",
+          "description": "Upstream repository for perl-libnet.",
+          "packages": [
+            {
+              "name": "perl-libnet",
+              "version": "3.15"
+            }
+          ]
+        },
+        {
+          "id": "perl-srpm-macros",
+          "name": "perl-srpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/perl-srpm-macros",
+          "description": "Upstream repository for perl-srpm-macros.",
+          "packages": [
+            {
+              "name": "perl-srpm-macros",
+              "version": "1"
+            }
+          ]
+        },
+        {
+          "id": "perl5",
+          "name": "perl5",
+          "url": "https://github.com/Perl/perl5",
+          "description": "Upstream repository for perl, perl-Carp, perl-Data-Dumper, perl-Exporter, perl-IO-Socket-IP, perl-PathTools, perl-Socket, perl-Storable, perl-Thread-Queue, perl-Time-HiRes, perl-constant, perl-threads, perl-threads-shared.",
+          "packages": [
+            {
+              "name": "perl",
+              "version": "5.42.2"
+            },
+            {
+              "name": "perl-Carp",
+              "version": "1.54"
+            },
+            {
+              "name": "perl-Data-Dumper",
+              "version": "2.192"
+            },
+            {
+              "name": "perl-Exporter",
+              "version": "5.79"
+            },
+            {
+              "name": "perl-IO-Socket-IP",
+              "version": "0.44"
+            },
+            {
+              "name": "perl-PathTools",
+              "version": "3.95"
+            },
+            {
+              "name": "perl-Socket",
+              "version": "2.041"
+            },
+            {
+              "name": "perl-Storable",
+              "version": "3.41"
+            },
+            {
+              "name": "perl-Thread-Queue",
+              "version": "3.14"
+            },
+            {
+              "name": "perl-Time-HiRes",
+              "version": "1.9780"
+            },
+            {
+              "name": "perl-constant",
+              "version": "1.33"
+            },
+            {
+              "name": "perl-threads",
+              "version": "2.45"
+            },
+            {
+              "name": "perl-threads-shared",
+              "version": "1.73"
+            }
+          ]
+        },
+        {
+          "id": "pgbouncer",
+          "name": "pgbouncer",
+          "url": "https://github.com/pgbouncer/pgbouncer",
+          "description": "Upstream repository for pgbouncer.",
+          "packages": [
+            {
+              "name": "pgbouncer",
+              "version": "1.25.2"
+            }
+          ]
+        },
+        {
+          "id": "php-pecl-zip",
+          "name": "php-pecl-zip",
+          "url": "https://src.fedoraproject.org/rpms/php-pecl-zip",
+          "description": "Upstream repository for php-pecl-zip.",
+          "packages": [
+            {
+              "name": "php-pecl-zip",
+              "version": "1.22.8"
+            }
+          ]
+        },
+        {
+          "id": "php-src",
+          "name": "php-src",
+          "url": "https://github.com/php/php-src",
+          "description": "Upstream repository for php.",
+          "packages": [
+            {
+              "name": "php",
+              "version": "8.5.9"
+            }
+          ]
+        },
+        {
+          "id": "pip",
+          "name": "pip",
+          "url": "https://github.com/pypa/pip",
+          "description": "Upstream repository for python-pip.",
+          "packages": [
+            {
+              "name": "python-pip",
+              "version": "26.2"
+            }
+          ]
+        },
+        {
+          "id": "pkgconf",
+          "name": "pkgconf",
+          "url": "https://github.com/pkgconf/pkgconf",
+          "description": "Upstream repository for pkgconf.",
+          "packages": [
+            {
+              "name": "pkgconf",
+              "version": "2.5.1"
+            }
+          ]
+        },
+        {
+          "id": "pluggy",
+          "name": "pluggy",
+          "url": "https://github.com/pytest-dev/pluggy",
+          "description": "Upstream repository for python-pluggy.",
+          "packages": [
+            {
+              "name": "python-pluggy",
+              "version": "1.6.0"
+            }
+          ]
+        },
+        {
+          "id": "pod-simple",
+          "name": "pod-simple",
+          "url": "https://github.com/perl-pod/pod-simple",
+          "description": "Upstream repository for perl-Pod-Simple.",
+          "packages": [
+            {
+              "name": "perl-Pod-Simple",
+              "version": "3.48"
+            }
+          ]
+        },
+        {
+          "id": "podlators",
+          "name": "podlators",
+          "url": "https://github.com/rra/podlators",
+          "description": "Upstream repository for perl-podlators.",
+          "packages": [
+            {
+              "name": "perl-podlators",
+              "version": "6.1.0"
+            }
+          ]
+        },
+        {
+          "id": "podman",
+          "name": "podman",
+          "url": "https://github.com/containers/podman",
+          "description": "Upstream repository for podman.",
+          "packages": [
+            {
+              "name": "podman",
+              "version": "6.0.2"
+            }
+          ]
+        },
+        {
+          "id": "podman-sequoia",
+          "name": "podman-sequoia",
+          "url": "https://github.com/ueno/podman-sequoia",
+          "description": "Upstream repository for rust-podman-sequoia.",
+          "packages": [
+            {
+              "name": "rust-podman-sequoia",
+              "version": "0.3.2"
+            }
+          ]
+        },
+        {
+          "id": "polkit",
+          "name": "polkit",
+          "url": "https://gitlab.freedesktop.org/polkit/polkit",
+          "description": "Upstream repository for polkit.",
+          "packages": [
+            {
+              "name": "polkit",
+              "version": "127"
+            }
+          ]
+        },
+        {
+          "id": "poppler",
+          "name": "poppler",
+          "url": "https://gitlab.freedesktop.org/poppler/poppler",
+          "description": "Upstream repository for poppler.",
+          "packages": [
+            {
+              "name": "poppler",
+              "version": "26.06.0"
+            }
+          ]
+        },
+        {
+          "id": "popt",
+          "name": "popt",
+          "url": "https://github.com/rpm-software-management/popt",
+          "description": "Upstream repository for popt.",
+          "packages": [
+            {
+              "name": "popt",
+              "version": "1.19"
+            }
+          ]
+        },
+        {
+          "id": "postgres",
+          "name": "postgres",
+          "url": "https://github.com/postgres/postgres",
+          "description": "Upstream repository for postgresql17, postgresql18.",
+          "packages": [
+            {
+              "name": "postgresql17",
+              "version": "17.11"
+            },
+            {
+              "name": "postgresql18",
+              "version": "18.6"
+            }
+          ]
+        },
+        {
+          "id": "procps",
+          "name": "procps",
+          "url": "https://gitlab.com/procps-ng/procps",
+          "description": "Upstream repository for procps-ng.",
+          "packages": [
+            {
+              "name": "procps-ng",
+              "version": "4.0.6"
+            }
+          ]
+        },
+        {
+          "id": "productmd",
+          "name": "productmd",
+          "url": "https://github.com/release-engineering/productmd",
+          "description": "Upstream repository for python-productmd.",
+          "packages": [
+            {
+              "name": "python-productmd",
+              "version": "1.50"
+            }
+          ]
+        },
+        {
+          "id": "prometheus",
+          "name": "prometheus",
+          "url": "https://github.com/prometheus/prometheus",
+          "description": "Upstream repository for prometheus3.13, prometheus3.5.",
+          "packages": [
+            {
+              "name": "prometheus3.13",
+              "version": "3.13.2"
+            },
+            {
+              "name": "prometheus3.5",
+              "version": "3.5.5"
+            }
+          ]
+        },
+        {
+          "id": "protobuf",
+          "name": "protobuf",
+          "url": "https://github.com/protocolbuffers/protobuf",
+          "description": "Upstream repository for protobuf.",
+          "packages": [
+            {
+              "name": "protobuf",
+              "version": "35.1"
+            }
+          ]
+        },
+        {
+          "id": "protobuf-c",
+          "name": "protobuf-c",
+          "url": "https://github.com/protobuf-c/protobuf-c",
+          "description": "Upstream repository for protobuf-c.",
+          "packages": [
+            {
+              "name": "protobuf-c",
+              "version": "1.5.2"
+            }
+          ]
+        },
+        {
+          "id": "prrte",
+          "name": "prrte",
+          "url": "https://github.com/openpmix/prrte",
+          "description": "Upstream repository for prrte.",
+          "packages": [
+            {
+              "name": "prrte",
+              "version": "4.1.0"
+            }
+          ]
+        },
+        {
+          "id": "psmisc",
+          "name": "psmisc",
+          "url": "https://gitlab.com/psmisc/psmisc",
+          "description": "Upstream repository for psmisc.",
+          "packages": [
+            {
+              "name": "psmisc",
+              "version": "23.7"
+            }
+          ]
+        },
+        {
+          "id": "pycparser",
+          "name": "pycparser",
+          "url": "https://github.com/eliben/pycparser",
+          "description": "Upstream repository for python-pycparser.",
+          "packages": [
+            {
+              "name": "python-pycparser",
+              "version": "3.00"
+            }
+          ]
+        },
+        {
+          "id": "pygments",
+          "name": "pygments",
+          "url": "https://github.com/pygments/pygments",
+          "description": "Upstream repository for python-pygments.",
+          "packages": [
+            {
+              "name": "python-pygments",
+              "version": "2.20.0"
+            }
+          ]
+        },
+        {
+          "id": "pygobject",
+          "name": "pygobject",
+          "url": "https://gitlab.gnome.org/GNOME/pygobject",
+          "description": "Upstream repository for pygobject3.",
+          "packages": [
+            {
+              "name": "pygobject3",
+              "version": "3.57.0"
+            }
+          ]
+        },
+        {
+          "id": "pyopenssl",
+          "name": "pyopenssl",
+          "url": "https://github.com/pyca/pyopenssl",
+          "description": "Upstream repository for pyOpenSSL.",
+          "packages": [
+            {
+              "name": "pyOpenSSL",
+              "version": "26.3.0"
+            }
+          ]
+        },
+        {
+          "id": "pyproject-rpm-macros",
+          "name": "pyproject-rpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/pyproject-rpm-macros",
+          "description": "Upstream repository for pyproject-rpm-macros.",
+          "packages": [
+            {
+              "name": "pyproject-rpm-macros",
+              "version": "1.23.2"
+            }
+          ]
+        },
+        {
+          "id": "pytest",
+          "name": "pytest",
+          "url": "https://github.com/pytest-dev/pytest",
+          "description": "Upstream repository for pytest.",
+          "packages": [
+            {
+              "name": "pytest",
+              "version": "9.1.1"
+            }
+          ]
+        },
+        {
+          "id": "python-certifi",
+          "name": "python-certifi",
+          "url": "https://github.com/certifi/python-certifi",
+          "description": "Upstream repository for python-certifi.",
+          "packages": [
+            {
+              "name": "python-certifi",
+              "version": "2026.01.04"
+            }
+          ]
+        },
+        {
+          "id": "python-gitlab",
+          "name": "python-gitlab",
+          "url": "https://github.com/python-gitlab/python-gitlab",
+          "description": "Upstream repository for python-gitlab.",
+          "packages": [
+            {
+              "name": "python-gitlab",
+              "version": "8.4.0"
+            }
+          ]
+        },
+        {
+          "id": "python-pathspec",
+          "name": "python-pathspec",
+          "url": "https://github.com/cpburnz/python-pathspec",
+          "description": "Upstream repository for python-pathspec.",
+          "packages": [
+            {
+              "name": "python-pathspec",
+              "version": "1.1.1"
+            }
+          ]
+        },
+        {
+          "id": "python-rpm-macros",
+          "name": "python-rpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/python-rpm-macros",
+          "description": "Upstream repository for python-rpm-macros.",
+          "packages": [
+            {
+              "name": "python-rpm-macros",
+              "version": "3.14"
+            }
+          ]
+        },
+        {
+          "id": "pyyaml",
+          "name": "pyyaml",
+          "url": "https://github.com/yaml/pyyaml",
+          "description": "Upstream repository for PyYAML.",
+          "packages": [
+            {
+              "name": "PyYAML",
+              "version": "6.0.3"
+            }
+          ]
+        },
+        {
+          "id": "qt5",
+          "name": "qt5",
+          "url": "https://code.qt.io/qt/qt5",
+          "description": "Upstream repository for qt5.",
+          "packages": [
+            {
+              "name": "qt5",
+              "version": "5.15.18"
+            }
+          ]
+        },
+        {
+          "id": "qtbase",
+          "name": "qtbase",
+          "url": "https://github.com/qt/qtbase",
+          "description": "Upstream repository for qt5-qtbase, qt6-qtbase.",
+          "packages": [
+            {
+              "name": "qt5-qtbase",
+              "version": "5.15.18"
+            },
+            {
+              "name": "qt6-qtbase",
+              "version": "6.11.1"
+            }
+          ]
+        },
+        {
+          "id": "qtbase-2",
+          "name": "qtbase",
+          "url": "https://code.qt.io/qt/qtbase",
+          "description": "Upstream repository for qt6.",
+          "packages": [
+            {
+              "name": "qt6",
+              "version": "6.11.1"
+            }
+          ]
+        },
+        {
+          "id": "qtsvg",
+          "name": "qtsvg",
+          "url": "https://github.com/qt/qtsvg",
+          "description": "Upstream repository for qt6-qtsvg.",
+          "packages": [
+            {
+              "name": "qt6-qtsvg",
+              "version": "6.11.1"
+            }
+          ]
+        },
+        {
+          "id": "rabbitmq-server",
+          "name": "rabbitmq-server",
+          "url": "https://github.com/rabbitmq/rabbitmq-server",
+          "description": "Upstream repository for rabbitmq-server4.2, rabbitmq-server4.3.",
+          "packages": [
+            {
+              "name": "rabbitmq-server4.2",
+              "version": "4.2.9"
+            },
+            {
+              "name": "rabbitmq-server4.3",
+              "version": "4.3.4"
+            }
+          ]
+        },
+        {
+          "id": "rav1e",
+          "name": "rav1e",
+          "url": "https://github.com/xiph/rav1e",
+          "description": "Upstream repository for rust-rav1e.",
+          "packages": [
+            {
+              "name": "rust-rav1e",
+              "version": "0.8.1"
+            }
+          ]
+        },
+        {
+          "id": "rdma-core",
+          "name": "rdma-core",
+          "url": "https://github.com/linux-rdma/rdma-core",
+          "description": "Upstream repository for rdma-core.",
+          "packages": [
+            {
+              "name": "rdma-core",
+              "version": "64.0"
+            }
+          ]
+        },
+        {
+          "id": "re2",
+          "name": "re2",
+          "url": "https://github.com/google/re2",
+          "description": "Upstream repository for re2.",
+          "packages": [
+            {
+              "name": "re2",
+              "version": "20251105"
+            }
+          ]
+        },
+        {
+          "id": "readline",
+          "name": "readline",
+          "url": "https://git.savannah.gnu.org/git/readline",
+          "description": "Upstream repository for readline.",
+          "packages": [
+            {
+              "name": "readline",
+              "version": "8.3"
+            }
+          ]
+        },
+        {
+          "id": "redhat-rpm-config",
+          "name": "redhat-rpm-config",
+          "url": "https://src.fedoraproject.org/rpms/redhat-rpm-config",
+          "description": "Upstream repository for redhat-rpm-config.",
+          "packages": [
+            {
+              "name": "redhat-rpm-config",
+              "version": "344"
+            }
+          ]
+        },
+        {
+          "id": "referencing",
+          "name": "referencing",
+          "url": "https://github.com/python-jsonschema/referencing",
+          "description": "Upstream repository for python-referencing.",
+          "packages": [
+            {
+              "name": "python-referencing",
+              "version": "0.37.0"
+            }
+          ]
+        },
+        {
+          "id": "requests",
+          "name": "requests",
+          "url": "https://github.com/psf/requests",
+          "description": "Upstream repository for python-requests.",
+          "packages": [
+            {
+              "name": "python-requests",
+              "version": "2.34.2"
+            }
+          ]
+        },
+        {
+          "id": "rootfiles",
+          "name": "rootfiles",
+          "url": "https://src.fedoraproject.org/rpms/rootfiles",
+          "description": "Upstream repository for rootfiles.",
+          "packages": [
+            {
+              "name": "rootfiles",
+              "version": "9.0"
+            }
+          ]
+        },
+        {
+          "id": "rpds",
+          "name": "rpds",
+          "url": "https://github.com/crate-py/rpds",
+          "description": "Upstream repository for python-rpds-py.",
+          "packages": [
+            {
+              "name": "python-rpds-py",
+              "version": "2026.6.3"
+            }
+          ]
+        },
+        {
+          "id": "rpds-2",
+          "name": "rpds",
+          "url": "https://github.com/orium/rpds",
+          "description": "Upstream repository for rust-rpds.",
+          "packages": [
+            {
+              "name": "rust-rpds",
+              "version": "1.2.1"
+            }
+          ]
+        },
+        {
+          "id": "rpm",
+          "name": "rpm",
+          "url": "https://github.com/rpm-software-management/rpm",
+          "description": "Upstream repository for rpm.",
+          "packages": [
+            {
+              "name": "rpm",
+              "version": "6.0.1"
+            }
+          ]
+        },
+        {
+          "id": "rpm-lockfile-prototype",
+          "name": "rpm-lockfile-prototype",
+          "url": "https://github.com/konflux-ci/rpm-lockfile-prototype",
+          "description": "Upstream repository for python-rpm-lockfile-prototype.",
+          "packages": [
+            {
+              "name": "python-rpm-lockfile-prototype",
+              "version": "0.30.0"
+            }
+          ]
+        },
+        {
+          "id": "rpm-sequoia",
+          "name": "rpm-sequoia",
+          "url": "https://github.com/rpm-software-management/rpm-sequoia",
+          "description": "Upstream repository for rust-rpm-sequoia.",
+          "packages": [
+            {
+              "name": "rust-rpm-sequoia",
+              "version": "1.10.1.1"
+            }
+          ]
+        },
+        {
+          "id": "rpms",
+          "name": "rpms",
+          "url": "https://gitlab.com/redhat/hummingbird/rpms",
+          "description": "Upstream repository for hummingbird-release.",
+          "packages": [
+            {
+              "name": "hummingbird-release",
+              "version": "20251124"
+            }
+          ]
+        },
+        {
+          "id": "ruby",
+          "name": "ruby",
+          "url": "https://github.com/ruby/ruby",
+          "description": "Upstream repository for ruby3.3, ruby3.4, ruby4.0.",
+          "packages": [
+            {
+              "name": "ruby3.3",
+              "version": "3.3.10"
+            },
+            {
+              "name": "ruby3.4",
+              "version": "3.4.10"
+            },
+            {
+              "name": "ruby4.0",
+              "version": "4.0.6"
+            }
+          ]
+        },
+        {
+          "id": "rubypick",
+          "name": "rubypick",
+          "url": "https://github.com/fedora-ruby/rubypick",
+          "description": "Upstream repository for rubypick.",
+          "packages": [
+            {
+              "name": "rubypick",
+              "version": "1.1.1"
+            }
+          ]
+        },
+        {
+          "id": "ruff",
+          "name": "ruff",
+          "url": "https://github.com/astral-sh/ruff",
+          "description": "Upstream repository for ruff.",
+          "packages": [
+            {
+              "name": "ruff",
+              "version": "0.15.11"
+            }
+          ]
+        },
+        {
+          "id": "runtime",
+          "name": "runtime",
+          "url": "https://github.com/dotnet/runtime",
+          "description": "Upstream repository for dotnet10.0, dotnet8.0, dotnet9.0.",
+          "packages": [
+            {
+              "name": "dotnet10.0",
+              "version": "10.0.110"
+            },
+            {
+              "name": "dotnet8.0",
+              "version": "8.0.129"
+            },
+            {
+              "name": "dotnet9.0",
+              "version": "9.0.119"
+            }
+          ]
+        },
+        {
+          "id": "rust",
+          "name": "rust",
+          "url": "https://github.com/rust-lang/rust",
+          "description": "Upstream repository for rust.",
+          "packages": [
+            {
+              "name": "rust",
+              "version": "1.97.1"
+            }
+          ]
+        },
+        {
+          "id": "sdbus-cpp",
+          "name": "sdbus-cpp",
+          "url": "https://github.com/Kistler-Group/sdbus-cpp",
+          "description": "Upstream repository for sdbus-cpp.",
+          "packages": [
+            {
+              "name": "sdbus-cpp",
+              "version": "2.3.1"
+            }
+          ]
+        },
+        {
+          "id": "sed",
+          "name": "sed",
+          "url": "https://git.savannah.gnu.org/git/sed",
+          "description": "Upstream repository for sed.",
+          "packages": [
+            {
+              "name": "sed",
+              "version": "4.10"
+            }
+          ]
+        },
+        {
+          "id": "selinux",
+          "name": "selinux",
+          "url": "https://github.com/SELinuxProject/selinux",
+          "description": "Upstream repository for checkpolicy, libselinux, libsemanage, libsepol, policycoreutils.",
+          "packages": [
+            {
+              "name": "checkpolicy",
+              "version": "3.11"
+            },
+            {
+              "name": "libselinux",
+              "version": "3.11"
+            },
+            {
+              "name": "libsemanage",
+              "version": "3.11"
+            },
+            {
+              "name": "libsepol",
+              "version": "3.11"
+            },
+            {
+              "name": "policycoreutils",
+              "version": "3.11"
+            }
+          ]
+        },
+        {
+          "id": "selinux-policy",
+          "name": "selinux-policy",
+          "url": "https://github.com/fedora-selinux/selinux-policy",
+          "description": "Upstream repository for selinux-policy.",
+          "packages": [
+            {
+              "name": "selinux-policy",
+              "version": "45.11"
+            }
+          ]
+        },
+        {
+          "id": "sentry-python",
+          "name": "sentry-python",
+          "url": "https://github.com/getsentry/sentry-python",
+          "description": "Upstream repository for python-sentry-sdk.",
+          "packages": [
+            {
+              "name": "python-sentry-sdk",
+              "version": "2.48.0"
+            }
+          ]
+        },
+        {
+          "id": "server",
+          "name": "server",
+          "url": "https://github.com/MariaDB/server",
+          "description": "Upstream repository for mariadb10.11, mariadb11.8.",
+          "packages": [
+            {
+              "name": "mariadb10.11",
+              "version": "10.11.18"
+            },
+            {
+              "name": "mariadb11.8",
+              "version": "11.8.8"
+            }
+          ]
+        },
+        {
+          "id": "setup",
+          "name": "setup",
+          "url": "https://src.fedoraproject.org/rpms/setup",
+          "description": "Upstream repository for setup.",
+          "packages": [
+            {
+              "name": "setup",
+              "version": "2.15.1"
+            }
+          ]
+        },
+        {
+          "id": "setuptools",
+          "name": "setuptools",
+          "url": "https://github.com/pypa/setuptools",
+          "description": "Upstream repository for python-setuptools.",
+          "packages": [
+            {
+              "name": "python-setuptools",
+              "version": "83.0.0"
+            }
+          ]
+        },
+        {
+          "id": "sgml-common",
+          "name": "sgml-common",
+          "url": "https://src.fedoraproject.org/rpms/sgml-common",
+          "description": "Upstream repository for sgml-common.",
+          "packages": [
+            {
+              "name": "sgml-common",
+              "version": "0.6.3"
+            }
+          ]
+        },
+        {
+          "id": "shadow",
+          "name": "shadow",
+          "url": "https://github.com/shadow-maint/shadow",
+          "description": "Upstream repository for shadow-utils.",
+          "packages": [
+            {
+              "name": "shadow-utils",
+              "version": "4.20.0"
+            }
+          ]
+        },
+        {
+          "id": "shellcheck",
+          "name": "shellcheck",
+          "url": "https://github.com/koalaman/shellcheck",
+          "description": "Upstream repository for ShellCheck.",
+          "packages": [
+            {
+              "name": "ShellCheck",
+              "version": "0.11.0"
+            }
+          ]
+        },
+        {
+          "id": "skopeo",
+          "name": "skopeo",
+          "url": "https://github.com/containers/skopeo",
+          "description": "Upstream repository for skopeo.",
+          "packages": [
+            {
+              "name": "skopeo",
+              "version": "1.24.0"
+            }
+          ]
+        },
+        {
+          "id": "snappy",
+          "name": "snappy",
+          "url": "https://github.com/google/snappy",
+          "description": "Upstream repository for snappy.",
+          "packages": [
+            {
+              "name": "snappy",
+              "version": "1.2.2"
+            }
+          ]
+        },
+        {
+          "id": "spdlog",
+          "name": "spdlog",
+          "url": "https://github.com/gabime/spdlog",
+          "description": "Upstream repository for spdlog.",
+          "packages": [
+            {
+              "name": "spdlog",
+              "version": "1.17.0"
+            }
+          ]
+        },
+        {
+          "id": "specfile",
+          "name": "specfile",
+          "url": "https://github.com/packit/specfile",
+          "description": "Upstream repository for python-specfile.",
+          "packages": [
+            {
+              "name": "python-specfile",
+              "version": "0.41.1"
+            }
+          ]
+        },
+        {
+          "id": "spire",
+          "name": "spire",
+          "url": "https://github.com/spiffe/spire",
+          "description": "Upstream repository for spire1.14, spire1.15.",
+          "packages": [
+            {
+              "name": "spire1.14",
+              "version": "1.14.7"
+            },
+            {
+              "name": "spire1.15",
+              "version": "1.15.2"
+            }
+          ]
+        },
+        {
+          "id": "sqlite",
+          "name": "sqlite",
+          "url": "https://github.com/sqlite/sqlite",
+          "description": "Upstream repository for sqlite.",
+          "packages": [
+            {
+              "name": "sqlite",
+              "version": "3.53.4"
+            }
+          ]
+        },
+        {
+          "id": "src",
+          "name": "src",
+          "url": "https://github.com/NetBSD/src",
+          "description": "Upstream repository for libedit.",
+          "packages": [
+            {
+              "name": "libedit",
+              "version": "3.1"
+            }
+          ]
+        },
+        {
+          "id": "src-highlite",
+          "name": "src-highlite",
+          "url": "https://git.savannah.gnu.org/git/src-highlite",
+          "description": "Upstream repository for source-highlight.",
+          "packages": [
+            {
+              "name": "source-highlight",
+              "version": "3.1.9"
+            }
+          ]
+        },
+        {
+          "id": "subversion",
+          "name": "subversion",
+          "url": "https://github.com/apache/subversion",
+          "description": "Upstream repository for subversion.",
+          "packages": [
+            {
+              "name": "subversion",
+              "version": "1.14.5"
+            }
+          ]
+        },
+        {
+          "id": "sudo",
+          "name": "sudo",
+          "url": "https://github.com/sudo-project/sudo",
+          "description": "Upstream repository for sudo.",
+          "packages": [
+            {
+              "name": "sudo",
+              "version": "1.9.17"
+            }
+          ]
+        },
+        {
+          "id": "swift",
+          "name": "swift",
+          "url": "https://github.com/swiftlang/swift",
+          "description": "Upstream repository for swift-lang.",
+          "packages": [
+            {
+              "name": "swift-lang",
+              "version": "6.3.3"
+            }
+          ]
+        },
+        {
+          "id": "syft",
+          "name": "syft",
+          "url": "https://github.com/anchore/syft",
+          "description": "Upstream repository for syft.",
+          "packages": [
+            {
+              "name": "syft",
+              "version": "1.51.0"
+            }
+          ]
+        },
+        {
+          "id": "sysprof",
+          "name": "sysprof",
+          "url": "https://gitlab.gnome.org/GNOME/sysprof",
+          "description": "Upstream repository for sysprof.",
+          "packages": [
+            {
+              "name": "sysprof",
+              "version": "50~rc"
+            }
+          ]
+        },
+        {
+          "id": "systemd",
+          "name": "systemd",
+          "url": "https://github.com/systemd/systemd",
+          "description": "Upstream repository for systemd, systemd-stub.",
+          "packages": [
+            {
+              "name": "systemd",
+              "version": "261.2"
+            },
+            {
+              "name": "systemd-stub",
+              "version": "1"
+            }
+          ]
+        },
+        {
+          "id": "tar",
+          "name": "tar",
+          "url": "https://git.savannah.gnu.org/git/tar",
+          "description": "Upstream repository for tar.",
+          "packages": [
+            {
+              "name": "tar",
+              "version": "1.35"
+            }
+          ]
+        },
+        {
+          "id": "tcl",
+          "name": "tcl",
+          "url": "https://github.com/tcltk/tcl",
+          "description": "Upstream repository for tcl.",
+          "packages": [
+            {
+              "name": "tcl",
+              "version": "9.0.3"
+            }
+          ]
+        },
+        {
+          "id": "tempo",
+          "name": "tempo",
+          "url": "https://github.com/grafana/tempo",
+          "description": "Upstream repository for tempo2.10, tempo3.0.",
+          "packages": [
+            {
+              "name": "tempo2.10",
+              "version": "2.10.8"
+            },
+            {
+              "name": "tempo3.0",
+              "version": "3.0.2"
+            }
+          ]
+        },
+        {
+          "id": "thrift",
+          "name": "thrift",
+          "url": "https://github.com/apache/thrift",
+          "description": "Upstream repository for thrift.",
+          "packages": [
+            {
+              "name": "thrift",
+              "version": "0.24.0"
+            }
+          ]
+        },
+        {
+          "id": "tinysparql",
+          "name": "tinysparql",
+          "url": "https://gitlab.gnome.org/GNOME/tinysparql",
+          "description": "Upstream repository for tinysparql.",
+          "packages": [
+            {
+              "name": "tinysparql",
+              "version": "3.11.1"
+            }
+          ]
+        },
+        {
+          "id": "tk",
+          "name": "tk",
+          "url": "https://github.com/tcltk/tk",
+          "description": "Upstream repository for tk.",
+          "packages": [
+            {
+              "name": "tk",
+              "version": "9.0.3"
+            }
+          ]
+        },
+        {
+          "id": "tomcat",
+          "name": "tomcat",
+          "url": "https://github.com/apache/tomcat",
+          "description": "Upstream repository for tomcat10, tomcat11.",
+          "packages": [
+            {
+              "name": "tomcat10",
+              "version": "10.1.57"
+            },
+            {
+              "name": "tomcat11",
+              "version": "11.0.24"
+            }
+          ]
+        },
+        {
+          "id": "toolbelt",
+          "name": "toolbelt",
+          "url": "https://github.com/requests/toolbelt",
+          "description": "Upstream repository for python-requests-toolbelt.",
+          "packages": [
+            {
+              "name": "python-requests-toolbelt",
+              "version": "1.0.0"
+            }
+          ]
+        },
+        {
+          "id": "tpm2-tss",
+          "name": "tpm2-tss",
+          "url": "https://github.com/tpm2-software/tpm2-tss",
+          "description": "Upstream repository for tpm2-tss.",
+          "packages": [
+            {
+              "name": "tpm2-tss",
+              "version": "4.2.0"
+            }
+          ]
+        },
+        {
+          "id": "tree-sitter-srpm-macros",
+          "name": "tree-sitter-srpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/tree-sitter-srpm-macros",
+          "description": "Upstream repository for tree-sitter-srpm-macros.",
+          "packages": [
+            {
+              "name": "tree-sitter-srpm-macros",
+              "version": "0.4.6"
+            }
+          ]
+        },
+        {
+          "id": "trivy",
+          "name": "trivy",
+          "url": "https://github.com/aquasecurity/trivy",
+          "description": "Upstream repository for trivy.",
+          "packages": [
+            {
+              "name": "trivy",
+              "version": "0.73.0"
+            }
+          ]
+        },
+        {
+          "id": "trustme",
+          "name": "trustme",
+          "url": "https://github.com/python-trio/trustme",
+          "description": "Upstream repository for python-trustme.",
+          "packages": [
+            {
+              "name": "python-trustme",
+              "version": "1.2.1"
+            }
+          ]
+        },
+        {
+          "id": "ttmkfdir",
+          "name": "ttmkfdir",
+          "url": "https://src.fedoraproject.org/rpms/ttmkfdir",
+          "description": "Upstream repository for ttmkfdir.",
+          "packages": [
+            {
+              "name": "ttmkfdir",
+              "version": "3.0.9"
+            }
+          ]
+        },
+        {
+          "id": "typeshed",
+          "name": "typeshed",
+          "url": "https://github.com/python/typeshed",
+          "description": "Upstream repository for python-types-pyyaml, python-types-requests.",
+          "packages": [
+            {
+              "name": "python-types-pyyaml",
+              "version": "6.0.1"
+            },
+            {
+              "name": "python-types-requests",
+              "version": "2.32.4.20260107"
+            }
+          ]
+        },
+        {
+          "id": "typing-extensions",
+          "name": "typing_extensions",
+          "url": "https://github.com/python/typing_extensions",
+          "description": "Upstream repository for python-typing-extensions.",
+          "packages": [
+            {
+              "name": "python-typing-extensions",
+              "version": "4.16.0"
+            }
+          ]
+        },
+        {
+          "id": "tzdata",
+          "name": "tzdata",
+          "url": "https://src.fedoraproject.org/rpms/tzdata",
+          "description": "Upstream repository for tzdata.",
+          "packages": [
+            {
+              "name": "tzdata",
+              "version": "2026c"
+            }
+          ]
+        },
+        {
+          "id": "ucx",
+          "name": "ucx",
+          "url": "https://github.com/openucx/ucx",
+          "description": "Upstream repository for ucx.",
+          "packages": [
+            {
+              "name": "ucx",
+              "version": "1.22.0"
+            }
+          ]
+        },
+        {
+          "id": "unbound",
+          "name": "unbound",
+          "url": "https://github.com/NLnetLabs/unbound",
+          "description": "Upstream repository for unbound.",
+          "packages": [
+            {
+              "name": "unbound",
+              "version": "1.26.0"
+            }
+          ]
+        },
+        {
+          "id": "unzip",
+          "name": "unzip",
+          "url": "https://src.fedoraproject.org/rpms/unzip",
+          "description": "Upstream repository for unzip.",
+          "packages": [
+            {
+              "name": "unzip",
+              "version": "6.0"
+            }
+          ]
+        },
+        {
+          "id": "uriparser",
+          "name": "uriparser",
+          "url": "https://github.com/uriparser/uriparser",
+          "description": "Upstream repository for uriparser.",
+          "packages": [
+            {
+              "name": "uriparser",
+              "version": "1.0.2"
+            }
+          ]
+        },
+        {
+          "id": "urllib3",
+          "name": "urllib3",
+          "url": "https://github.com/urllib3/urllib3",
+          "description": "Upstream repository for python-urllib3.",
+          "packages": [
+            {
+              "name": "python-urllib3",
+              "version": "2.7.0"
+            }
+          ]
+        },
+        {
+          "id": "userspace-rcu",
+          "name": "userspace-rcu",
+          "url": "https://github.com/urcu/userspace-rcu",
+          "description": "Upstream repository for userspace-rcu.",
+          "packages": [
+            {
+              "name": "userspace-rcu",
+              "version": "0.15.6"
+            }
+          ]
+        },
+        {
+          "id": "utf8proc",
+          "name": "utf8proc",
+          "url": "https://github.com/JuliaStrings/utf8proc",
+          "description": "Upstream repository for utf8proc.",
+          "packages": [
+            {
+              "name": "utf8proc",
+              "version": "2.11.3"
+            }
+          ]
+        },
+        {
+          "id": "util-linux",
+          "name": "util-linux",
+          "url": "https://github.com/util-linux/util-linux",
+          "description": "Upstream repository for util-linux.",
+          "packages": [
+            {
+              "name": "util-linux",
+              "version": "2.42.2"
+            }
+          ]
+        },
+        {
+          "id": "uuid",
+          "name": "uuid",
+          "url": "https://src.fedoraproject.org/rpms/uuid",
+          "description": "Upstream repository for uuid.",
+          "packages": [
+            {
+              "name": "uuid",
+              "version": "1.6.2"
+            }
+          ]
+        },
+        {
+          "id": "valkey",
+          "name": "valkey",
+          "url": "https://github.com/valkey-io/valkey",
+          "description": "Upstream repository for valkey.",
+          "packages": [
+            {
+              "name": "valkey",
+              "version": "9.0.5"
+            }
+          ]
+        },
+        {
+          "id": "vim",
+          "name": "vim",
+          "url": "https://github.com/vim/vim",
+          "description": "Upstream repository for vim.",
+          "packages": [
+            {
+              "name": "vim",
+              "version": "9.2.920"
+            }
+          ]
+        },
+        {
+          "id": "vmaf",
+          "name": "vmaf",
+          "url": "https://github.com/Netflix/vmaf",
+          "description": "Upstream repository for vmaf.",
+          "packages": [
+            {
+              "name": "vmaf",
+              "version": "3.2.0"
+            }
+          ]
+        },
+        {
+          "id": "which",
+          "name": "which",
+          "url": "https://git.savannah.gnu.org/git/which",
+          "description": "Upstream repository for which.",
+          "packages": [
+            {
+              "name": "which",
+              "version": "2.25"
+            }
+          ]
+        },
+        {
+          "id": "xcaddy",
+          "name": "xcaddy",
+          "url": "https://github.com/caddyserver/xcaddy",
+          "description": "Upstream repository for xcaddy.",
+          "packages": [
+            {
+              "name": "xcaddy",
+              "version": "0.4.6"
+            }
+          ]
+        },
+        {
+          "id": "xkeyboard-config",
+          "name": "xkeyboard-config",
+          "url": "https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config",
+          "description": "Upstream repository for xkeyboard-config.",
+          "packages": [
+            {
+              "name": "xkeyboard-config",
+              "version": "2.48"
+            }
+          ]
+        },
+        {
+          "id": "xmlsec",
+          "name": "xmlsec",
+          "url": "https://github.com/lsh123/xmlsec",
+          "description": "Upstream repository for xmlsec1.",
+          "packages": [
+            {
+              "name": "xmlsec1",
+              "version": "1.3.11"
+            }
+          ]
+        },
+        {
+          "id": "xxhash",
+          "name": "xxHash",
+          "url": "https://github.com/Cyan4973/xxHash",
+          "description": "Upstream repository for xxhash.",
+          "packages": [
+            {
+              "name": "xxhash",
+              "version": "0.8.3"
+            }
+          ]
+        },
+        {
+          "id": "xz",
+          "name": "xz",
+          "url": "https://github.com/tukaani-project/xz",
+          "description": "Upstream repository for xz.",
+          "packages": [
+            {
+              "name": "xz",
+              "version": "5.8.3"
+            }
+          ]
+        },
+        {
+          "id": "yq",
+          "name": "yq",
+          "url": "https://github.com/mikefarah/yq",
+          "description": "Upstream repository for yq.",
+          "packages": [
+            {
+              "name": "yq",
+              "version": "4.53.3"
+            }
+          ]
+        },
+        {
+          "id": "zchunk",
+          "name": "zchunk",
+          "url": "https://github.com/zchunk/zchunk",
+          "description": "Upstream repository for zchunk.",
+          "packages": [
+            {
+              "name": "zchunk",
+              "version": "1.5.4"
+            }
+          ]
+        },
+        {
+          "id": "zig-srpm-macros",
+          "name": "zig-srpm-macros",
+          "url": "https://src.fedoraproject.org/rpms/zig-srpm-macros",
+          "description": "Upstream repository for zig-srpm-macros.",
+          "packages": [
+            {
+              "name": "zig-srpm-macros",
+              "version": "1"
+            }
+          ]
+        },
+        {
+          "id": "zip",
+          "name": "zip",
+          "url": "https://src.fedoraproject.org/rpms/zip",
+          "description": "Upstream repository for zip.",
+          "packages": [
+            {
+              "name": "zip",
+              "version": "3.0"
+            }
+          ]
+        },
+        {
+          "id": "zlib-ng",
+          "name": "zlib-ng",
+          "url": "https://github.com/zlib-ng/zlib-ng",
+          "description": "Upstream repository for zlib-ng.",
+          "packages": [
+            {
+              "name": "zlib-ng",
+              "version": "2.3.3"
+            }
+          ]
+        },
+        {
+          "id": "zstd",
+          "name": "zstd",
+          "url": "https://github.com/facebook/zstd",
+          "description": "Upstream repository for zstd.",
+          "packages": [
+            {
+              "name": "zstd",
+              "version": "1.5.7"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
