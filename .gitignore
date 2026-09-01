@@ -29,8 +29,10 @@ coverage/
 Thumbs.db
 
 # Local dev data
-data/
+data/*
 data-backup.tar.gz
+
+!modules/product-upstreams/data/catalog.json
 
 # Google Sheets service account key
 secrets/
@@ -42,7 +44,6 @@ output.txt
 .claude/*
 !.claude/CLAUDE.md
 !.claude/commands/
-data
 
 # Local PP files
 rhelai.json
