@@ -1,6 +1,6 @@
 import { mergeConfig } from 'vite'
 import { createViteConfig } from '@org-pulse/core/vite'
-import { staticHostPlugin } from './static-host/vite-plugin.js'
+import { staticHostPlugin } from './static-host/vite-plugin.mjs'
 
 const staticHost = process.env.VITE_STATIC_HOST === 'true'
 

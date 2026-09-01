@@ -1,6 +1,9 @@
 /**
- * Vite plugin: inject the static API shim and fix a few absolute public-asset paths.
+ * Vite plugin: inject the static API shim.
  * Only registered when VITE_STATIC_HOST=true so the OpenShift production build is unchanged.
+ *
+ * Do not rewrite "/redhat-logo.svg" in JS/Vue — Vite turns those into asset imports,
+ * and a template-literal replacement produces invalid HTML and invalid import specifiers.
  */
 
 export function staticHostPlugin() {
@@ -14,16 +17,9 @@ export function staticHostPlugin() {
           '<script type="module" src="/static-host/install.js"></script>\n    <script type="module" src="/src/main.js"></script>'
         )
       }
-      next = next.replaceAll('href="/redhat-logo.svg"', 'href="./redhat-logo.svg"')
+      // Vite HTML placeholder; stays valid quoted HTML (unlike a JS template literal).
+      next = next.replaceAll('href="/redhat-logo.svg"', 'href="%BASE_URL%redhat-logo.svg"')
       return next
-    },
-    transform(code) {
-      if (!code.includes('/redhat-logo.svg')) return null
-      const next = code
-        .replaceAll('"/redhat-logo.svg"', '`${import.meta.env.BASE_URL}redhat-logo.svg`')
-        .replaceAll("'/redhat-logo.svg'", '`${import.meta.env.BASE_URL}redhat-logo.svg`')
-      if (next === code) return null
-      return { code: next, map: null }
     }
   }
 }
