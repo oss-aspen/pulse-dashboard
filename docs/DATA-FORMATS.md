@@ -2282,6 +2282,66 @@ Synced from a Google Sheet via the ai-catalyst module (showcase feature). Contai
 
 ---
 
+## Product Upstreams Catalog — `modules/product-upstreams/data/catalog.json`
+
+Static product-to-upstream mapping **shipped with the Product Upstreams module** (not stored on the PVC). Demo mode and production serve the same bundled file.
+
+```json
+{
+  "meta": {
+    "stewardTeam": "Red Hat AI Engineering",
+    "title": "Product Upstreams Catalog",
+    "sourceNote": "This catalog is a static snapshot curated by Red Hat AI Engineering and shipped with this module.",
+    "coverageNote": "Products shown in gray are listed for awareness but are not yet catalogued.",
+    "lastUpdated": "2026-09-01",
+    "featureRequestUrl": "https://github.com/red-hat-data-services/rhai-org-pulse/issues/new?title=Product%20Upstreams%3A%20feature%20request",
+    "customDataRequestUrl": "https://github.com/red-hat-data-services/rhai-org-pulse/issues/new?title=Product%20Upstreams%3A%20custom%20data%20request",
+    "issuesUrl": "https://github.com/red-hat-data-services/rhai-org-pulse/issues",
+    "contactHint": "Open a GitHub issue on rhai-org-pulse to suggest features or request custom data."
+  },
+  "products": [
+    {
+      "id": "rhaiis",
+      "name": "Red Hat AI Inference Server",
+      "shortName": "RHAIIS",
+      "description": "Enterprise distribution of vLLM for high-throughput model inference.",
+      "category": "Inference",
+      "version": "3.1",
+      "available": true,
+      "upstreams": [
+        {
+          "id": "vllm",
+          "name": "vLLM",
+          "url": "https://github.com/vllm-project/vllm",
+          "description": "High-throughput LLM inference and serving engine.",
+          "packages": [
+            { "name": "vllm", "version": "0.8.5" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "llama-stack",
+      "name": "Llama Stack",
+      "shortName": "Llama Stack",
+      "description": "Composable APIs around Llama models.",
+      "category": "Platform",
+      "version": null,
+      "available": false,
+      "unavailableReason": "Catalog in progress — check back soon.",
+      "upstreams": []
+    }
+  ]
+}
+```
+
+**Notes:**
+- `available: false` products are listed in the tiled UI but grayed out and excluded from package search.
+- `id` values are URL slugs: lowercase letters, digits, and hyphens.
+- Update this JSON in the module to change catalog contents; there is no admin write API.
+
+---
+
 ## Fixture Rules
 
 The `fixtures/` directory provides read-only demo data used when `DEMO_MODE=true`. These rules prevent data format drift:

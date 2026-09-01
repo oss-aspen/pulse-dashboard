@@ -1,0 +1,29 @@
+{
+  "name": "Product Upstreams",
+  "slug": "product-upstreams",
+  "description": "Browse the open-source upstreams and packages that make up each Red Hat AI product",
+  "icon": "Box",
+  "order": 12,
+  "defaultEnabled": true,
+  "requires": [],
+  "client": {
+    "entry": "./client/index.js",
+    "navItems": [
+      { "id": "products", "label": "Products", "icon": "Grid3x3", "default": true },
+      { "id": "search", "label": "Package Search", "icon": "PackageOpen" }
+    ],
+    "hiddenRoutes": {
+      "product-detail": "products"
+    }
+  },
+  "server": {
+    "entry": "./server/index.js"
+  },
+  "search": {
+    "enabled": true,
+    "keywords": ["upstream", "package", "product", "catalog", "sbom", "vllm", "rhoai"],
+    "views": [
+      { "viewId": "search", "paramName": "q", "placeholder": "Search packages by name..." }
+    ]
+  }
+}
