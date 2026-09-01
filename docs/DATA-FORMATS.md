@@ -2339,6 +2339,7 @@ Static product-to-upstream mapping **shipped with the Product Upstreams module**
 - `available: false` products are listed in the tiled UI but grayed out and excluded from package search.
 - `id` values are URL slugs: lowercase letters, digits, and hyphens.
 - Update this JSON in the module to change catalog contents; there is no admin write API.
+- Fedora/Hummingbird sidecar dumps (`Package`, `upstream_repo`, `version`, optionally wrapped as `{ "sidecar": { ... } }`) can be converted with `node modules/product-upstreams/scripts/from-sidecar.js <file-or-dir> [--merge]`. Records that share `upstream_repo` become one upstream with multiple packages.
 
 ---
 

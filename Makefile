@@ -165,3 +165,8 @@ clean-smoke-test:
 
 # Alias for integration test cleanup (uses same containers as smoke tests for now)
 clean-integration-test: clean-smoke-test
+
+
+
+static:
+	npm run build:static && python3 -m http.server -d dist/
