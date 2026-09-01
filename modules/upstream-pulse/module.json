@@ -6,12 +6,7 @@
   "order": 10,
   "client": {
     "entry": "./client/index.js",
-    "navItems": [
-      { "id": "dashboard", "label": "Dashboard", "icon": "BarChart3", "default": true },
-      { "id": "insights", "label": "Insights", "icon": "Lightbulb" },
-      { "id": "portfolio", "label": "Portfolio", "icon": "Briefcase" },
-      { "id": "strategy", "label": "Strategy", "icon": "Target" }
-    ],
+    "navItems": [],
     "settingsComponent": "./client/components/UpstreamPulseSettings.vue"
   },
   "server": {

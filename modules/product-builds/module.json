@@ -29,7 +29,7 @@
     "entry": "./server/index.js"
   },
   "search": {
-    "enabled": true,
+    "enabled": false,
     "keywords": ["build", "release", "drop", "artifact", "container", "pullspec", "wheel", "package", "image"],
     "views": [
       { "viewId": "search", "paramName": "q", "placeholder": "Search drops, artifacts, commits..." }

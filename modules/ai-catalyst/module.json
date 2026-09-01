@@ -8,11 +8,7 @@
   "requires": [],
   "client": {
     "entry": "./client/index.js",
-    "navItems": [
-      { "id": "board", "label": "Monthly Board", "icon": "LayoutGrid", "default": true },
-      { "id": "report", "label": "Report", "icon": "BarChart3" },
-      { "id": "catalog", "label": "Catalog", "icon": "Trophy" }
-    ],
+    "navItems": [],
     "hiddenRoutes": {
       "candidate-detail": "board",
       "showcase-detail": "catalog"

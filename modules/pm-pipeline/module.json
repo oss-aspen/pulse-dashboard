@@ -6,11 +6,7 @@
   "order": 6,
   "client": {
     "entry": "./client/index.js",
-    "navItems": [
-      { "id": "planning-prep", "label": "Planning Prep", "icon": "ClipboardList", "default": true },
-      { "id": "my-pipeline", "label": "My Pipeline", "icon": "GitBranch" },
-      { "id": "learn", "label": "Learn", "icon": "BookOpen" }
-    ]
+    "navItems": []
   },
   "server": {
     "entry": "./server/index.js"
@@ -18,6 +14,6 @@
   "secrets": {
     "platform": ["jira"]
   },
-  "defaultEnabled": true,
+  "defaultEnabled": false,
   "requires": ["releases"]
 }
