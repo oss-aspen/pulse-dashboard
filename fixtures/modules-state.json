@@ -1,9 +1,9 @@
 {
-  "upstream-pulse": true,
-  "ai-impact": true,
-  "releases": true,
-  "team-tracker": true,
-  "system-health": true,
-  "ai-catalyst": true,
-  "pm-pipeline": true
+  "upstream-pulse": false,
+  "ai-impact": false,
+  "releases": false,
+  "team-tracker": false,
+  "system-health": false,
+  "ai-catalyst": false,
+  "pm-pipeline": false
 }
