@@ -8,8 +8,6 @@
       </p>
     </div>
 
-    <DataOriginCallout :meta="meta" class="mb-6" />
-
     <div class="mb-6">
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="product-upstreams-quick-search">
         Looking for a package instead?

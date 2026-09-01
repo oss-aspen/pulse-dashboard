@@ -35,8 +35,6 @@
         <p class="mt-2 text-gray-600 dark:text-gray-400">{{ product.description }}</p>
       </div>
 
-      <DataOriginCallout :meta="meta" class="mb-6" />
-
       <div
         v-if="product.available === false"
         class="rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-4 py-6 text-sm text-gray-600 dark:text-gray-400"
