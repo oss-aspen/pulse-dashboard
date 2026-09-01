@@ -11,7 +11,6 @@ const catalog = {
     lastUpdated: '2026-09-01',
     featureRequestUrl: 'https://github.com/red-hat-data-services/rhai-org-pulse/issues/new?title=feature',
     customDataRequestUrl: 'https://github.com/red-hat-data-services/rhai-org-pulse/issues/new?title=custom',
-    issuesUrl: 'https://github.com/red-hat-data-services/rhai-org-pulse/issues',
     contactHint: 'Open a GitHub issue.'
   },
   products: [

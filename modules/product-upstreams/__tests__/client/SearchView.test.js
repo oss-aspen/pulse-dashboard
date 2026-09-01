@@ -10,8 +10,7 @@ const catalog = {
     sourceNote: 'Static snapshot for tests.',
     lastUpdated: '2026-09-01',
     featureRequestUrl: 'https://example.test/feature',
-    customDataRequestUrl: 'https://example.test/custom',
-    issuesUrl: 'https://example.test/issues'
+    customDataRequestUrl: 'https://example.test/custom'
   },
   products: [
     {
