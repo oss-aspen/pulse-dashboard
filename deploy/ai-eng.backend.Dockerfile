@@ -1,4 +1,4 @@
-# Org Pulse — AI Engineering Backend
+# Org Pulse — OSAIPO Backend
 #
 # Extends the core backend image with AI Eng-specific modules.
 # Core's default CMD (node server/dev-server.js) auto-discovers all

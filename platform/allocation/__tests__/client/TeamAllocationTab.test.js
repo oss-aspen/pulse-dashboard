@@ -10,7 +10,7 @@ vi.mock('../../client/services/allocation-api', () => ({
 vi.mock('../../client/composables/useAllocationStrategy', () => ({
   useAllocationStrategy: () => ({
     categories: { value: [{ key: 'new-features', name: 'New Features', color: 'blue', target: 40 }] },
-    name: { value: 'AI Engineering 40/40/20' }
+    name: { value: 'OSAIPO 40/40/20' }
   })
 }))
 

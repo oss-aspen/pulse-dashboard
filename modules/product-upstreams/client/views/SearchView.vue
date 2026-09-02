@@ -3,7 +3,7 @@
     <div class="mb-6">
       <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Package Search</h1>
       <p class="mt-2 text-gray-600 dark:text-gray-400">
-        Search the Red Hat AI Engineering catalog by package name. Results show the version we
+        Search the Red Hat OSAIPO catalog by package name. Results show the version we
         recorded, the product that ships it, and the upstream source URL.
       </p>
     </div>
@@ -68,7 +68,7 @@
 
     <div v-else>
       <p class="mb-3 text-sm text-gray-500 dark:text-gray-400">
-        {{ results.length }} match{{ results.length === 1 ? '' : 'es' }} in the AI Engineering snapshot.
+        {{ results.length }} match{{ results.length === 1 ? '' : 'es' }} in the OSAIPO snapshot.
       </p>
       <div class="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <table class="w-full text-sm" data-testid="package-search-results">

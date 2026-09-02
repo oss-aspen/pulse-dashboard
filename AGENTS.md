@@ -12,7 +12,7 @@ deployed on OpenShift via ArgoCD.
 
 ## Architecture
 
-This repo is the **AI Engineering consumer** of [`@org-pulse/core`](https://github.com/red-hat-data-services/org-pulse-core). Core platform code (app shell, shared utilities, team-tracker module) is installed as an npm dependency and symlinked into the workspace by `npm run setup`.
+This repo is the **OSAIPO consumer** of [`@org-pulse/core`](https://github.com/red-hat-data-services/org-pulse-core). Core platform code (app shell, shared utilities, team-tracker module) is installed as an npm dependency and symlinked into the workspace by `npm run setup`.
 
 - **Core platform**: `@org-pulse/core` npm package — app shell, shared client/server code, team-tracker module
 - **Frontend**: Vue 3 SPA (`<script setup>`), Vite 8, Tailwind CSS 3, Chart.js 4

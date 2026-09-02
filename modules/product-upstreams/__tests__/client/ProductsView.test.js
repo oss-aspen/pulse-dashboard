@@ -5,7 +5,7 @@ import { _resetForTesting } from '../../client/composables/useCatalog.js'
 
 const catalog = {
   meta: {
-    stewardTeam: 'Red Hat AI Engineering',
+    stewardTeam: 'Red Hat OSAIPO',
     sourceNote: 'Static snapshot for tests.',
     coverageNote: 'Gray tiles are not catalogued yet.',
     lastUpdated: '2026-09-01',
@@ -72,7 +72,7 @@ describe('ProductsView', () => {
     await flushPromises()
 
     expect(wrapper.text()).toContain('Product Upstreams')
-    expect(wrapper.text()).toContain('Red Hat AI Engineering')
+    expect(wrapper.text()).toContain('Red Hat OSAIPO')
     expect(wrapper.text()).toContain('Suggest a feature')
     expect(wrapper.text()).toContain('Request custom data')
     expect(wrapper.find('[data-testid="product-tile-rhaiis"]').exists()).toBe(true)

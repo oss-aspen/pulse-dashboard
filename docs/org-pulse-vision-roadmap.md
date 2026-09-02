@@ -64,7 +64,7 @@ flow.
 
 Other teams have started deploying Org Pulse for their own orgs, which is
 great but also means we need to think about what's "core platform" versus
-what's specific to AI Engineering. We're working on this split: the module
+what's specific to OSAIPO. We're working on this split: the module
 system, roster sync, auth, storage, and deployment infrastructure would be the
 shared core. Things like the releases module or AI Impact assessments are our
 stuff, built on top.

@@ -30,7 +30,7 @@
       </button>
 
       <div class="mb-4">
-        <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">{{ product.category }} · curated by Red Hat AI Engineering</p>
+        <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">{{ product.category }} · curated by Red Hat OSAIPO</p>
         <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">{{ product.name }}</h1>
         <p class="mt-2 text-gray-600 dark:text-gray-400">{{ product.description }}</p>
       </div>
@@ -51,7 +51,7 @@
             rel="noopener noreferrer"
             class="text-primary-700 dark:text-primary-300 hover:underline"
           >Request custom data</a>
-          from AI Engineering.
+          from OSAIPO.
         </p>
       </div>
 
@@ -61,7 +61,7 @@
         </h2>
         <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
           Each row is an upstream project that ships in this product, with the package names and
-          versions recorded in the AI Engineering snapshot. URLs go to the public source repositories.
+          versions recorded in the OSAIPO snapshot. URLs go to the public source repositories.
         </p>
 
         <div class="space-y-4" data-testid="upstream-list">

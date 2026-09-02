@@ -2,7 +2,7 @@
 
 ## Service Overview
 
-**Org Pulse** is a modular engineering dashboard connecting Jira, GitHub, and GitLab data with a team roster to surface delivery insights. The AI Engineering instance is branded **Team Tracker**.
+**Org Pulse** is a modular engineering dashboard connecting Jira, GitHub, and GitLab data with a team roster to surface delivery insights. The OSAIPO instance is branded **Team Tracker**.
 
 | | |
 |---|---|

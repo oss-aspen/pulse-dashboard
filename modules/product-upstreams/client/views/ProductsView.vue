@@ -4,7 +4,7 @@
       <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Product Upstreams</h1>
       <p class="mt-2 text-gray-600 dark:text-gray-400">
         Select a product to see the upstream projects that make it up. Grayed-out tiles are listed
-        for awareness but are not yet catalogued by Red Hat AI Engineering.
+        for awareness but are not yet catalogued by Red Hat OSAIPO.
       </p>
     </div>
 

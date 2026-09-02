@@ -6,7 +6,7 @@ import { _resetForTesting } from '../../client/composables/useCatalog.js'
 
 const catalog = {
   meta: {
-    stewardTeam: 'Red Hat AI Engineering',
+    stewardTeam: 'Red Hat OSAIPO',
     sourceNote: 'Static snapshot for tests.',
     lastUpdated: '2026-09-01',
     customDataRequestUrl: 'https://example.test/custom'
@@ -63,7 +63,7 @@ describe('ProductDetailView', () => {
     await flushPromises()
 
     expect(wrapper.text()).toContain('Red Hat AI Inference Server')
-    expect(wrapper.text()).toContain('curated by Red Hat AI Engineering')
+    expect(wrapper.text()).toContain('curated by Red Hat OSAIPO')
     expect(wrapper.find('[data-testid="upstream-list"]').exists()).toBe(true)
     expect(wrapper.text()).toContain('vLLM')
     expect(wrapper.text()).toContain('vllm')

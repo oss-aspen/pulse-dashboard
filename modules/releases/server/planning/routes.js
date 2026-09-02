@@ -102,7 +102,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
 
   // Demo mode guard: block all non-GET requests when DEMO_MODE is true
   if (DEMO_MODE) {
-    router.use(function(req, res, next) {
+    router.use(function (req, res, next) {
       if (req.method !== 'GET') {
         return res.status(403).json({
           status: 'skipped',
@@ -128,7 +128,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
     if (state.running) return
 
     let runningCount = 0
-    refreshStates.forEach(function(s) { if (s.running) runningCount++ })
+    refreshStates.forEach(function (s) { if (s.running) runningCount++ })
     if (runningCount >= MAX_CONCURRENT_REFRESHES) return
 
     refreshStates.set(version, {
@@ -161,30 +161,30 @@ module.exports = async function registerPlanningRoutes(router, context) {
       const pipeline = runPipeline(config, bigRocks, version, readFromStorage, {
         jiraClient: jiraClient
       })
-      const timeout = new Promise(function(_, reject) {
-        setTimeout(function() { reject(new Error('Refresh timed out after 5 minutes')) }, REFRESH_TIMEOUT_MS)
+      const timeout = new Promise(function (_, reject) {
+        setTimeout(function () { reject(new Error('Refresh timed out after 5 minutes')) }, REFRESH_TIMEOUT_MS)
       })
 
       Promise.race([pipeline, timeout])
-        .then(async function(result) {
+        .then(async function (result) {
           // Jira fallback: fetch missing outcome summaries asynchronously
           var fallback
           if (result.missingOutcomes && result.missingOutcomes.length > 0) {
             fallback = getOutcomeSummaries(jiraClient ? jiraClient.jiraRequest : null, result.missingOutcomes, version, readFromStorage, writeToStorage)
-              .then(function(fetched) {
+              .then(function (fetched) {
                 // Merge fetched summaries into the pipeline result
                 for (var key in fetched) {
                   result.outcomeSummaries[key] = fetched[key]
                 }
               })
-              .catch(function(err) {
+              .catch(function (err) {
                 console.warn('[releases/planning] Jira outcome summary fallback failed: ' + err.message)
               })
           } else {
             fallback = Promise.resolve()
           }
 
-          return fallback.then(async function() {
+          return fallback.then(async function () {
             const response = buildCandidateResponse(result, version, bigRocks, false)
             await writeToStorage(DATA_PREFIX + '/candidates-cache-' + version + '.json', {
               cachedAt: new Date().toISOString(),
@@ -203,10 +203,10 @@ module.exports = async function registerPlanningRoutes(router, context) {
             })
           })
         })
-        .catch(async function(err) {
+        .catch(async function (err) {
           if (attempt < 3) {
             console.warn('[releases/planning] Refresh attempt ' + attempt + ' failed for ' + version + ', retrying: ' + err.message)
-            setTimeout(function() { doRefresh(attempt + 1) }, attempt * 5000)
+            setTimeout(function () { doRefresh(attempt + 1) }, attempt * 5000)
             return
           }
           console.error('[releases/planning] Background refresh failed for ' + version + ':', err)
@@ -258,11 +258,11 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Array of releases with version and bigRockCount
    */
-  router.get('/releases', requireAuth, requireScope('releases:read'), async function(req, res) {
+  router.get('/releases', requireAuth, requireScope('releases:read'), async function (req, res) {
     if (DEMO_MODE) {
       const demoConfig = loadFixture('config.json')
       if (demoConfig && demoConfig.releases) {
-        const releases = Object.keys(demoConfig.releases).map(function(v) {
+        const releases = Object.keys(demoConfig.releases).map(function (v) {
           return {
             version: v,
             bigRockCount: (demoConfig.releases[v].bigRocks || []).length
@@ -296,7 +296,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Candidate features, RFEs, and Big Rocks
    */
-  router.get('/releases/:version/candidates', requireAuth, requireScope('releases:read'), async function(req, res) {
+  router.get('/releases/:version/candidates', requireAuth, requireScope('releases:read'), async function (req, res) {
     const version = req.params.version
     if (!isValidVersion(version)) {
       return res.status(400).json({ error: 'Invalid version format' })
@@ -310,10 +310,10 @@ module.exports = async function registerPlanningRoutes(router, context) {
         if (rockFilter && data.features) {
           data = {
             ...data,
-            features: data.features.filter(function(f) {
+            features: data.features.filter(function (f) {
               return f.bigRock && f.bigRock.split(', ').includes(rockFilter)
             }),
-            rfes: data.rfes.filter(function(r) {
+            rfes: data.rfes.filter(function (r) {
               return r.bigRock && r.bigRock.split(', ').includes(rockFilter)
             })
           }
@@ -339,10 +339,10 @@ module.exports = async function registerPlanningRoutes(router, context) {
       if (rockFilter && data.features) {
         data = {
           ...data,
-          features: data.features.filter(function(f) {
+          features: data.features.filter(function (f) {
             return f.bigRock && f.bigRock.split(', ').includes(rockFilter)
           }),
-          rfes: data.rfes.filter(function(r) {
+          rfes: data.rfes.filter(function (r) {
             return r.bigRock && r.bigRock.split(', ').includes(rockFilter)
           })
         }
@@ -384,7 +384,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Refresh started or already running
    */
-  router.post('/releases/:version/refresh', requireAuth, requireScope('releases:write'), function(req, res) {
+  router.post('/releases/:version/refresh', requireAuth, requireScope('releases:write'), function (req, res) {
     const version = req.params.version
     if (!isValidVersion(version)) {
       return res.status(400).json({ error: 'Invalid version format' })
@@ -397,7 +397,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
       return res.json({ status: 'already_running' })
     }
     let runningCount = 0
-    refreshStates.forEach(function(s) { if (s.running) runningCount++ })
+    refreshStates.forEach(function (s) { if (s.running) runningCount++ })
     if (runningCount >= MAX_CONCURRENT_REFRESHES) {
       return res.status(429).json({ error: 'Maximum concurrent refreshes reached. Please try again shortly.' })
     }
@@ -420,7 +420,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Refresh state
    */
-  router.get('/refresh/status', requireAuth, requireScope('releases:read'), function(req, res) {
+  router.get('/refresh/status', requireAuth, requireScope('releases:read'), function (req, res) {
     const version = req.query && req.query.version
     if (version) {
       return res.json(getRefreshState(version))
@@ -428,7 +428,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
     let running = false
     let lastResult = null
     let activeVersion = null
-    refreshStates.forEach(function(state, ver) {
+    refreshStates.forEach(function (state, ver) {
       if (state.running) {
         running = true
         activeVersion = ver
@@ -451,7 +451,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Planning config
    */
-  router.get('/config', requireAdmin, requireScope('releases:write'), async function(req, res) {
+  router.get('/config', requireAdmin, requireScope('releases:write'), async function (req, res) {
     const config = await getConfig(readFromStorage)
     res.json(config)
   })
@@ -473,7 +473,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       500:
    *         description: Internal error building readiness data
    */
-  router.get('/feature-readiness', requireAuth, requireScope('releases:read'), async function(req, res) {
+  router.get('/feature-readiness', requireAuth, requireScope('releases:read'), async function (req, res) {
     try {
       var jiraFeatures = null
       if (jiraClient) {
@@ -521,8 +521,8 @@ module.exports = async function registerPlanningRoutes(router, context) {
   var SFDC_ISSUES_CACHE_KEY = DATA_PREFIX + '/sfdc-issues-cache.json'
   var FEEDBACK_LABELS = ['AIBU_Feedback', 'AISSA_Feedback']
   var SFDC_PROJECTS = [
-    'Red Hat OpenShift AI Engineering',
-    'Red Hat AI Engineering',
+    'Red Hat OpenShift OSAIPO',
+    'Red Hat OSAIPO',
     'Inference Engineering Project',
     'OpenShift AI Support'
   ]
@@ -530,7 +530,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
   function mapRawIssue(raw, extraFlags) {
     var f = raw.fields || {}
     var allLabels = f.labels || []
-    var feedbackLabels = allLabels.filter(function(l) { return FEEDBACK_LABELS.indexOf(l) !== -1 })
+    var feedbackLabels = allLabels.filter(function (l) { return FEEDBACK_LABELS.indexOf(l) !== -1 })
     var issue = {
       key: raw.key,
       summary: f.summary || '',
@@ -546,8 +546,8 @@ module.exports = async function registerPlanningRoutes(router, context) {
       dueDate: f.duedate || null,
       resolved: f.resolutiondate || null,
       inProgressAt: extractFirstInProgressAt(raw.changelog),
-      components: (f.components || []).map(function(c) { return c.name }),
-      fixVersions: (f.fixVersions || []).map(function(v) { return v.name }),
+      components: (f.components || []).map(function (c) { return c.name }),
+      fixVersions: (f.fixVersions || []).map(function (v) { return v.name }),
       labels: allLabels,
       feedbackLabels: feedbackLabels,
       url: 'https://issues.redhat.com/browse/' + raw.key
@@ -589,7 +589,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
     var rawIssues = deduplicateRaw(await rawPromise)
     var sfdcKeys = await sfdcPromise
 
-    var issues = rawIssues.map(function(raw) {
+    var issues = rawIssues.map(function (raw) {
       return mapRawIssue(raw, { hasSfdcCases: !!sfdcKeys[raw.key] })
     })
 
@@ -606,15 +606,15 @@ module.exports = async function registerPlanningRoutes(router, context) {
 
     for (var i = 0; i < SFDC_COUNT_THRESHOLDS.length; i += SFDC_COUNT_BATCH_SIZE) {
       var batch = SFDC_COUNT_THRESHOLDS.slice(i, i + SFDC_COUNT_BATCH_SIZE)
-      await Promise.all(batch.map(function(t) {
+      await Promise.all(batch.map(function (t) {
         var jql = scopeJql + ' AND SFDC_Cases_Counter >= ' + t
         return jiraClient.fetchAllJqlResults(jql, 'key', { maxResults: 500 })
-          .then(function(issues) {
+          .then(function (issues) {
             var set = {}
             for (var j = 0; j < issues.length; j++) set[issues[j].key] = true
             bucketSets[t] = set
           })
-          .catch(function(err) {
+          .catch(function (err) {
             console.warn('[releases/planning] SFDC count threshold ' + t + ' failed:', err.message)
             bucketSets[t] = {}
           })
@@ -639,21 +639,21 @@ module.exports = async function registerPlanningRoutes(router, context) {
   }
 
   function enrichSfdcCounts(payload, scopeJql) {
-    fetchSfdcCountMap(scopeJql).then(function(countMap) {
+    fetchSfdcCountMap(scopeJql).then(function (countMap) {
       var issues = payload.issues
       for (var i = 0; i < issues.length; i++) {
         issues[i].sfdcCasesCount = countMap[issues[i].key] || 0
       }
       payload.countsResolved = true
-      writeToStorage(SFDC_ISSUES_CACHE_KEY, payload).catch(function() {})
+      writeToStorage(SFDC_ISSUES_CACHE_KEY, payload).catch(function () { })
       console.log('[releases/planning] SFDC counts resolved for ' + Object.keys(countMap).length + ' issues')
-    }).catch(function(err) {
+    }).catch(function (err) {
       console.warn('[releases/planning] Background SFDC count fetch failed:', err.message)
     })
   }
 
   async function fetchSfdcIssuesFromJira() {
-    var projectList = SFDC_PROJECTS.map(function(p) { return '"' + p + '"' }).join(', ')
+    var projectList = SFDC_PROJECTS.map(function (p) { return '"' + p + '"' }).join(', ')
     var scopeJql = 'project IN (' + projectList + ') AND SFDC_Cases_Counter > 0'
     var jql = scopeJql + ' ORDER BY priority DESC, createdDate DESC'
     var fields = 'summary,status,issuetype,assignee,reporter,priority,resolution,created,updated,duedate,components,fixVersions,labels,resolutiondate'
@@ -663,7 +663,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
     var rawIssues = deduplicateRaw(await rawPromise)
     var feedbackKeys = await feedbackPromise
 
-    var issues = rawIssues.map(function(raw) {
+    var issues = rawIssues.map(function (raw) {
       return mapRawIssue(raw, {
         hasSfdcCases: true,
         hasFeedbackLabel: !!feedbackKeys[raw.key],
@@ -679,7 +679,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
     return payload
   }
 
-  router.get('/bu-feedback', requireAuth, requireScope('releases:read'), async function(req, res) {
+  router.get('/bu-feedback', requireAuth, requireScope('releases:read'), async function (req, res) {
     if (!jiraClient) {
       return res.json({ issues: [], fetchedAt: new Date().toISOString(), warning: 'Jira not configured' })
     }
@@ -714,7 +714,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    * @openapi
    * /api/modules/releases/planning/sfdc-issues:
    *   get:
-   *     summary: List open SFDC-linked issues from AI Engineering projects
+   *     summary: List open SFDC-linked issues from OSAIPO projects
    *     tags: [releases-planning]
    *     security: [{ bearerAuth: [] }]
    *     description: >
@@ -733,7 +733,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       503:
    *         description: Jira client not configured
    */
-  router.get('/sfdc-issues', requireAuth, requireScope('releases:read'), async function(req, res) {
+  router.get('/sfdc-issues', requireAuth, requireScope('releases:read'), async function (req, res) {
     if (!jiraClient) {
       return res.json({ issues: [], fetchedAt: new Date().toISOString(), warning: 'Jira not configured' })
     }
@@ -795,7 +795,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Permission flags
    */
-  router.get('/permissions', requireAuth, requireScope('releases:read'), function(req, res) {
+  router.get('/permissions', requireAuth, requireScope('releases:read'), function (req, res) {
     const isPlanningManager = req.isAdmin || req.isPlanningManager
     res.json({
       canEdit: true,
@@ -810,7 +810,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
   async function loadPillarOptions() {
     var pillarConfig = await readFromStorage('releases/pm-hub/pillar-config.json')
     if (pillarConfig && Array.isArray(pillarConfig.pillars)) {
-      return pillarConfig.pillars.map(function(p) { return p.name }).filter(Boolean)
+      return pillarConfig.pillars.map(function (p) { return p.name }).filter(Boolean)
     }
     return []
   }
@@ -829,7 +829,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Array of pillar name strings
    */
-  router.get('/pillar-options', requireAuth, requireScope('releases:read'), async function(req, res) {
+  router.get('/pillar-options', requireAuth, requireScope('releases:read'), async function (req, res) {
     res.json({ options: await loadPillarOptions() })
   })
 
@@ -859,7 +859,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Reordered Big Rocks
    */
-  router.put('/releases/:version/big-rocks/reorder', requireAuth, requirePlanningManager, requireScope('releases:write'), async function(req, res) {
+  router.put('/releases/:version/big-rocks/reorder', requireAuth, requirePlanningManager, requireScope('releases:write'), async function (req, res) {
     const version = req.params.version
     if (!isValidVersion(version)) {
       return res.status(400).json({ error: 'Invalid version format' })
@@ -870,8 +870,8 @@ module.exports = async function registerPlanningRoutes(router, context) {
     }
 
     try {
-      var previousOrder = (await loadBigRocks(readFromStorage, version)).map(function(r) { return r.name })
-      const result = await withConfigLock(async function() {
+      var previousOrder = (await loadBigRocks(readFromStorage, version)).map(function (r) { return r.name })
+      const result = await withConfigLock(async function () {
         return await reorderBigRocks(readFromStorage, writeToStorage, version, order)
       })
       await logAudit(readFromStorage, writeToStorage, {
@@ -909,7 +909,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Updated Big Rock
    */
-  router.put('/releases/:version/big-rocks/:name', requireAuth, requireScope('releases:write'), async function(req, res) {
+  router.put('/releases/:version/big-rocks/:name', requireAuth, requireScope('releases:write'), async function (req, res) {
     const version = req.params.version
     if (!isValidVersion(version)) {
       return res.status(400).json({ error: 'Invalid version format' })
@@ -923,15 +923,15 @@ module.exports = async function registerPlanningRoutes(router, context) {
 
     try {
       var existingRockSnapshot = null
-      const result = await withConfigLock(async function() {
+      const result = await withConfigLock(async function () {
         const currentConfig = await getConfig(readFromStorage)
         if (!currentConfig.releases[version]) {
           throw Object.assign(new Error('Release ' + version + ' not found'), { statusCode: 404 })
         }
         const existingRocks = await loadBigRocks(readFromStorage, version)
-        const existingNames = existingRocks.map(function(r) { return r.name })
+        const existingNames = existingRocks.map(function (r) { return r.name })
 
-        existingRockSnapshot = existingRocks.find(function(r) { return r.name === name })
+        existingRockSnapshot = existingRocks.find(function (r) { return r.name === name })
         if (existingRockSnapshot) {
           existingRockSnapshot = JSON.parse(JSON.stringify(existingRockSnapshot))
         }
@@ -985,20 +985,20 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       201:
    *         description: Created Big Rock
    */
-  router.post('/releases/:version/big-rocks', requireAuth, requirePlanningManager, requireScope('releases:write'), async function(req, res) {
+  router.post('/releases/:version/big-rocks', requireAuth, requirePlanningManager, requireScope('releases:write'), async function (req, res) {
     const version = req.params.version
     if (!isValidVersion(version)) {
       return res.status(400).json({ error: 'Invalid version format' })
     }
 
     try {
-      const result = await withConfigLock(async function() {
+      const result = await withConfigLock(async function () {
         const currentConfig = await getConfig(readFromStorage)
         if (!currentConfig.releases[version]) {
           throw Object.assign(new Error('Release ' + version + ' not found'), { statusCode: 404 })
         }
         const existingRocks = await loadBigRocks(readFromStorage, version)
-        const existingNames = existingRocks.map(function(r) { return r.name })
+        const existingNames = existingRocks.map(function (r) { return r.name })
 
         var pillarOpts = await loadPillarOptions()
         const validation = validateBigRock(req.body, {
@@ -1062,7 +1062,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Deleted Big Rock
    */
-  router.delete('/releases/:version/big-rocks/:name', requireAuth, requirePlanningManager, blockDuringImpersonation, requireScope('releases:write'), async function(req, res) {
+  router.delete('/releases/:version/big-rocks/:name', requireAuth, requirePlanningManager, blockDuringImpersonation, requireScope('releases:write'), async function (req, res) {
     const version = req.params.version
     if (!isValidVersion(version)) {
       return res.status(400).json({ error: 'Invalid version format' })
@@ -1076,13 +1076,13 @@ module.exports = async function registerPlanningRoutes(router, context) {
 
     try {
       var deletedRockSnapshot = null
-      const result = await withConfigLock(async function() {
+      const result = await withConfigLock(async function () {
         const currentConfig = await getConfig(readFromStorage)
         if (!currentConfig.releases[version]) {
           throw Object.assign(new Error('Release ' + version + ' not found'), { statusCode: 404 })
         }
         const existingRocks = await loadBigRocks(readFromStorage, version)
-        const found = existingRocks.find(function(r) { return r.name === name })
+        const found = existingRocks.find(function (r) { return r.name === name })
         if (!found) {
           throw Object.assign(new Error("Big Rock '" + name + "' not found for release " + version), { statusCode: 404 })
         }
@@ -1136,7 +1136,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       201:
    *         description: Created release
    */
-  router.post('/releases', requireAuth, blockDuringImpersonation, requireScope('releases:write'), async function(req, res) {
+  router.post('/releases', requireAuth, blockDuringImpersonation, requireScope('releases:write'), async function (req, res) {
     const version = req.body && req.body.version
     const cloneFrom = req.body && req.body.cloneFrom
 
@@ -1151,7 +1151,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
     }
 
     try {
-      const result = await withConfigLock(async function() {
+      const result = await withConfigLock(async function () {
         if (cloneFrom) {
           await backupConfig(readFromStorage, writeToStorage, listStorageFiles, deleteFromStorage)
           return await cloneRelease(readFromStorage, writeToStorage, version, cloneFrom)
@@ -1189,14 +1189,14 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Deleted release
    */
-  router.delete('/releases/:version', requireAdmin, requireScope('releases:write'), async function(req, res) {
+  router.delete('/releases/:version', requireAdmin, requireScope('releases:write'), async function (req, res) {
     const version = req.params.version
     if (!isValidVersion(version)) {
       return res.status(400).json({ error: 'Invalid version format' })
     }
 
     try {
-      const result = await withConfigLock(async function() {
+      const result = await withConfigLock(async function () {
         await backupConfig(readFromStorage, writeToStorage, listStorageFiles, deleteFromStorage)
         return await deleteRelease(readFromStorage, writeToStorage, version)
       })
@@ -1247,7 +1247,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Validation results
    */
-  router.post('/jira/validate-keys', requireAuth, requireScope('releases:write'), async function(req, res) {
+  router.post('/jira/validate-keys', requireAuth, requireScope('releases:write'), async function (req, res) {
     const keys = req.body && req.body.keys
     if (!Array.isArray(keys) || keys.length === 0) {
       return res.status(400).json({ error: 'keys must be a non-empty array' })
@@ -1292,7 +1292,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Preview result
    */
-  router.post('/releases/:version/import/doc/preview', requireAuth, requireScope('releases:write'), async function(req, res) {
+  router.post('/releases/:version/import/doc/preview', requireAuth, requireScope('releases:write'), async function (req, res) {
     const version = req.params.version
     if (!isValidVersion(version)) {
       return res.status(400).json({ error: 'Invalid version format' })
@@ -1306,7 +1306,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
       const result = await previewDocImport(docId)
 
       const existingRocks = await loadBigRocks(readFromStorage, version)
-      const existingNames = new Set(existingRocks.map(function(r) { return r.name }))
+      const existingNames = new Set(existingRocks.map(function (r) { return r.name }))
 
       for (let i = 0; i < result.bigRocks.length; i++) {
         const rock = result.bigRocks[i]
@@ -1344,7 +1344,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Import result
    */
-  router.post('/releases/:version/import/doc', requireAuth, blockDuringImpersonation, requireScope('releases:write'), async function(req, res) {
+  router.post('/releases/:version/import/doc', requireAuth, blockDuringImpersonation, requireScope('releases:write'), async function (req, res) {
     const version = req.params.version
     if (!isValidVersion(version)) {
       return res.status(400).json({ error: 'Invalid version format' })
@@ -1366,10 +1366,10 @@ module.exports = async function registerPlanningRoutes(router, context) {
       const parsedDoc = await previewDocImport(docId)
 
       var existingRocksBeforeImport = mode === 'replace'
-        ? (await loadBigRocks(readFromStorage, version)).map(function(r) { return { name: r.name, pillar: r.pillar, jiraKeys: r.jiraKeys } })
+        ? (await loadBigRocks(readFromStorage, version)).map(function (r) { return { name: r.name, pillar: r.pillar, jiraKeys: r.jiraKeys } })
         : undefined
 
-      const result = await withConfigLock(async function() {
+      const result = await withConfigLock(async function () {
         if (mode === 'replace') {
           await backupConfig(readFromStorage, writeToStorage, listStorageFiles, deleteFromStorage)
         }
@@ -1384,7 +1384,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
         details: {
           docId: docId,
           mode: mode,
-          importedRocks: parsedDoc.bigRocks ? parsedDoc.bigRocks.map(function(r) { return r.name }) : [],
+          importedRocks: parsedDoc.bigRocks ? parsedDoc.bigRocks.map(function (r) { return r.name }) : [],
           replacedRocks: existingRocksBeforeImport
         }
       })
@@ -1407,7 +1407,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Available and configured releases
    */
-  router.get('/smartsheet/releases', requireAuth, requireScope('releases:read'), async function(req, res) {
+  router.get('/smartsheet/releases', requireAuth, requireScope('releases:read'), async function (req, res) {
     try {
       if (!smartsheetClient.isConfigured()) {
         return res.status(503).json({
@@ -1416,10 +1416,10 @@ module.exports = async function registerPlanningRoutes(router, context) {
       }
 
       const releases = await smartsheetClient.discoverReleases()
-      const configuredVersions = (await getConfiguredReleases(readFromStorage)).map(function(r) { return r.version })
+      const configuredVersions = (await getConfiguredReleases(readFromStorage)).map(function (r) { return r.version })
       const configuredSet = new Set(configuredVersions)
 
-      const available = releases.map(function(rel) {
+      const available = releases.map(function (rel) {
         return {
           version: rel.version,
           ea1Target: rel.ea1Target,
@@ -1451,7 +1451,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Seed result
    */
-  router.post('/admin/seed', requireAdmin, requireScope('releases:write'), async function(req, res) {
+  router.post('/admin/seed', requireAdmin, requireScope('releases:write'), async function (req, res) {
     const config = req.body
     if (!config || typeof config !== 'object' || !config.releases) {
       return res.status(400).json({ error: 'Request body must include a "releases" object' })
@@ -1485,7 +1485,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
     }
 
     try {
-      const result = await withConfigLock(async function() {
+      const result = await withConfigLock(async function () {
         await backupConfig(readFromStorage, writeToStorage, listStorageFiles, deleteFromStorage)
 
         const existing = await getConfig(readFromStorage)
@@ -1507,7 +1507,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
 
         await writeToStorage('releases/planning/config.json', merged)
 
-        const seededVersions = versions.map(function(v) {
+        const seededVersions = versions.map(function (v) {
           return { version: v, bigRockCount: (config.releases[v].bigRocks || []).length }
         })
 
@@ -1537,7 +1537,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Fixture config
    */
-  router.get('/admin/seed/fixture', requireAdmin, requireScope('releases:write'), function(req, res) {
+  router.get('/admin/seed/fixture', requireAdmin, requireScope('releases:write'), function (req, res) {
     const fixture = loadFixture('config.json')
     if (!fixture) {
       return res.status(404).json({ error: 'No fixture data found' })
@@ -1569,7 +1569,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
    *       200:
    *         description: Audit log entries
    */
-  router.get('/audit-log', requireAuth, requireScope('releases:read'), async function(req, res) {
+  router.get('/audit-log', requireAuth, requireScope('releases:read'), async function (req, res) {
     const version = req.query.version || null
     const action = req.query.action || null
     const limit = Math.min(Math.max(parseInt(req.query.limit) || 50, 1), 500)
@@ -1587,7 +1587,7 @@ module.exports = async function registerPlanningRoutes(router, context) {
 
   // Diagnostics
   if (context.registerDiagnostics) {
-    context.registerDiagnostics(async function() {
+    context.registerDiagnostics(async function () {
       const releases = await getConfiguredReleases(readFromStorage)
       const cacheFiles = []
       for (const rel of releases) {
@@ -1599,13 +1599,13 @@ module.exports = async function registerPlanningRoutes(router, context) {
         })
       }
       const refreshSummary = {}
-      refreshStates.forEach(function(state, ver) {
+      refreshStates.forEach(function (state, ver) {
         refreshSummary[ver] = { running: state.running, lastResult: state.lastResult }
       })
       return {
         refreshStates: refreshSummary,
         configuredReleases: releases.length,
-        totalBigRocks: releases.reduce(function(sum, r) { return sum + r.bigRockCount }, 0),
+        totalBigRocks: releases.reduce(function (sum, r) { return sum + r.bigRockCount }, 0),
         cacheFiles,
         demoMode: DEMO_MODE
       }

@@ -44,7 +44,7 @@ test.describe('Product Upstreams Module @product-upstreams', () => {
     expect(page.url()).toMatch(/product-upstreams\/products/);
     await expect(page.getByRole('heading', { name: 'Product Upstreams', level: 1 })).toBeVisible();
     await expect(page.getByTestId('data-origin-callout').first()).toBeVisible();
-    await expect(page.getByText('Red Hat AI Engineering').first()).toBeVisible();
+    await expect(page.getByText('Red Hat OSAIPO').first()).toBeVisible();
     await expect(page.getByTestId('feature-request-link').first()).toBeVisible();
     await expect(page.getByTestId('custom-data-request-link').first()).toBeVisible();
     await expect(page.getByTestId('product-tile-grid')).toBeVisible();

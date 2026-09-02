@@ -83,7 +83,7 @@ pull-core-images: ## Pull core images from Quay (version from @org-pulse/core)
 	$(CONTAINER_RUNTIME) pull quay.io/org-pulse/org-pulse-core-frontend-runtime:$(CORE_TAG)
 
 # ========================================
-# Image Builds — AI Engineering (full)
+# Image Builds — OSAIPO (full)
 # ========================================
 build-frontend-image: ## Build AI Eng frontend image
 	@echo "Building AI Eng frontend container image..."

@@ -62,9 +62,9 @@ const props = defineProps({
   variant: { type: String, default: 'banner' }
 })
 
-const team = computed(() => (props.meta && props.meta.stewardTeam) || 'Red Hat AI Engineering')
+const team = computed(() => (props.meta && props.meta.stewardTeam) || 'Red Hat OSAIPO')
 const sourceNote = computed(() => (props.meta && props.meta.sourceNote) ||
-  'This catalog is a static snapshot curated by Red Hat AI Engineering and shipped with this module.')
+  'This catalog is a static snapshot curated by Red Hat OSAIPO and shipped with this module.')
 const coverageNote = computed(() => props.meta && props.meta.coverageNote)
 const lastUpdated = computed(() => props.meta && props.meta.lastUpdated)
 const featureRequestUrl = computed(() => props.meta && props.meta.featureRequestUrl)

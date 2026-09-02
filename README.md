@@ -1,6 +1,6 @@
-# AI Engineering People & Teams
+# OSAIPO People & Teams
 
-AI Engineering modules and deployment for [Org Pulse](https://github.com/red-hat-data-services/org-pulse-core), an internal engineering dashboard connecting Jira, GitHub, and GitLab data with team rosters to surface delivery insights.
+OSAIPO modules and deployment for [Org Pulse](https://github.com/red-hat-data-services/org-pulse-core), an internal engineering dashboard connecting Jira, GitHub, and GitLab data with team rosters to surface delivery insights.
 
 This repo contains AI Eng-specific modules, platform customizations, and deployment overlays. The core platform (`@org-pulse/core`) is installed as an npm dependency.
 

@@ -13,7 +13,7 @@
           Click a row for reporter, resolution, and dates.
         </p>
         <p v-else class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-          Open issues with linked SFDC cases across AI Engineering projects.
+          Open issues with linked SFDC cases across OSAIPO projects.
           Click a row for details.
         </p>
       </div>

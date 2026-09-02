@@ -12,7 +12,7 @@ import {
 describe('product-upstreams catalog', () => {
   it('loads the bundled catalog with origin metadata', () => {
     const catalog = getCatalog()
-    expect(catalog.meta.stewardTeam).toBe('Red Hat AI Engineering')
+    expect(catalog.meta.stewardTeam).toBe('Red Hat OSAIPO')
     expect(catalog.meta.featureRequestUrl).toContain('github.com')
     expect(catalog.meta.customDataRequestUrl).toContain('custom%20data')
     expect(catalog.products.length).toBeGreaterThan(0)
@@ -71,6 +71,6 @@ describe('product-upstreams catalog', () => {
     expect(stats.availableCount).toBeGreaterThan(0)
     expect(stats.listedUnavailableCount).toBeGreaterThan(0)
     expect(stats.packageCount).toBeGreaterThan(0)
-    expect(getMeta().stewardTeam).toBe('Red Hat AI Engineering')
+    expect(getMeta().stewardTeam).toBe('Red Hat OSAIPO')
   })
 })

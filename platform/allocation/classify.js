@@ -1,5 +1,5 @@
 /**
- * AI Engineering 40/40/20 allocation classification.
+ * OSAIPO 40/40/20 allocation classification.
  *
  * Classifies Jira issues into three categories based on Activity Type
  * custom field, with special handling for vulnerability issue types.

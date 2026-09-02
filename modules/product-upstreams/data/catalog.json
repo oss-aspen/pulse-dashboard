@@ -12,288 +12,6 @@
   },
   "products": [
     {
-      "id": "rhoai",
-      "name": "Red Hat OpenShift AI",
-      "shortName": "RHOAI",
-      "description": "OpenShift-native platform for training, serving, and monitoring AI models.",
-      "category": "Platform",
-      "version": "2.22",
-      "available": true,
-      "upstreams": [
-        {
-          "id": "opendatahub-operator",
-          "name": "Open Data Hub Operator",
-          "url": "https://github.com/opendatahub-io/opendatahub-operator",
-          "description": "Operator that installs and manages OpenShift AI / Open Data Hub components.",
-          "packages": [
-            {
-              "name": "opendatahub-operator",
-              "version": "2.22.0"
-            },
-            {
-              "name": "rhods-operator",
-              "version": "2.22.0"
-            }
-          ]
-        },
-        {
-          "id": "odh-dashboard",
-          "name": "Open Data Hub Dashboard",
-          "url": "https://github.com/opendatahub-io/odh-dashboard",
-          "description": "Web console for projects, workbenches, model serving, and pipelines.",
-          "packages": [
-            {
-              "name": "odh-dashboard",
-              "version": "2.22.0"
-            }
-          ]
-        },
-        {
-          "id": "kserve",
-          "name": "KServe",
-          "url": "https://github.com/kserve/kserve",
-          "description": "Kubernetes-native model inference platform used for model serving.",
-          "packages": [
-            {
-              "name": "kserve",
-              "version": "0.14.1"
-            },
-            {
-              "name": "kserve-controller",
-              "version": "0.14.1"
-            }
-          ]
-        },
-        {
-          "id": "kuberay",
-          "name": "KubeRay",
-          "url": "https://github.com/ray-project/kuberay",
-          "description": "Kubernetes operator for Ray clusters, used by distributed training workflows.",
-          "packages": [
-            {
-              "name": "kuberay-operator",
-              "version": "1.2.2"
-            },
-            {
-              "name": "ray",
-              "version": "2.40.0"
-            }
-          ]
-        },
-        {
-          "id": "codeflare",
-          "name": "CodeFlare",
-          "url": "https://github.com/project-codeflare/codeflare-sdk",
-          "description": "SDK and stack for multi-cluster training and batch inference jobs.",
-          "packages": [
-            {
-              "name": "codeflare-sdk",
-              "version": "0.28.1"
-            }
-          ]
-        },
-        {
-          "id": "data-science-pipelines",
-          "name": "Data Science Pipelines",
-          "url": "https://github.com/opendatahub-io/data-science-pipelines",
-          "description": "Kubeflow Pipelines distribution for data science workflow orchestration.",
-          "packages": [
-            {
-              "name": "data-science-pipelines",
-              "version": "2.4.0"
-            },
-            {
-              "name": "kfp",
-              "version": "2.10.1"
-            }
-          ]
-        },
-        {
-          "id": "trustyai",
-          "name": "TrustyAI",
-          "url": "https://github.com/trustyai-explainability/trustyai-explainability",
-          "description": "Bias, explainability, and fairness services for models on OpenShift AI.",
-          "packages": [
-            {
-              "name": "trustyai-service",
-              "version": "1.29.0"
-            },
-            {
-              "name": "trustyai-explainability",
-              "version": "1.29.0"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "rhaiis",
-      "name": "Red Hat AI Inference Server",
-      "shortName": "RHAIIS",
-      "description": "Enterprise distribution of vLLM for high-throughput model inference.",
-      "category": "Inference",
-      "version": "3.1",
-      "available": true,
-      "upstreams": [
-        {
-          "id": "vllm",
-          "name": "vLLM",
-          "url": "https://github.com/vllm-project/vllm",
-          "description": "High-throughput LLM inference and serving engine.",
-          "packages": [
-            {
-              "name": "vllm",
-              "version": "0.8.5"
-            },
-            {
-              "name": "vllm-flash-attn",
-              "version": "2.7.4"
-            }
-          ]
-        },
-        {
-          "id": "compressed-tensors",
-          "name": "compressed-tensors",
-          "url": "https://github.com/neuralmagic/compressed-tensors",
-          "description": "Sparsity and quantization tensor formats used with vLLM.",
-          "packages": [
-            {
-              "name": "compressed-tensors",
-              "version": "0.9.3"
-            }
-          ]
-        },
-        {
-          "id": "lm-evaluation-harness",
-          "name": "LM Evaluation Harness",
-          "url": "https://github.com/EleutherAI/lm-evaluation-harness",
-          "description": "Common evaluation suite used to characterize inference quality.",
-          "packages": [
-            {
-              "name": "lm-eval",
-              "version": "0.4.8"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "rhel-ai",
-      "name": "Red Hat Enterprise Linux AI",
-      "shortName": "RHEL AI",
-      "description": "Bootable RHEL image with Granite models and InstructLab for on-prem alignment.",
-      "category": "Platform",
-      "version": "1.5",
-      "available": true,
-      "upstreams": [
-        {
-          "id": "instructlab",
-          "name": "InstructLab",
-          "url": "https://github.com/instructlab/instructlab",
-          "description": "CLI and workflow for synthesizing data and aligning Granite-class models.",
-          "packages": [
-            {
-              "name": "instructlab",
-              "version": "0.24.1"
-            },
-            {
-              "name": "instructlab-training",
-              "version": "0.7.0"
-            }
-          ]
-        },
-        {
-          "id": "instructlab-sdg",
-          "name": "InstructLab SDG",
-          "url": "https://github.com/instructlab/sdg",
-          "description": "Synthetic data generation pipeline used by InstructLab.",
-          "packages": [
-            {
-              "name": "instructlab-sdg",
-              "version": "0.8.0"
-            }
-          ]
-        },
-        {
-          "id": "granite",
-          "name": "IBM Granite",
-          "url": "https://github.com/ibm-granite/granite",
-          "description": "Granite foundation models shipped with RHEL AI.",
-          "packages": [
-            {
-              "name": "granite-7b-lab",
-              "version": "1.0.0"
-            },
-            {
-              "name": "granite-8b-code-instruct",
-              "version": "1.1.0"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "instructlab",
-      "name": "InstructLab",
-      "shortName": "InstructLab",
-      "description": "Community project for collaborative model alignment, also consumed by RHEL AI.",
-      "category": "Training",
-      "version": "0.24",
-      "available": true,
-      "upstreams": [
-        {
-          "id": "instructlab-core",
-          "name": "InstructLab",
-          "url": "https://github.com/instructlab/instructlab",
-          "description": "Core InstructLab CLI, taxonomy, and training loop.",
-          "packages": [
-            {
-              "name": "instructlab",
-              "version": "0.24.1"
-            },
-            {
-              "name": "instructlab-eval",
-              "version": "0.5.1"
-            }
-          ]
-        },
-        {
-          "id": "instructlab-taxonomy",
-          "name": "InstructLab Taxonomy",
-          "url": "https://github.com/instructlab/taxonomy",
-          "description": "Knowledge and skills taxonomy that drives synthetic data generation.",
-          "packages": [
-            {
-              "name": "instructlab-taxonomy",
-              "version": "0.24.0"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "llama-stack",
-      "name": "Llama Stack",
-      "shortName": "Llama Stack",
-      "description": "Composable APIs for inference, agents, safety, and telemetry around Llama models.",
-      "category": "Platform",
-      "version": null,
-      "available": false,
-      "unavailableReason": "Catalog in progress \u2014 check back soon, or request custom data if you need this mapping now.",
-      "upstreams": []
-    },
-    {
-      "id": "rhoai-edge",
-      "name": "OpenShift AI at the Edge",
-      "shortName": "RHOAI Edge",
-      "description": "Edge and disconnected deployment profile for OpenShift AI.",
-      "category": "Platform",
-      "version": null,
-      "available": false,
-      "unavailableReason": "Listed for awareness; upstream mapping has not been published yet.",
-      "upstreams": []
-    },
-    {
       "id": "hummingbird",
       "name": "Hummingbird",
       "shortName": "Hummingbird",
@@ -6327,6 +6045,26 @@
           ]
         }
       ]
+    },
+    {
+      "id": "rho",
+      "name": "Red Hat OpenShift",
+      "shortName": "Openshift",
+      "description": "OpenShift container environment and platform.",
+      "category": "Platform",
+      "available": false,
+      "unavailableReason": "In progress; upstream mapping is not yet complete.",
+      "upstreams": []
+    },
+    {
+      "id": "pulp",
+      "name": "Pulp",
+      "shortName": "Pulp",
+      "description": "Pulp is a platform for managing content on distributed systems.",
+      "category": "Repository",
+      "available": false,
+      "unavailableReason": "In progress; this is currently being researched.",
+      "upstreams": []
     }
   ]
 }

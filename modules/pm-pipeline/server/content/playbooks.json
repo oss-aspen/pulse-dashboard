@@ -8,11 +8,24 @@
       "Open the RHAIRFE in Jira and read the review feedback (ask engineering for the HTML review report if needed).",
       "Fix failing criteria — usually WHY (business justification), Right-sized (split RFEs), or Open to HOW (avoid prescribing architecture).",
       "If the RFE is too large, split into separate tickets.",
-      "Ask AI Engineering to re-run the rfe-creator review on your ticket.",
+      "Ask OSAIPO to re-run the rfe-creator review on your ticket.",
       "Confirm rfe-creator-autofix-rubric-pass or tech-reviewed appears before adding strat scope labels."
     ],
-    "links": ["rfe-creator-repo", "confluence-rhai-home"],
-    "stepLinks": [[], [], [], ["rfe-creator-repo"], ["strat-creator-pipeline-settings"]],
+    "links": [
+      "rfe-creator-repo",
+      "confluence-rhai-home"
+    ],
+    "stepLinks": [
+      [],
+      [],
+      [],
+      [
+        "rfe-creator-repo"
+      ],
+      [
+        "strat-creator-pipeline-settings"
+      ]
+    ],
     "jqlTemplate": "project = RHAIRFE AND labels = \"rfe-creator-needs-attention\""
   },
   {
@@ -26,8 +39,20 @@
       "If scope changes, update the RFE and return to quality review.",
       "If architecture context was wrong, engineering submits an overlay PR to architecture-context."
     ],
-    "links": ["architecture-context-repo", "confluence-rhai-home"],
-    "stepLinks": [[], [], ["rfe-creator-repo"], ["architecture-context-repo"]],
+    "links": [
+      "architecture-context-repo",
+      "confluence-rhai-home"
+    ],
+    "stepLinks": [
+      [],
+      [],
+      [
+        "rfe-creator-repo"
+      ],
+      [
+        "architecture-context-repo"
+      ]
+    ],
     "jqlTemplate": "project = RHAIRFE AND labels in (\"rfe-creator-feasibility-fail\", \"rfe-creator-feasibility-unknown\")"
   },
   {
@@ -40,8 +65,17 @@
       "Confirm status is not Draft, Closed, or Resolved.",
       "If all gates pass, wait for strat-creator CI pickup (see §4)."
     ],
-    "links": ["strat-creator-pipeline-settings", "confluence-release-process"],
-    "stepLinks": [["strat-creator-pipeline-settings"], [], []],
+    "links": [
+      "strat-creator-pipeline-settings",
+      "confluence-release-process"
+    ],
+    "stepLinks": [
+      [
+        "strat-creator-pipeline-settings"
+      ],
+      [],
+      []
+    ],
     "jqlTemplate": null
   },
   {
@@ -53,10 +87,22 @@
       "Verify no existing RHAISTRAT is already linked (Cloners link).",
       "Check the strat dashboard for recent batch runs.",
       "Confirm the RFE is not stuck behind batch limits (default 10 per run).",
-      "Escalate to AI Engineering if eligible for multiple CI cycles without pickup."
+      "Escalate to OSAIPO if eligible for multiple CI cycles without pickup."
     ],
-    "links": ["strat-dashboard", "strat-creator-repo"],
-    "stepLinks": [[], ["strat-dashboard"], [], ["confluence-rhai-home"]],
+    "links": [
+      "strat-dashboard",
+      "strat-creator-repo"
+    ],
+    "stepLinks": [
+      [],
+      [
+        "strat-dashboard"
+      ],
+      [],
+      [
+        "confluence-rhai-home"
+      ]
+    ],
     "jqlTemplate": "project = RHAIRFE AND labels in (\"strat-creator-3.6\", \"strat-creator-3.5\") AND labels in (\"rfe-creator-autofix-rubric-pass\", \"tech-reviewed\") AND status not in (Closed, Resolved, Draft)"
   },
   {
@@ -71,8 +117,21 @@
       "Push back to CI and wait for strat-creator-rubric-pass.",
       "PM: provide business justification or scope clarifications when flagged."
     ],
-    "links": ["strat-creator-human-review", "architecture-context-repo"],
-    "stepLinks": [["strat-creator-human-review"], ["architecture-context-repo"], [], [], []],
+    "links": [
+      "strat-creator-human-review",
+      "architecture-context-repo"
+    ],
+    "stepLinks": [
+      [
+        "strat-creator-human-review"
+      ],
+      [
+        "architecture-context-repo"
+      ],
+      [],
+      [],
+      []
+    ],
     "jqlTemplate": "project = RHAISTRAT AND labels = \"strat-creator-needs-attention\""
   },
   {
@@ -86,8 +145,20 @@
       "Sign off via strat-creator workflow — applies strat-creator-human-sign-off.",
       "PM: escalate to the staff engineer or architect for your component."
     ],
-    "links": ["strat-creator-human-review", "strat-dashboard"],
-    "stepLinks": [["strat-creator-human-review"], [], ["strat-creator-human-review"], []],
+    "links": [
+      "strat-creator-human-review",
+      "strat-dashboard"
+    ],
+    "stepLinks": [
+      [
+        "strat-creator-human-review"
+      ],
+      [],
+      [
+        "strat-creator-human-review"
+      ],
+      []
+    ],
     "jqlTemplate": "project = RHAISTRAT AND labels = \"strat-creator-rubric-pass\" AND labels not in (\"strat-creator-human-sign-off\")"
   },
   {
@@ -103,8 +174,23 @@
       "Populate RICE scores (Reach, Impact, Confidence, Effort).",
       "Fix any hygiene issues (assignee, fix version) — check Org Pulse Feature Readiness."
     ],
-    "links": ["org-pulse-feature-readiness", "confluence-release-process", "confluence-rhai-home"],
-    "stepLinks": [[], [], [], [], ["confluence-release-process"], ["org-pulse-feature-readiness"]],
+    "links": [
+      "org-pulse-feature-readiness",
+      "confluence-release-process",
+      "confluence-rhai-home"
+    ],
+    "stepLinks": [
+      [],
+      [],
+      [],
+      [],
+      [
+        "confluence-release-process"
+      ],
+      [
+        "org-pulse-feature-readiness"
+      ]
+    ],
     "jqlTemplate": "project = RHAISTRAT AND labels = \"strat-creator-human-sign-off\" AND status in (New, Refinement)"
   },
   {
@@ -118,8 +204,20 @@
       "Ask the planning owner to run Release Quality Gate 1 for your release.",
       "Passing features receive rp-qg1-pass (3.5)."
     ],
-    "links": ["org-pulse-release-plan", "confluence-release-process"],
-    "stepLinks": [["org-pulse-feature-readiness"], [], ["confluence-release-process"], []],
+    "links": [
+      "org-pulse-release-plan",
+      "confluence-release-process"
+    ],
+    "stepLinks": [
+      [
+        "org-pulse-feature-readiness"
+      ],
+      [],
+      [
+        "confluence-release-process"
+      ],
+      []
+    ],
     "jqlTemplate": "project = RHAISTRAT AND labels = \"strat-creator-human-sign-off\" AND labels not in (\"rp-qg1-pass\") AND status != Closed"
   },
   {
@@ -132,8 +230,19 @@
       "Fix blockers on the RHAISTRAT ticket (owners, RICE, status).",
       "Request re-evaluation through the release planning process."
     ],
-    "links": ["org-pulse-feature-readiness", "confluence-release-process"],
-    "stepLinks": [["org-pulse-feature-readiness"], [], ["confluence-release-process"]],
+    "links": [
+      "org-pulse-feature-readiness",
+      "confluence-release-process"
+    ],
+    "stepLinks": [
+      [
+        "org-pulse-feature-readiness"
+      ],
+      [],
+      [
+        "confluence-release-process"
+      ]
+    ],
     "jqlTemplate": "project = RHAISTRAT AND labels = \"rp-qg1-fail\""
   },
   {
@@ -147,8 +256,18 @@
       "If deferral is capacity-driven, request a Gate 2 adjustment.",
       "Document business justification for the planning review."
     ],
-    "links": ["org-pulse-release-plan", "confluence-release-process"],
-    "stepLinks": [["org-pulse-release-plan"], [], [], []],
+    "links": [
+      "org-pulse-release-plan",
+      "confluence-release-process"
+    ],
+    "stepLinks": [
+      [
+        "org-pulse-release-plan"
+      ],
+      [],
+      [],
+      []
+    ],
     "jqlTemplate": null
   },
   {
@@ -160,10 +279,24 @@
       "Confirm Gate 2 approval and epic manifest exist (Org Pulse Release Plan).",
       "Verify strat-creator-human-sign-off and complete strategy content.",
       "Check whether epic-creator CI has run for your release batch.",
-      "Ask AI Engineering to run epic decomposition for your RHAISTRAT key."
+      "Ask OSAIPO to run epic decomposition for your RHAISTRAT key."
     ],
-    "links": ["epic-creator-repo", "org-pulse-release-plan"],
-    "stepLinks": [["org-pulse-release-plan"], [], ["epic-creator-repo"], ["epic-creator-repo"]],
+    "links": [
+      "epic-creator-repo",
+      "org-pulse-release-plan"
+    ],
+    "stepLinks": [
+      [
+        "org-pulse-release-plan"
+      ],
+      [],
+      [
+        "epic-creator-repo"
+      ],
+      [
+        "epic-creator-repo"
+      ]
+    ],
     "jqlTemplate": "project = RHAISTRAT AND labels = \"strat-creator-human-sign-off\" AND labels not in (\"epic-creator-auto-decomposed\") AND status != Closed"
   },
   {
@@ -177,8 +310,20 @@
       "Re-run decomposition until review passes (≥ 10/14, no zero criteria).",
       "PM: update Staff Engineer / SME Input or source RFE if scope is ambiguous."
     ],
-    "links": ["epic-creator-repo", "strat-creator-human-review"],
-    "stepLinks": [["epic-creator-repo"], [], ["epic-creator-repo"], []],
+    "links": [
+      "epic-creator-repo",
+      "strat-creator-human-review"
+    ],
+    "stepLinks": [
+      [
+        "epic-creator-repo"
+      ],
+      [],
+      [
+        "epic-creator-repo"
+      ],
+      []
+    ],
     "jqlTemplate": null
   }
 ]

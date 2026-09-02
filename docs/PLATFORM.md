@@ -117,7 +117,7 @@ metadata lives under `manifest.strategy`:
 {
   "strategy": {
     "id": "ai-eng-40-40-20",
-    "name": "AI Engineering 40/40/20",
+    "name": "OSAIPO 40/40/20",
     "description": "Classifies work into Tech Debt & Quality (40%), New Features (40%), and Learning & Enablement (20%)",
     "categories": [
       { "key": "tech-debt-quality", "name": "Tech Debt & Quality", "color": "amber", "target": 40 },

@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between">
       <div>
         <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">
-          AI Engineering OKR Scorecard — {{ data.year }}
+          OSAIPO OKR Scorecard — {{ data.year }}
         </h2>
         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
           Quarter-over-quarter tracking of all engineering OKRs.

@@ -142,7 +142,7 @@ Platform-level configuration for the site. Created when an admin saves settings 
 
 ```json
 {
-  "titlePrefix": "AI Engineering",
+  "titlePrefix": "OSAIPO",
   "authEmailDomain": "cluster.local"
 }
 ```
@@ -2289,9 +2289,9 @@ Static product-to-upstream mapping **shipped with the Product Upstreams module**
 ```json
 {
   "meta": {
-    "stewardTeam": "Red Hat AI Engineering",
+    "stewardTeam": "Red Hat OSAIPO",
     "title": "Product Upstreams Catalog",
-    "sourceNote": "This catalog is a static snapshot curated by Red Hat AI Engineering and shipped with this module.",
+    "sourceNote": "This catalog is a static snapshot curated by Red Hat OSAIPO and shipped with this module.",
     "coverageNote": "Products shown in gray are listed for awareness but are not yet catalogued.",
     "lastUpdated": "2026-09-01",
     "featureRequestUrl": "https://github.com/red-hat-data-services/rhai-org-pulse/issues/new?title=Product%20Upstreams%3A%20feature%20request",

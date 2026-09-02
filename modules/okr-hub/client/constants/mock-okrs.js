@@ -35,7 +35,7 @@ export var OKR_DATA = {
   year: 2026,
   categories: [
     {
-      name: 'AI Engineering OKRs',
+      name: 'OSAIPO OKRs',
       objectives: [
         {
           id: 'on-time-releases',

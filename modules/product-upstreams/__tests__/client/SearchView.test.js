@@ -6,7 +6,7 @@ import { _resetForTesting } from '../../client/composables/useCatalog.js'
 
 const catalog = {
   meta: {
-    stewardTeam: 'Red Hat AI Engineering',
+    stewardTeam: 'Red Hat OSAIPO',
     sourceNote: 'Static snapshot for tests.',
     lastUpdated: '2026-09-01',
     featureRequestUrl: 'https://example.test/feature',
@@ -74,7 +74,7 @@ describe('SearchView', () => {
     await flushPromises()
 
     expect(wrapper.text()).toContain('Package Search')
-    expect(wrapper.text()).toContain('Red Hat AI Engineering')
+    expect(wrapper.text()).toContain('Red Hat OSAIPO')
     expect(wrapper.find('[data-testid="search-empty-hint"]').exists()).toBe(true)
 
     await wrapper.find('[data-testid="package-search-input"]').setValue('vllm')

@@ -63,7 +63,7 @@ npm run lint        # linting
 
 ## Project Structure
 
-This repo is the AI Engineering consumer of [`@org-pulse/core`](https://github.com/red-hat-data-services/org-pulse-core). Core platform files (`src/`, `shared/`, `modules/team-tracker`) are symlinked into the workspace by `npm run setup`.
+This repo is the OSAIPO consumer of [`@org-pulse/core`](https://github.com/red-hat-data-services/org-pulse-core). Core platform files (`src/`, `shared/`, `modules/team-tracker`) are symlinked into the workspace by `npm run setup`.
 
 ```
 server/
@@ -85,7 +85,7 @@ deploy/
   ai-eng.backend.Dockerfile     # AI Eng backend (extends core backend image)
   ai-eng.frontend.Dockerfile    # AI Eng frontend (extends core builder + runtime)
   openshift/
-    overlays/ai-eng/        # AI Engineering shared overlay (kustomize remote base from core)
+    overlays/ai-eng/        # OSAIPO shared overlay (kustomize remote base from core)
     overlays/ai-eng-dev/    # AI Eng dev cluster overlay
     overlays/ai-eng-preprod/ # AI Eng preprod overlay
     overlays/ai-eng-prod/   # AI Eng prod overlay

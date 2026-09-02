@@ -56,7 +56,7 @@ describe('product-upstreams server', () => {
     const handler = router.routes.find(r => r.path === '/catalog').handler
     const res = mockRes()
     handler({}, res)
-    expect(res.body.meta.stewardTeam).toBe('Red Hat AI Engineering')
+    expect(res.body.meta.stewardTeam).toBe('Red Hat OSAIPO')
     expect(res.body.products.length).toBeGreaterThan(0)
   })
 
@@ -82,7 +82,7 @@ describe('product-upstreams server', () => {
     handler({ params: { id: 'rhoai' } }, res)
     expect(res.body.product.id).toBe('rhoai')
     expect(res.body.product.upstreams.length).toBeGreaterThan(0)
-    expect(res.body.meta.stewardTeam).toBe('Red Hat AI Engineering')
+    expect(res.body.meta.stewardTeam).toBe('Red Hat OSAIPO')
   })
 
   it('requires a search query and returns package rows', () => {

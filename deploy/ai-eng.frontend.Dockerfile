@@ -1,4 +1,4 @@
-# Org Pulse — AI Engineering Frontend
+# Org Pulse — OSAIPO Frontend
 #
 # Extends the core frontend builder with AI Eng modules, builds, then
 # serves from the core runtime image.

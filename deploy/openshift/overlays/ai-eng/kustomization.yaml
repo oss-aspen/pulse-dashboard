@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-# AI Engineering shared configuration — extends the core base with
+# OSAIPO shared configuration — extends the core base with
 # AI Eng-specific secrets and module images. Environment overlays
 # (ai-eng-dev, ai-eng-preprod, ai-eng-prod) extend this.
 
