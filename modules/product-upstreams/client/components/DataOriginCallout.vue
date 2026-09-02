@@ -38,6 +38,15 @@
       >
         Request custom data
       </a>
+      <a
+        v-if="getInTouchUrl"
+        :href="getInTouchUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-primary-700 dark:text-primary-300 hover:underline font-medium"
+      >
+        Get in Touch
+      </a>
     </div>
     <p v-if="contactHint && variant !== 'footer'" class="mt-2 text-xs text-gray-500 dark:text-gray-400">
       {{ contactHint }}
@@ -60,5 +69,6 @@ const coverageNote = computed(() => props.meta && props.meta.coverageNote)
 const lastUpdated = computed(() => props.meta && props.meta.lastUpdated)
 const featureRequestUrl = computed(() => props.meta && props.meta.featureRequestUrl)
 const customDataRequestUrl = computed(() => props.meta && props.meta.customDataRequestUrl)
+const getInTouchUrl = computed(() => props.meta && props.meta.getInTouchUrl)
 const contactHint = computed(() => props.meta && props.meta.contactHint)
 </script>

@@ -7,7 +7,8 @@
     "lastUpdated": "2026-09-01",
     "featureRequestUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf5pFfFXkmtX79dATtoqLnjaC-6KohTh4aWS6-dnMKpgLwnZw/viewform?usp=pp_url&entry.1962578222=Additional+metrics+or+features+for+Project+Aspen",
     "customDataRequestUrl": "https://docs.google.com/forms/d/e/1FAIpQLSf5pFfFXkmtX79dATtoqLnjaC-6KohTh4aWS6-dnMKpgLwnZw/viewform",
-    "contactHint": "Reach out in #proj-product-upstream-mapping on slack to contact the team, suggest features, help expand the project, or request custom data."
+    "getInTouchUrl": "https://redhat.enterprise.slack.com/archives/C0BH2QNPQKZ",
+    "contactHint": "Reach out in #proj-product-upstream-mapping on slack to contact the team, suggest featurgetInTouchUrlgetInTouchUrles, help expand the project, or request custom data."
   },
   "products": [
     {
