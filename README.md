@@ -138,7 +138,7 @@ Deployed to OpenShift via ArgoCD. AI Eng images extend core images from `@org-pu
 
 The default `npm run build` still expects Express at `/api`. For a read-only Pages deploy, use the static build — it intercepts `/api` in the browser. No core fork: a Vite plugin injects `static-host/install.js` only when `VITE_STATIC_HOST=true`.
 
-By default the static build **only bundles Product Upstreams** (`STATIC_ENABLED_SLUGS` in `static-host/static-nav.js`). Other `modules/` packages are omitted from Vite globs, so they do not appear in the sidebar and their client JS is not in the bundle. Home and About stay (they are shell pages). The home page **API Docs** card is removed (there is no Express `/api/docs`). `/api/whoami` returns 401 so core hides the user/login chip, Settings, and Refresh. Backend health polling is stubbed so the “Reconnecting…” modal does not appear.
+By default the static build **only bundles Product Upstreams** (`STATIC_ENABLED_SLUGS` in `static-host/static-nav.js`). Other `modules/` packages are omitted from Vite globs, so they do not appear in the sidebar and their client JS is not in the bundle. Home and About stay (they are shell pages). The home page **API Docs** card is removed (there is no Express `/api/docs`). `/api/whoami` returns 401 so core hides the user/login chip, Settings, and Refresh. Backend health polling is stubbed so the “Reconnecting…” modal does not appear. A fixed **Red Hat Confidential** footer is injected into `index.html` (internal use only; do not distribute outside of Red Hat).
 
 ```bash
 npm run setup

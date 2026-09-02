@@ -10,6 +10,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { isBackendHealthModuleId, isCoreMainId, isModuleLoaderId, isNavDiscoveryId, isLandingPageId, restrictModuleLoaderGlobs, filterNavDiscoveryModule, stripLandingPageApiDocs } from './patch-core.js'
+import { injectConfidentialityFooter } from './confidentiality-footer.js'
 
 const pluginDir = path.dirname(fileURLToPath(import.meta.url))
 const backendHealthStub = path.resolve(pluginDir, 'useBackendHealth-stub.js')
@@ -62,7 +63,7 @@ export function staticHostPlugin() {
       }
       // Vite HTML placeholder; stays valid quoted HTML (unlike a JS template literal).
       next = next.replaceAll('href="/redhat-logo.svg"', 'href="%BASE_URL%redhat-logo.svg"')
-      return next
+      return injectConfidentialityFooter(next)
     }
   }
 }
