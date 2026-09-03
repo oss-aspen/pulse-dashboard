@@ -6,7 +6,7 @@
 export const CONFIDENTIALITY_FOOTER_ID = 'confidentiality-footer'
 
 export const CONFIDENTIALITY_FOOTER_MARKUP = `  <style>
-    html { --confidentiality-footer-height: 2.5rem; }
+    html { --confidentiality-footer-height: 4rem; }
     #${CONFIDENTIALITY_FOOTER_ID} {
       position: fixed;
       left: 0;
@@ -15,11 +15,11 @@ export const CONFIDENTIALITY_FOOTER_MARKUP = `  <style>
       z-index: 40;
       box-sizing: border-box;
       min-height: var(--confidentiality-footer-height);
-      padding: 0.5rem 1rem;
+      padding: 0.55rem 1rem;
       text-align: center;
       font-family: ui-sans-serif, system-ui, sans-serif;
       font-size: 0.75rem;
-      line-height: 1.25;
+      line-height: 1.4;
       color: #374151;
       background: #f9fafb;
       border-top: 2px solid #ee0000;
@@ -32,6 +32,13 @@ export const CONFIDENTIALITY_FOOTER_MARKUP = `  <style>
     #${CONFIDENTIALITY_FOOTER_ID} strong {
       font-weight: 600;
       letter-spacing: 0.01em;
+    }
+    #${CONFIDENTIALITY_FOOTER_ID} a {
+      color: #1d4ed8;
+      text-decoration: underline;
+    }
+    html.dark #${CONFIDENTIALITY_FOOTER_ID} a {
+      color: #93c5fd;
     }
     #app { padding-bottom: var(--confidentiality-footer-height); }
     aside.fixed.z-30 { height: calc(100vh - var(--confidentiality-footer-height)); }
