@@ -11,13 +11,14 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { isBackendHealthModuleId, isCoreMainId, isModuleLoaderId, isNavDiscoveryId, isLandingPageId, isCoreAppVueId, restrictModuleLoaderGlobs, filterNavDiscoveryModule, stripLandingPageApiDocs, patchAppHashNavigation } from './patch-core.js'
 import { injectConfidentialityFooter } from './confidentiality-footer.js'
+import { injectMatomoTracking } from './matomo-tracking.js'
 
 const pluginDir = path.dirname(fileURLToPath(import.meta.url))
 const backendHealthStub = path.resolve(pluginDir, 'useBackendHealth-stub.js')
 const installPath = path.resolve(pluginDir, 'install.js')
 const stubSource = fs.readFileSync(backendHealthStub, 'utf8')
 
-export function staticHostPlugin() {
+export function staticHostPlugin({ matomoUrl, matomoSiteId } = {}) {
   return {
     name: 'org-pulse-static-host',
     enforce: 'pre',
@@ -70,6 +71,7 @@ export function staticHostPlugin() {
       }
       // Vite HTML placeholder; stays valid quoted HTML (unlike a JS template literal).
       next = next.replaceAll('href="/redhat-logo.svg"', 'href="%BASE_URL%redhat-logo.svg"')
+      next = injectMatomoTracking(next, { matomoUrl, siteId: matomoSiteId })
       return injectConfidentialityFooter(next)
     }
   }

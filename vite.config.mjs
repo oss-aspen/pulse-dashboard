@@ -13,7 +13,10 @@ export default function defineConsumerViteConfig({ mode } = {}) {
       // so module-loader globs, useBackendHealth, and main.js are rewritten first.
       plugins: [
         disableCommandPalettePlugin(),
-        ...(staticHost ? [staticHostPlugin()] : [])
+        ...(staticHost ? [staticHostPlugin({
+          matomoUrl: process.env.VITE_MATOMO_URL || env.VITE_MATOMO_URL,
+          matomoSiteId: process.env.VITE_MATOMO_SITE_ID || env.VITE_MATOMO_SITE_ID
+        })] : [])
       ],
       base: staticHost ? (process.env.VITE_BASE || env.VITE_BASE || './') : (process.env.VITE_BASE || env.VITE_BASE || '/')
     },
