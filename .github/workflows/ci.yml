@@ -36,7 +36,7 @@ jobs:
           fi
 
           CHANGED=$(git diff --name-only ${BASE_SHA} HEAD)
-          if echo "$CHANGED" | grep -qE '^(server/index\.js|modules/|platform/|package|vite\.config|tailwind\.config|postcss\.config|vitest\.config|index\.html|public/|tests/|playwright\.config|Makefile|patches/)'; then
+          if echo "$CHANGED" | grep -qE '^(server/index\.js|modules/|platform/|package|vite\.config|tailwind\.config|postcss\.config|vitest\.config|index\.html|public/|tests/|playwright\.config|Makefile|patches/|scripts/apply-core-patches)'; then
             echo "app=true" >> "$GITHUB_OUTPUT"
           fi
           if echo "$CHANGED" | grep -q '^deploy/'; then

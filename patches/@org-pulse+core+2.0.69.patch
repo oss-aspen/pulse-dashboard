@@ -1,0 +1,68 @@
+diff --git a/node_modules/@org-pulse/core/index.html b/node_modules/@org-pulse/core/index.html
+index 1111111..2222222 100644
+--- a/node_modules/@org-pulse/core/index.html
++++ b/node_modules/@org-pulse/core/index.html
+@@ -5,5 +5,5 @@
+     <meta charset="UTF-8" />
+     <link rel="icon" type="image/svg+xml" href="/redhat-logo.svg" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+-    <title>Org Pulse</title>
++    <title>Data Team Upstream Insights</title>
+   </head>
+diff --git a/node_modules/@org-pulse/core/src/components/AboutView.vue b/node_modules/@org-pulse/core/src/components/AboutView.vue
+index 1111111..2222222 100644
+--- a/node_modules/@org-pulse/core/src/components/AboutView.vue
++++ b/node_modules/@org-pulse/core/src/components/AboutView.vue
+@@ -22,7 +22,7 @@
+     <template v-if="activeTab === 'about'">
+       <!-- Hero -->
+       <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-8 text-center">
+-        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Org Pulse</h2>
++        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Data Team Upstream Insights</h2>
+         <p class="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+           A modular engineering dashboard that connects Jira, GitHub, and GitLab data with your team roster to surface delivery insights.
+         </p>
+diff --git a/node_modules/@org-pulse/core/src/components/App.vue b/node_modules/@org-pulse/core/src/components/App.vue
+index 1111111..2222222 100644
+--- a/node_modules/@org-pulse/core/src/components/App.vue
++++ b/node_modules/@org-pulse/core/src/components/App.vue
+@@ -293,3 +293,3 @@
+     watch(titlePrefix, (prefix) => {
+-      document.title = prefix ? `${prefix} Org Pulse` : 'Org Pulse'
++      document.title = prefix ? `${prefix} Data Team Upstream Insights` : 'Data Team Upstream Insights'
+     })
+diff --git a/node_modules/@org-pulse/core/src/components/AppSidebar.vue b/node_modules/@org-pulse/core/src/components/AppSidebar.vue
+index 1111111..2222222 100644
+--- a/node_modules/@org-pulse/core/src/components/AppSidebar.vue
++++ b/node_modules/@org-pulse/core/src/components/AppSidebar.vue
+@@ -23,7 +23,7 @@
+         <img src="/redhat-logo.svg" alt="Red Hat" class="h-8 w-8 flex-shrink-0" />
+         <transition name="fade">
+-          <div v-if="!collapsed" class="overflow-hidden whitespace-nowrap flex-1">
+-            <h1 class="text-sm font-bold text-gray-900 dark:text-gray-100 leading-tight">Org Pulse</h1>
++          <div v-if="!collapsed" class="overflow-hidden flex-1 min-w-0">
++            <h1 class="text-sm font-bold text-gray-900 dark:text-gray-100 leading-tight">Data Team Upstream Insights</h1>
+             <p v-if="titlePrefix" class="text-xs text-gray-400 dark:text-gray-500">{{ titlePrefix }}</p>
+           </div>
+         </transition>
+diff --git a/node_modules/@org-pulse/core/src/components/LandingPage.vue b/node_modules/@org-pulse/core/src/components/LandingPage.vue
+index 1111111..2222222 100644
+--- a/node_modules/@org-pulse/core/src/components/LandingPage.vue
++++ b/node_modules/@org-pulse/core/src/components/LandingPage.vue
+@@ -78,6 +78,6 @@
+         <div v-if="allWidgets.length > 0" class="flex items-center justify-between">
+           <div>
+-            <h1 class="text-xl font-bold text-gray-900 dark:text-gray-100">Org Pulse</h1>
++            <h1 class="text-xl font-bold text-gray-900 dark:text-gray-100">Data Team Upstream Insights</h1>
+             <p class="text-sm text-gray-500 dark:text-gray-400">Select a module to get started</p>
+           </div>
+           <button
+@@ -89,7 +89,7 @@
+           </button>
+         </div>
+         <div v-else>
+-          <h1 class="text-xl font-bold text-gray-900 dark:text-gray-100">Org Pulse</h1>
++          <h1 class="text-xl font-bold text-gray-900 dark:text-gray-100">Data Team Upstream Insights</h1>
+           <p class="text-sm text-gray-500 dark:text-gray-400">Select a module to get started</p>
+         </div>
+       </div>
