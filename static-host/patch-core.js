@@ -50,6 +50,69 @@ export function isLandingPageId(id) {
   return bare.endsWith('/components/LandingPage.vue')
 }
 
+/** Raw core App.vue SFC only — skip Vue compiler sub-requests (`?vue&type=...`). */
+export function isCoreAppVueId(id) {
+  const [bare, query] = String(id || '').replace(/\\/g, '/').split('?')
+  if (query) return false
+  return bare.endsWith('/src/components/App.vue')
+}
+
+const AUTH_GATED_RESTORE = `    await this.loadBuiltInManifestsFromApi()
+    if (this.authUser) {
+      await this.loadInitialData()
+    }
+`
+
+const UNAUTH_RESTORE = `    await this.loadBuiltInManifestsFromApi()
+    if (this.authUser) {
+      await this.loadInitialData()
+    } else {
+      // Static host (and local without a session) never sets authUser, but hash
+      // routes still need to mount. Otherwise a deep link shows Home and a
+      // second click on the already-current hash leaves the main pane blank.
+      await this.restoreFromHash()
+    }
+`
+
+const SIDEBAR_HASH_ONLY = `        this.activeModuleSlugRef = manifest.slug
+        this.activeModule = manifest.slug
+        this.activeViewId = resolvedViewId
+        this.routeParams = {}
+        window.location.hash = \`#/\${manifest.slug}/\${resolvedViewId}\`
+        return
+`
+
+const SIDEBAR_SAME_HASH_LOAD = `        this.activeModuleSlugRef = manifest.slug
+        this.activeModule = manifest.slug
+        this.activeViewId = resolvedViewId
+        this.routeParams = {}
+        const nextHash = \`#/\${manifest.slug}/\${resolvedViewId}\`
+        if ((window.location.hash || '#/') === nextHash) {
+          this.loadModuleView(manifest.slug, resolvedViewId)
+        } else {
+          window.location.hash = nextHash
+        }
+        return
+`
+
+function mustReplace(code, needle, replacement, label) {
+  if (!code.includes(needle)) {
+    throw new Error(`[static-host] ${label}: needle not found — core App.vue may have changed`)
+  }
+  return code.replace(needle, replacement)
+}
+
+/**
+ * Core only restores the hash after whoami succeeds. Static /api/whoami is 401
+ * on purpose (hide user chrome), so deep links never mount, and clicking the
+ * current Products nav item does not fire hashchange — main stays blank.
+ */
+export function patchAppHashNavigation(code) {
+  let next = mustReplace(code, AUTH_GATED_RESTORE, UNAUTH_RESTORE, 'unauthenticated hash restore')
+  next = mustReplace(next, SIDEBAR_HASH_ONLY, SIDEBAR_SAME_HASH_LOAD, 'same-hash sidebar navigation')
+  return next
+}
+
 export function stripLandingPageApiDocs(code) {
   const utilitiesBlock = `      <!-- Utilities -->
       <div class="mb-8">

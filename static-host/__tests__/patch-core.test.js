@@ -1,4 +1,7 @@
 import { describe, it, expect } from 'vitest'
+import fs from 'node:fs'
+import path from 'node:path'
+import { createRequire } from 'node:module'
 import {
   isBackendHealthModuleId,
   isCoreMainId,
@@ -8,8 +11,13 @@ import {
   restrictModuleLoaderGlobs,
   filterNavDiscoveryModule,
   isLandingPageId,
-  stripLandingPageApiDocs
+  isCoreAppVueId,
+  stripLandingPageApiDocs,
+  patchAppHashNavigation
 } from '../patch-core.js'
+import { stripCommandPalette } from '../../build/disable-command-palette.js'
+
+const require = createRequire(import.meta.url)
 
 describe('isBackendHealthModuleId', () => {
   it('matches aliased and filesystem ids, including missing .js', () => {
@@ -91,6 +99,37 @@ import {
     expect(next).not.toContain('/api/docs')
     expect(next).not.toContain('FileCode2')
     expect(next).toContain('<!-- Built-in Modules -->')
+  })
+})
+
+describe('isCoreAppVueId', () => {
+  it('matches the raw core App.vue SFC only', () => {
+    expect(isCoreAppVueId('/core/src/components/App.vue')).toBe(true)
+    expect(isCoreAppVueId('/core/src/components/App.vue?vue&type=template')).toBe(false)
+    expect(isCoreAppVueId('/core/src/components/LandingPage.vue')).toBe(false)
+  })
+})
+
+describe('patchAppHashNavigation', () => {
+  it('restores the hash without a session and remounts on a same-hash sidebar click', () => {
+    const coreDir = path.dirname(require.resolve('@org-pulse/core/package.json'))
+    const source = fs.readFileSync(path.join(coreDir, 'src/components/App.vue'), 'utf8')
+
+    const next = patchAppHashNavigation(source)
+    expect(next).toContain('await this.restoreFromHash()')
+    expect(next).toContain("if ((window.location.hash || '#/') === nextHash)")
+    expect(next).toContain('this.loadModuleView(manifest.slug, resolvedViewId)')
+    expect(next).toContain('await this.loadInitialData()')
+  })
+
+  it('throws if core App.vue no longer matches the needles', () => {
+    expect(() => patchAppHashNavigation('export default {}')).toThrow(/needle not found/)
+  })
+
+  it('still matches after the command-palette strip', () => {
+    const coreDir = path.dirname(require.resolve('@org-pulse/core/package.json'))
+    const source = fs.readFileSync(path.join(coreDir, 'src/components/App.vue'), 'utf8')
+    expect(() => patchAppHashNavigation(stripCommandPalette(source))).not.toThrow()
   })
 })
 

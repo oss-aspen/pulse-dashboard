@@ -54,7 +54,7 @@ test.describe('Frontend Smoke Tests', () => {
   test('should render core layout structure', async ({ page }) => {
     await page.goto('/');
 
-    await expect(page).toHaveTitle(/Org Pulse/);
+    await expect(page).toHaveTitle(/Data Team Upstream Insights/);
 
     // appContainer rendering
     const appContainer = page.locator('#app').first();

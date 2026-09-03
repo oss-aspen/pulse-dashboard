@@ -17,6 +17,8 @@ npm install
 npm run setup    # Symlinks core platform files (src/, shared/, modules/team-tracker) into workspace
 ```
 
+`npm install` also runs `patch-package`, which applies branding overlays from `patches/` onto `@org-pulse/core`.
+
 ### 2. Configure environment
 
 ```bash

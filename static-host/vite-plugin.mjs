@@ -9,7 +9,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { isBackendHealthModuleId, isCoreMainId, isModuleLoaderId, isNavDiscoveryId, isLandingPageId, restrictModuleLoaderGlobs, filterNavDiscoveryModule, stripLandingPageApiDocs } from './patch-core.js'
+import { isBackendHealthModuleId, isCoreMainId, isModuleLoaderId, isNavDiscoveryId, isLandingPageId, isCoreAppVueId, restrictModuleLoaderGlobs, filterNavDiscoveryModule, stripLandingPageApiDocs, patchAppHashNavigation } from './patch-core.js'
 import { injectConfidentialityFooter } from './confidentiality-footer.js'
 
 const pluginDir = path.dirname(fileURLToPath(import.meta.url))
@@ -47,6 +47,13 @@ export function staticHostPlugin() {
       if (isLandingPageId(id)) {
         try {
           return { code: stripLandingPageApiDocs(code), map: null }
+        } catch (err) {
+          this.warn(err.message)
+        }
+      }
+      if (isCoreAppVueId(id)) {
+        try {
+          return { code: patchAppHashNavigation(code), map: null }
         } catch (err) {
           this.warn(err.message)
         }

@@ -68,7 +68,8 @@ function handlePlatform(path) {
   if (path === '/healthz') return json(200, { status: 'ok' })
 
   // 401 → useAuth leaves user=null → no sidebar user/login chip, no API Tokens,
-  // no Settings (admin-only), no Refresh (admin-only).
+  // no Settings (admin-only), no Refresh (admin-only). App.vue hash restore for
+  // that unauthenticated case is patched in static-host/patch-core.js.
   if (path === '/whoami') {
     return json(401, { error: 'Authentication required.' })
   }

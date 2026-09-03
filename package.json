@@ -26,6 +26,7 @@
     "validate:openapi": "cp scripts/openapi-route-count.json node_modules/@org-pulse/core/scripts/ && node node_modules/@org-pulse/core/scripts/validate-openapi.js",
     "validate:dockerfile-deps": "node scripts/validate-dockerfile-deps.js",
     "update:view-owners": "node scripts/update-view-owners.js",
+    "postinstall": "patch-package",
     "prepare": "husky || true"
   },
   "dependencies": {

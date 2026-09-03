@@ -94,7 +94,7 @@ test.describe('About Page Tabs @about-tabs', () => {
     await aboutTab.click();
     await page.waitForTimeout(1000);
 
-    const orgPulseHeading = page.locator('h2', { hasText: 'Org Pulse' });
+    const orgPulseHeading = page.locator('h2', { hasText: 'Data Team Upstream Insights' });
     await expect(orgPulseHeading).toBeVisible();
 
     const helpTab = page.locator('nav button', { hasText: 'Help & Debug' });

@@ -115,6 +115,7 @@ npm run validate:modules      # Validate module manifests
 npm run validate:openapi      # Validate OpenAPI annotations
 npm run validate:dockerfile-deps  # Verify Dockerfile deps match package.json
 npm run update:view-owners        # Regenerate platform/view-owners/owners.js from git history
+npx patch-package @org-pulse/core # Refresh patches/ after editing files in node_modules/@org-pulse/core
 
 # Container-based tests (requires Docker/Podman)
 make smoke-test                 # Run smoke tests against AI Eng images
@@ -162,6 +163,10 @@ pages:
 ```
 
 This snapshot is read-only: no login, no writes, no live Jira/GitHub/GitLab. Add another static catalog module by implementing GET handlers and appending its slug to `STATIC_ENABLED_SLUGS` (that also includes it in the Vite glob). Re-run the Pages job when the catalog JSON changes.
+
+## Core patches
+
+This repo uses [patch-package](https://github.com/ds300/patch-package) to overlay deployment branding on `@org-pulse/core` (the hardcoded `Org Pulse` chrome title). Diffs live in `patches/` and are applied automatically by the `postinstall` script. After editing files under `node_modules/@org-pulse/core`, run `npx patch-package @org-pulse/core` to refresh the patch. Core upgrades that touch the patched files will fail `postinstall` until the patch is regenerated.
 
 ## Contributing
 

@@ -23,9 +23,11 @@ describe('injectConfidentialityFooter', () => {
     expect(next).toContain(`id="${CONFIDENTIALITY_FOOTER_ID}"`)
     expect(next).toContain('data-testid="confidentiality-footer"')
     expect(next).toContain('role="contentinfo"')
-    expect(next).toContain('Red Hat Confidential')
+    expect(next).toContain('Red Hat Internal')
     expect(next).toContain('Internal Use Only')
-    expect(next).toContain('Do not distribute outside of Red Hat')
+    expect(next).toContain('OSAIPO Data Team')
+    expect(next).toContain('#proj-product-upstream-mapping')
+    expect(next).toContain('https://redhat.enterprise.slack.com/archives/C0BH2QNPQKZ')
     expect(next.indexOf(CONFIDENTIALITY_FOOTER_ID)).toBeLessThan(next.lastIndexOf('</body>'))
   })
 
