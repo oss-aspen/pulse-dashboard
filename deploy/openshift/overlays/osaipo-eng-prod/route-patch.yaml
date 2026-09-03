@@ -1,12 +1,12 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: team-tracker
+  name: osaipo-pulse
   labels:
     shard: internal
-    paas.redhat.com/appcode: AMBC-001
+    paas.redhat.com/appcode: OSPO-004
   annotations:
     # Frontend proxies /api; same live Jira paths as the API route
     haproxy.router.openshift.io/timeout: 120s
 spec:
-  host: team-tracker.apps.int.spoke.prod.us-west-2.aws.paas.redhat.com
+  host: osaipo-pulse.apps.int.spoke.prod.us-east-1.aws.paas.redhat.com

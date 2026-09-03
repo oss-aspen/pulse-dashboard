@@ -1,17 +1,17 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: ambient-code--team-tracker
+namespace: osaipo-aspen--osaipo-pulse
 
 resources:
-- ../ai-eng
+- ../osaipo-eng
 
 patches:
 - path: route-patch.yaml
 - path: api-route-patch.yaml
 
 images:
-- name: quay.io/org-pulse/team-tracker-backend
+- name: quay.io/osaipo-data/osaipo-pulse-backend
   newTag: c7a04793fc049240c0736837a565632b686d570d
-- name: quay.io/org-pulse/team-tracker-frontend
+- name: quay.io/osaipo-data/osaipo-pulse-frontend
   newTag: ef384e2ff0bcbb641d7dfb0e96d47d638c846c11

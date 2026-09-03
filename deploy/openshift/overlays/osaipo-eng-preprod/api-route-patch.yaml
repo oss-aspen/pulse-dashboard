@@ -1,11 +1,11 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: team-tracker-api
+  name: osaipo-pulse-api
   labels:
     shard: internal
-    paas.redhat.com/appcode: AMBC-001
+    paas.redhat.com/appcode: OSPO-004
   annotations:
     haproxy.router.openshift.io/timeout: 120s
 spec:
-  host: api-team-tracker.apps.int.spoke.preprod.us-west-2.aws.paas.redhat.com
+  host: api-osaipo-pulse.apps.int.spoke.preprod.us-east-1.aws.paas.redhat.com

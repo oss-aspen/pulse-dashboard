@@ -1,5 +1,5 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: team-tracker-api
+  name: osaipo-pulse-api
 spec: {}
