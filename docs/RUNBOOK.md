@@ -72,7 +72,7 @@
 | Component | Image | Base |
 |-----------|-------|------|
 | Backend | `quay.io/osaipo-data/osaipo-pulse-backend` | Extends `org-pulse-core-backend` |
-| Frontend | `quay.io/osaipo-data/osaipo-pulse-frontend` | Built from `osaipo-pulse-frontend-builder` + `osaipo-pulse-frontend-runtime` |
+| Frontend | `quay.io/osaipo-data/osaipo-pulse-frontend` | Built from `org-pulse-core-frontend-builder` + `org-pulse-core-frontend-runtime` |
 | OAuth Proxy | `quay.io/openshift/origin-oauth-proxy:4.16` | Sidecar on frontend pod |
 
 ### Ports
@@ -135,12 +135,12 @@ ArgoCD watches the source repo with **automated sync policy**. The flow is:
 
 1. Code merges to `main`
 2. CI runs (`ci.yml`): lint, test, build, kustomize validate
-3. `build-images.yml` triggers:
-   a. Bumps patch version, creates git tag
-   b. Builds core images, then AI Eng images (extending core)
-   c. Runs Playwright smoke tests
+3. The image workflows trigger:
+   a. `build-osaipo-core-images.yml` publishes the pinned OSAIPO-owned core build inputs
+   b. `build-images.yml` waits for those inputs, bumps the patch version, and creates a git tag
+   c. Builds the AI Eng images (extending core) and runs Playwright smoke tests
    d. Pushes images to Quay (`:<sha>` + `:latest`)
-   e. Commits image tag update to `deploy/openshift/overlays/osaipo-eng-prod/kustomization.yaml` on `main`
+   e. Commits image tag updates to `deploy/openshift/overlays/osaipo-eng-prod/kustomization.yaml` on `main`
 4. ArgoCD detects the kustomization change and syncs
 5. ConfigMap names include content hashes — any data change triggers a pod rollout automatically
 

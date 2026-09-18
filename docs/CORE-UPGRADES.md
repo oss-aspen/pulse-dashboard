@@ -6,27 +6,31 @@ The dashboard keeps an OSAIPO-owned copy of the core OpenShift deployment base a
 
 ## Required image contract
 
-Before accepting a core upgrade, the matching version must be published in Quay:
+The matching version is published in Quay as three OSAIPO-owned build inputs:
 
 - `quay.io/osaipo-data/org-pulse-core-backend:vX.Y.Z`
-- `quay.io/osaipo-data/org-pulse-core-frontend:vX.Y.Z`
-- `quay.io/osaipo-data/osaipo-pulse-frontend-builder:vX.Y.Z`
-- `quay.io/osaipo-data/osaipo-pulse-frontend-runtime:vX.Y.Z`
+- `quay.io/osaipo-data/org-pulse-core-frontend-builder:vX.Y.Z`
+- `quay.io/osaipo-data/org-pulse-core-frontend-runtime:vX.Y.Z`
 
 The OSAIPO dashboard workflow consumes these images and publishes the resulting
-backend and frontend images to the same `osaipo-data` organization.
+backend and frontend images to the same `osaipo-data` organization. The plain
+`org-pulse-core-frontend` deployment image is not published because the OSAIPO
+overlay replaces it with the assembled `osaipo-pulse-frontend` image.
 
 ## Controlled update flow
 
-1. Publish the four OSAIPO core images for the upstream `@org-pulse/core` version.
-2. Run `scripts/sync-osaipo-core-base.sh X.Y.Z` when testing locally, or let the
+1. Run `scripts/sync-osaipo-core-base.sh X.Y.Z` when testing locally, or let the
    scheduled `Core Upgrade` workflow run.
-3. The workflow updates `@org-pulse/core`, refreshes the vendored deployment base,
-   verifies all four Quay tags, and renders the production Kustomize overlay.
-4. The workflow opens a pull request. Review the generated base changes and CI
+2. The upgrade workflow updates `@org-pulse/core`, refreshes the vendored
+   deployment base, and renders the production Kustomize overlay.
+3. The workflow opens a pull request. Review the generated base changes and CI
    before merging.
-5. After merge, run the image build workflow and verify the immutable dashboard
-   image tags before changing GitOps.
+4. After merge, `Build & Push Osaipo Core Images` publishes the three pinned core
+   inputs. `Build & Push Images` waits for those tags, builds the dashboard
+   images, runs smoke tests, and commits their immutable tags to the production
+   overlay.
+5. If either workflow needs manual recovery, run the core-image workflow first,
+   then dispatch the dashboard image workflow after all three core tags exist.
 
 The sync script removes the upstream chatbot resources because Pulse Dashboard
 does not use the chatbot yet. A future chatbot integration should be added as an

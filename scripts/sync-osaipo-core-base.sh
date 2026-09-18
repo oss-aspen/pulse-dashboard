@@ -67,10 +67,12 @@ text = re.sub(
     "",
     text,
 )
+text = text.replace("\n\nimages:\n", "\nimages:\n")
 path.write_text(text)
 PY
 
-# MPP storage admission requires an explicit reclaim-policy annotation on PVCs.
+# MPP storage admission requires an app-code label and an explicit
+# reclaim-policy annotation on PVCs.
 python3 - "$TARGET/backend-pvc.yaml" <<'PY'
 from pathlib import Path
 import sys
@@ -78,7 +80,11 @@ import sys
 path = Path(sys.argv[1])
 text = path.read_text()
 needle = "metadata:\n  name: team-tracker-data\n"
-replacement = needle + "  annotations:\n    kubernetes.io/reclaimPolicy: Delete\n"
+replacement = (
+    needle
+    + "  labels:\n    paas.redhat.com/appcode: OSPO-004\n"
+    + "  annotations:\n    kubernetes.io/reclaimPolicy: Delete\n"
+)
 if needle not in text:
     raise SystemExit("unexpected backend-pvc.yaml format")
 path.write_text(text.replace(needle, replacement, 1))

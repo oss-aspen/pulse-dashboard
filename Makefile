@@ -79,8 +79,8 @@ help:
 pull-core-images: ## Pull core images from Quay (version from @org-pulse/core)
 	@echo "Pulling core images tagged $(CORE_TAG)..."
 	$(CONTAINER_RUNTIME) pull quay.io/osaipo-data/org-pulse-core-backend:$(CORE_TAG)
-	$(CONTAINER_RUNTIME) pull quay.io/osaipo-data/osaipo-pulse-frontend-builder:$(CORE_TAG)
-	$(CONTAINER_RUNTIME) pull quay.io/osaipo-data/osaipo-pulse-frontend-runtime:$(CORE_TAG)
+	$(CONTAINER_RUNTIME) pull quay.io/osaipo-data/org-pulse-core-frontend-builder:$(CORE_TAG)
+	$(CONTAINER_RUNTIME) pull quay.io/osaipo-data/org-pulse-core-frontend-runtime:$(CORE_TAG)
 
 # ========================================
 # Image Builds — AI Engineering (full)

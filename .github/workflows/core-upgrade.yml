@@ -42,18 +42,6 @@ jobs:
           npm install @org-pulse/core@${{ steps.check.outputs.latest }}
           scripts/sync-osaipo-core-base.sh "${{ steps.check.outputs.latest }}"
 
-      - name: Login to Quay.io
-        if: steps.check.outputs.needs_upgrade == 'true'
-        uses: docker/login-action@v4
-        with:
-          registry: quay.io
-          username: ${{ secrets.QUAY_USERNAME }}
-          password: ${{ secrets.QUAY_PASSWORD }}
-
-      - name: Verify OSAIPO core images
-        if: steps.check.outputs.needs_upgrade == 'true'
-        run: scripts/verify-osaipo-core-images.sh "${{ steps.check.outputs.latest }}"
-
       - name: Validate deployment base
         if: steps.check.outputs.needs_upgrade == 'true'
         run: |

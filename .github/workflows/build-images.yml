@@ -24,9 +24,10 @@ on:
       - 'tailwind.config.mjs'
       - 'postcss.config.mjs'
       - 'deploy/osaipo-eng.frontend.Dockerfile'
-      # Shared
+      # Shared / build pipeline
       - 'modules/*/module.json'
       - 'package*.json'
+      - '.github/workflows/build-images.yml'
 
 permissions:
   contents: write
@@ -62,12 +63,12 @@ jobs:
           FRONTEND=false
 
           # Check backend paths (platform extensions can have server routes)
-          if echo "$CHANGED" | grep -qE '^(server/index\.js|modules/[^/]+/server/|modules/[^/]+/module\.json|platform/[^/]+/server/|platform/[^/]+/manifest\.json|deploy/osaipo-eng\.backend\.Dockerfile|package)'; then
+          if echo "$CHANGED" | grep -qE '^(server/index\.js|modules/[^/]+/server/|modules/[^/]+/module\.json|platform/[^/]+/server/|platform/[^/]+/manifest\.json|deploy/osaipo-eng\.backend\.Dockerfile|package|\.github/workflows/build-images\.yml$)'; then
             BACKEND=true
           fi
 
           # Check frontend paths
-          if echo "$CHANGED" | grep -qE '^(public/|modules/[^/]+/client/|modules/[^/]+/module\.json|platform/|index\.html|vite\.config|tailwind\.config|postcss\.config|deploy/osaipo-eng\.frontend.*\.Dockerfile|package)'; then
+          if echo "$CHANGED" | grep -qE '^(public/|modules/[^/]+/client/|modules/[^/]+/module\.json|platform/|index\.html|vite\.config|tailwind\.config|postcss\.config|deploy/osaipo-eng\.frontend.*\.Dockerfile|package|\.github/workflows/build-images\.yml$)'; then
             FRONTEND=true
           fi
 
@@ -187,17 +188,60 @@ jobs:
           echo "core_tag=${CORE_TAG}" >> "$GITHUB_OUTPUT"
           echo "Core tag: ${CORE_TAG}"
 
+  verify-core-images:
+    name: Verify Osaipo core images
+    needs: [resolve-core-tag]
+    if: needs.resolve-core-tag.result == 'success'
+    runs-on: ubuntu-latest
+    env:
+      CORE_TAG: ${{ needs.resolve-core-tag.outputs.core_tag }}
+    steps:
+      - name: Login to Quay.io
+        uses: docker/login-action@v4
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+
+      - name: Wait for pinned core images
+        shell: bash
+        run: |
+          set -euo pipefail
+          images=(
+            "quay.io/osaipo-data/org-pulse-core-backend:${CORE_TAG}"
+            "quay.io/osaipo-data/org-pulse-core-frontend-builder:${CORE_TAG}"
+            "quay.io/osaipo-data/org-pulse-core-frontend-runtime:${CORE_TAG}"
+          )
+          for attempt in $(seq 1 30); do
+            all_present=true
+            for image in "${images[@]}"; do
+              if ! docker manifest inspect "$image" >/dev/null 2>&1; then
+                all_present=false
+                break
+              fi
+            done
+            if $all_present; then
+              echo "All core images are available for ${CORE_TAG}."
+              exit 0
+            fi
+            echo "Core images are not available yet (attempt ${attempt}/30); retrying in 30 seconds."
+            sleep 30
+          done
+          echo "Timed out waiting for Osaipo core images for ${CORE_TAG}." >&2
+          exit 1
+
   # ════════════════════════════════════════
   # AI Eng Images
   # ════════════════════════════════════════
   build-backend:
     name: Build & Push Backend
-    needs: [test, detect-changes, version-bump, resolve-core-tag]
+    needs: [test, detect-changes, version-bump, resolve-core-tag, verify-core-images]
     if: |
       always() &&
       needs.test.result == 'success' &&
       needs.detect-changes.outputs.backend == 'true' &&
       needs.resolve-core-tag.result == 'success' &&
+      needs.verify-core-images.result == 'success' &&
       (needs.version-bump.result == 'success' || needs.version-bump.result == 'skipped')
     runs-on: ubuntu-latest
     env:
@@ -252,12 +296,13 @@ jobs:
 
   build-frontend:
     name: Build & Push Frontend
-    needs: [test, detect-changes, version-bump, resolve-core-tag]
+    needs: [test, detect-changes, version-bump, resolve-core-tag, verify-core-images]
     if: |
       always() &&
       needs.test.result == 'success' &&
       needs.detect-changes.outputs.frontend == 'true' &&
       needs.resolve-core-tag.result == 'success' &&
+      needs.verify-core-images.result == 'success' &&
       (needs.version-bump.result == 'success' || needs.version-bump.result == 'skipped')
     runs-on: ubuntu-latest
     env:
@@ -270,8 +315,8 @@ jobs:
 
       - name: Pull core frontend images
         run: |
-          docker pull quay.io/osaipo-data/osaipo-pulse-frontend-builder:${CORE_TAG}
-          docker pull quay.io/osaipo-data/osaipo-pulse-frontend-runtime:${CORE_TAG}
+          docker pull quay.io/osaipo-data/org-pulse-core-frontend-builder:${CORE_TAG}
+          docker pull quay.io/osaipo-data/org-pulse-core-frontend-runtime:${CORE_TAG}
 
       - name: Build AI Eng frontend image
         run: |
