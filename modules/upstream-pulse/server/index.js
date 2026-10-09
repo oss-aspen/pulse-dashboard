@@ -171,7 +171,12 @@ const ROSTER_PUSH_INTERVAL = 2 * 60 * 60 * 1000; // 2 hours
 const ROSTER_PUSH_STARTUP_DELAY = 2 * 60 * 1000; // 2 minutes
 const ROSTER_PUSH_TIMEOUT = 5 * 60 * 1000; // 5 minutes (bulk sync processes hundreds of members)
 
-let _lastPushGeneratedAt = null;
+// Last successfully pushed roster content signature and time. Change
+// detection is content-based: registry.json's meta.generatedAt only
+// changes on roster sync runs, so in-app roster edits (e.g. a GitHub
+// username update) would never look "changed" to a timestamp check.
+let _lastPushSignature = null;
+let _lastPushAt = null;
 
 function getServiceIdentityHeaders() {
   const serviceUser = process.env.UPSTREAM_SYNC_SERVICE_USER || 'roster-sync-service';
@@ -183,7 +188,10 @@ function getServiceIdentityHeaders() {
   };
 }
 
-async function pushRosterToUpstream(storage) {
+// Build the push payload from the roster: active people with a GitHub
+// username, mapped to the Upstream Pulse team-members shape. Sorted so
+// the signature is independent of roster grouping/order.
+async function buildRosterPushPayload(storage) {
   const allPeople = await getAllPeople(storage);
 
   const people = [];
@@ -198,11 +206,30 @@ async function pushRosterToUpstream(storage) {
       role: p.title || null
     });
   }
+  people.sort(function(a, b) {
+    return String(a.githubUsername).localeCompare(String(b.githubUsername));
+  });
+  return people;
+}
+
+// Stable signature of a push payload; any change to a pushed person's
+// identity fields (username, name, email, employee id, department, role)
+// or to the set of pushed people produces a different signature.
+function rosterPushSignature(people) {
+  return require('crypto').createHash('sha256').update(JSON.stringify(people)).digest('hex');
+}
+
+async function pushRosterToUpstream(storage, prebuiltPeople) {
+  const people = prebuiltPeople || await buildRosterPushPayload(storage);
 
   if (people.length === 0) {
     console.log('[upstream-pulse] Roster push skipped: no people with GitHub usernames');
     return { skipped: true, reason: 'no_people' };
   }
+
+  // Compute upfront so a serialization problem fails fast, before the
+  // network call, and so manual pushes exercise the signature path.
+  const signature = rosterPushSignature(people);
 
   const base = getBaseUrl();
   const url = base + '/api/admin/team-members/sync';
@@ -225,6 +252,8 @@ async function pushRosterToUpstream(storage) {
     throw new Error('Roster push failed (' + response.status + '): ' + (data.error || 'unknown'));
   }
 
+  _lastPushSignature = signature;
+  _lastPushAt = new Date().toISOString();
   console.log('[upstream-pulse] Roster push complete:', JSON.stringify(data));
   return data;
 }
@@ -234,17 +263,14 @@ function startPeriodicRosterPush(storage) {
 
   async function checkAndPush() {
     try {
-      const registry = await storage.readFromStorage('team-data/registry.json');
-      if (!registry || !registry.meta || !registry.meta.generatedAt) return;
+      const people = await buildRosterPushPayload(storage);
+      if (people.length === 0) return;
 
-      const generatedAt = registry.meta.generatedAt;
-      if (_lastPushGeneratedAt === generatedAt) return;
+      // Push only when the pushable roster content actually changed —
+      // covers in-app edits, which do not bump registry.generatedAt.
+      if (_lastPushSignature === rosterPushSignature(people)) return;
 
-      pushRosterToUpstream(storage).then(function(result) {
-        if (!result.skipped) {
-          _lastPushGeneratedAt = generatedAt;
-        }
-      }).catch(function(err) {
+      pushRosterToUpstream(storage, people).catch(function(err) {
         console.warn('[upstream-pulse] Periodic roster push failed:', err.message);
       });
     } catch (err) {
@@ -738,11 +764,9 @@ module.exports = function registerRoutes(router, context) {
 
   router.post('/roster-push', requireAdmin, requireScope('upstream-pulse:write'), async function(req, res) {
     try {
+      // pushRosterToUpstream records the pushed content signature on
+      // success, so the periodic check will not re-push the same roster.
       const result = await pushRosterToUpstream(context.storage);
-      if (!result.skipped) {
-        const registry = await context.storage.readFromStorage('team-data/registry.json');
-        if (registry && registry.meta) _lastPushGeneratedAt = registry.meta.generatedAt;
-      }
       res.json(result);
     } catch (err) {
       console.error('[upstream-pulse] Manual roster push failed:', err.message);
@@ -761,7 +785,8 @@ module.exports = function registerRoutes(router, context) {
         configured: !!process.env.UPSTREAM_PULSE_API_URL,
         connection,
         rosterPush: {
-          lastPushGeneratedAt: _lastPushGeneratedAt,
+          lastPushAt: _lastPushAt,
+          lastPushSignature: _lastPushSignature,
           serviceUser: process.env.UPSTREAM_SYNC_SERVICE_USER || 'roster-sync-service'
         }
       };
