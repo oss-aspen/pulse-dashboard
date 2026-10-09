@@ -15,6 +15,11 @@ RUN npm install --no-save @octokit/rest js-yaml express-rate-limit adm-zip xml2j
 # Add all non-core modules (core image already has team-tracker)
 COPY modules/ ./modules/
 
+# Shadow core's team-tracker manifest to hide unused sidebar nav items
+# (Reports, Org Dashboard). Views stay reachable by URL. Kept in sync with
+# the pinned core version by deploy/__tests__/team-tracker-module.test.js.
+COPY deploy/team-tracker-module.json ./modules/team-tracker/module.json
+
 # Add all non-core fixtures (core image already has core fixtures)
 COPY fixtures/ ./fixtures/
 
