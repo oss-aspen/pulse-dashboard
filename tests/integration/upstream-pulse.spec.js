@@ -192,3 +192,40 @@ test.describe('Upstream Pulse Views @upstream-pulse', () => {
     await testView(page, 'strategy', 'Strategy');
   });
 });
+
+/**
+ * Roster Push API
+ *
+ * POST /api/modules/upstream-pulse/roster-push triggers a manual roster
+ * push to the configured Upstream Pulse service. pushRosterToUpstream()
+ * reads the roster through the async getAllPeople() helper and must await
+ * it before building the push payload.
+ *
+ * Regression: the await was previously missing, so every push crashed
+ * with "allPeople is not iterable" (HTTP 502) before any roster data was
+ * read.
+ *
+ * In the demo-mode test environment the roster comes from the core
+ * fixtures and the Upstream Pulse service URL is not reachable, so the
+ * push is expected to fail at the transport step. That is acceptable
+ * here: what this test verifies is that the roster read completes and
+ * the push proceeds past it.
+ */
+test.describe('Upstream Pulse Roster Push @upstream-pulse', () => {
+  test('manual roster-push reads the roster before pushing', async ({ request }) => {
+    const response = await request.post('/api/modules/upstream-pulse/roster-push');
+    const body = await response.json();
+
+    // Either the roster has no pushable people (clean skip) or the push
+    // proceeds to the network stage (transport failure in this
+    // environment). Both outcomes prove the async roster read completed.
+    expect(
+      body.skipped === true || body.error === 'Roster push failed',
+      `unexpected response: ${JSON.stringify(body)}`
+    ).toBe(true);
+
+    // Regression: iterating the un-awaited getAllPeople() promise crashed
+    // with "allPeople is not iterable" before reading the roster.
+    expect(body.message).not.toBe('allPeople is not iterable');
+  });
+});
