@@ -135,7 +135,10 @@ test-module: ## Run integration tests for a module (MODULE=<name>)
 	fi
 	@echo "Running integration tests for module: $(MODULE)"
 	# Start backend container
-	$(call start-container,$(BACKEND_CONTAINER),$(BACKEND_IMAGE),$(BACKEND_PORT),/api/healthz,-e DEMO_MODE=true)
+	# UPSTREAM_PULSE_API_URL points at a closed port so the roster-push
+	# integration test gets an instant, deterministic connection refusal
+	# instead of waiting on DNS resolution of the default service URL.
+	$(call start-container,$(BACKEND_CONTAINER),$(BACKEND_IMAGE),$(BACKEND_PORT),/api/healthz,-e DEMO_MODE=true -e UPSTREAM_PULSE_API_URL=http://127.0.0.1:9)
 	# Start frontend container
 	@if [ "$(CONTAINER_RUNTIME)" = "podman" ] && [ "$(OS)" = "Darwin" ]; then \
 		BACKEND_HOST=$$($(CONTAINER_RUNTIME) run --rm alpine ip route | awk '/default/ {print $$3}'); \

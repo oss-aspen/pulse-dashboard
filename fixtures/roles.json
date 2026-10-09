@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "assignments": {
+    "demo@example.com": {
+      "roles": ["admin"],
+      "assignedBy": "fixture",
+      "assignedAt": "2026-10-09T00:00:00.000Z"
+    },
+    "local-dev@redhat.com": {
+      "roles": ["admin"],
+      "assignedBy": "fixture",
+      "assignedAt": "2026-10-09T00:00:00.000Z"
+    }
+  }
+}

@@ -184,7 +184,7 @@ function getServiceIdentityHeaders() {
 }
 
 async function pushRosterToUpstream(storage) {
-  const allPeople = getAllPeople(storage);
+  const allPeople = await getAllPeople(storage);
 
   const people = [];
   for (const p of allPeople) {
