@@ -6,15 +6,15 @@ namespace: osaipo-aspen--pulse-dashboard
 resources:
 - ../osaipo-eng
 
+  # Roster push target for the upstream-pulse module: it POSTs people with
+  # GitHub usernames to /api/admin/team-members/sync (source: org_pulse_roster)
+  # and proxies metrics reads from there. In-cluster service URL; the
+  # Upstream Pulse NetworkPolicy admits these pods on port 3000.
 configMapGenerator:
 - behavior: merge
   literals:
   - API_PUBLIC_URL=https://api-pulse-dashboard.apps.int.spoke.prod.us-east-1.aws.paas.redhat.com
   - AUTH_EMAIL_DOMAIN=cluster.local
-  # Roster push target for the upstream-pulse module: it POSTs people with
-  # GitHub usernames to /api/admin/team-members/sync (source: org_pulse_roster)
-  # and proxies metrics reads from there. In-cluster service URL; the
-  # Upstream Pulse NetworkPolicy admits these pods on port 3000.
   - UPSTREAM_PULSE_API_URL=http://backend.osaipo-aspen--upstream-pulse.svc.cluster.local:3000
   name: team-tracker-config
 
@@ -25,6 +25,6 @@ patches:
 
 images:
 - name: quay.io/osaipo-data/osaipo-pulse-backend
-  newTag: 715493605b00dd3a0b19f39f4241a057a187d044
+  newTag: ab29ee5c72b1f1cfc4582fe604b7a0df4d8eb9eb
 - name: quay.io/osaipo-data/osaipo-pulse-frontend
   newTag: 715493605b00dd3a0b19f39f4241a057a187d044
