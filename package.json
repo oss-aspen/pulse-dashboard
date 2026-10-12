@@ -22,6 +22,8 @@
     "validate:platform": "node node_modules/@org-pulse/core/scripts/validate-platform.js",
     "validate:openapi": "cp scripts/openapi-route-count.json node_modules/@org-pulse/core/scripts/ && node node_modules/@org-pulse/core/scripts/validate-openapi.js",
     "validate:dockerfile-deps": "node scripts/validate-dockerfile-deps.js",
+    "own-file": "node scripts/own-file.js",
+    "owned-files": "node scripts/owned-files-report.js",
     "update:view-owners": "node scripts/update-view-owners.js",
     "prepare": "husky || true"
   },
