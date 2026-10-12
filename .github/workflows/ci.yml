@@ -88,19 +88,13 @@ jobs:
         if: needs.detect-changes.outputs.app == 'true'
         run: npm run setup
 
-      # Full-lockfile advisory scan. Non-blocking by design: the advisory
-      # DB changes independently of the PR, so a red audit here must not
-      # mask lint/test/build results or block unrelated work (it previously
-      # failed PRs on pre-existing advisories before tests could run).
-      # Vulnerabilities *introduced* by this PR are blocked by the
-      # dependency-review step below.
-      - name: Security audit (advisory)
-        if: needs.detect-changes.outputs.app == 'true'
-        run: npm audit --omit=dev --audit-level=high
-        continue-on-error: true
-
       # Blocks only vulnerabilities introduced by this PR's dependency
       # changes (base vs head lockfile diff) — not pre-existing advisories.
+      # This replaces the old `npm audit` gate, which scanned the whole
+      # lockfile and failed PRs on pre-existing advisories before
+      # lint/test/build could run. Continuous monitoring of existing debt
+      # is Dependabot's job (alerts + weekly version updates), once
+      # Dependency graph is enabled for this repo.
       # TODO: remove continue-on-error once Dependency graph is enabled in
       # repo settings (Settings → Code security and analysis). Until then
       # the action fails with "not supported on this repository" because
