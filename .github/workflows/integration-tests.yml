@@ -40,7 +40,7 @@ jobs:
             MODULES=$(jq -c --arg name "$1" '. + [$name] | unique' <<<"$MODULES")
           }
 
-          if grep -qE '^(tests/integration/(constants|helpers|people-teams)\.spec\.js|platform/(allocation|jira-taxonomy)/|modules/team-tracker/)' <<<"$CHANGED"; then
+          if grep -qE '^(tests/integration/((constants|helpers)\.js|people-teams\.spec\.js)|platform/(allocation|jira-taxonomy)/|modules/team-tracker/)' <<<"$CHANGED"; then
             add_module people-teams
           fi
           if grep -qE '^(platform/about-tabs/|tests/integration/about-tabs\.spec\.js)' <<<"$CHANGED"; then

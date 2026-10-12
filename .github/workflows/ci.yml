@@ -36,7 +36,11 @@ jobs:
           fi
 
           CHANGED=$(git diff --name-only ${BASE_SHA} HEAD)
-          if echo "$CHANGED" | grep -qE '^(server/index\.js|modules/|platform/|package|vite\.config|tailwind\.config|postcss\.config|vitest\.config|index\.html|public/|tests/|playwright\.config|Makefile)'; then
+          # App/build inputs: anything that changes what we build or test.
+          # Includes the eng Dockerfiles (they build the app images, so
+          # Dockerfile-only PRs get the full test + smoke + dockerfile-deps
+          # validation instead of kustomize-only checks).
+          if echo "$CHANGED" | grep -qE '^(server/index\.js|modules/|platform/|app/|scripts/|eslint\.config|eslint-rules/|fixtures/|package|vite\.config|tailwind\.config|postcss\.config|vitest\.config|vitest\.setup|index\.html|public/|tests/|playwright\.config|Makefile|deploy/osaipo-eng\.[^/]*\.Dockerfile|\.github/workflows/ci\.yml)'; then
             echo "app=true" >> "$GITHUB_OUTPUT"
           fi
           if echo "$CHANGED" | grep -q '^deploy/'; then
@@ -84,9 +88,22 @@ jobs:
         if: needs.detect-changes.outputs.app == 'true'
         run: npm run setup
 
-      - name: Security audit
+      # Full-lockfile advisory scan. Non-blocking by design: the advisory
+      # DB changes independently of the PR, so a red audit here must not
+      # mask lint/test/build results or block unrelated work (it previously
+      # failed PRs on pre-existing advisories before tests could run).
+      # Vulnerabilities *introduced* by this PR are blocked by the
+      # dependency-review step below.
+      - name: Security audit (advisory)
         if: needs.detect-changes.outputs.app == 'true'
         run: npm audit --omit=dev --audit-level=high
+        continue-on-error: true
+
+      # Blocks only vulnerabilities introduced by this PR's dependency
+      # changes (base vs head lockfile diff) — not pre-existing advisories.
+      - name: Review dependency changes
+        if: github.event_name == 'pull_request' && needs.detect-changes.outputs.app == 'true'
+        uses: actions/dependency-review-action@v4
 
       - name: Validate module manifests
         if: needs.detect-changes.outputs.app == 'true'
@@ -169,33 +186,7 @@ jobs:
       - name: Pull or build core images and build OSAIPO images
         shell: bash
         run: |
-          set -euo pipefail
-          if ! make pull-core-images; then
-            echo "Pinned Osaipo core images are not published yet; building them from the pinned source."
-            CORE_VERSION=$(tr -d '[:space:]' < deploy/openshift/osaipo-core-base/CORE_VERSION)
-            CORE_VERSION="${CORE_VERSION#v}"
-            CORE_TAG="v${CORE_VERSION}"
-            CORE_DIR=$(mktemp -d)
-            trap 'rm -rf "$CORE_DIR"' EXIT
-            curl --fail --location --silent --show-error \
-              "https://github.com/red-hat-data-services/org-pulse-core/archive/refs/tags/${CORE_TAG}.tar.gz" \
-              --output "$CORE_DIR/core.tar.gz"
-            tar -xzf "$CORE_DIR/core.tar.gz" -C "$CORE_DIR"
-            SOURCE_DIR=$(find "$CORE_DIR" -mindepth 1 -maxdepth 1 -type d -print -quit)
-            test -n "$SOURCE_DIR"
-            docker build \
-              -f "$SOURCE_DIR/deploy/core.backend.Dockerfile" \
-              -t "quay.io/osaipo-data/org-pulse-core-backend:${CORE_TAG}" \
-              "$SOURCE_DIR"
-            docker build \
-              -f "$SOURCE_DIR/deploy/core.frontend-builder.Dockerfile" \
-              -t "quay.io/osaipo-data/org-pulse-core-frontend-builder:${CORE_TAG}" \
-              "$SOURCE_DIR"
-            docker build \
-              -f "$SOURCE_DIR/deploy/core.frontend-runtime.Dockerfile" \
-              -t "quay.io/osaipo-data/org-pulse-core-frontend-runtime:${CORE_TAG}" \
-              "$SOURCE_DIR"
-          fi
+          ./scripts/pull-or-build-core-images.sh
           make build-backend-image
           make build-frontend-image
 
@@ -212,6 +203,11 @@ jobs:
     steps:
       - name: Evaluate smoke test results
         run: |
+          if [ "${{ needs.detect-changes.result }}" != "success" ]; then
+            echo "::error::Change detection failed — cannot evaluate results"
+            exit 1
+          fi
+
           APP="${{ needs.detect-changes.outputs.app }}"
           TEST="${{ needs.test.result }}"
           SMOKE="${{ needs.smoke-test-osaipo-eng.result }}"
