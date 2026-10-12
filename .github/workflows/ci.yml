@@ -48,7 +48,7 @@ jobs:
           fi
 
   test:
-    name: Test & Build
+    name: Lint, Test & Build
     runs-on: ubuntu-latest
     needs: detect-changes
     if: needs.detect-changes.outputs.app == 'true' || needs.detect-changes.outputs.deploy == 'true'
@@ -147,20 +147,8 @@ jobs:
             kustomize build "$overlay" > /dev/null
           done
 
-  # No-op when test job is skipped (no app/deploy changes) so the required
-  # "Test & Build" status check still passes.
-  test-skip:
-    name: Test & Build
-    runs-on: ubuntu-latest
-    needs: detect-changes
-    if: needs.detect-changes.outputs.app != 'true' && needs.detect-changes.outputs.deploy != 'true'
-    permissions:
-      contents: read
-    steps:
-      - run: echo "No app or deploy changes — skipping"
-
   smoke-test-osaipo-eng:
-    name: AI Eng Smoke Tests
+    name: Smoke Tests
     runs-on: ubuntu-latest
     needs: detect-changes
     if: needs.detect-changes.outputs.app == 'true'
@@ -189,18 +177,22 @@ jobs:
           make build-backend-image
           make build-frontend-image
 
-      - name: Run AI Eng smoke tests
+      - name: Run smoke tests
         run: make smoke-test
 
+  # Single aggregate gate for this workflow and the only check that needs
+  # to be required in branch protection ("CI"). It always reports a result
+  # even when the path-filtered jobs are skipped, which is why the per-job
+  # no-op twin pattern is not needed here.
   smoke-test-status:
-    name: Smoke Test Status
+    name: CI
     runs-on: ubuntu-latest
     if: always()
-    needs: [detect-changes, test, test-skip, smoke-test-osaipo-eng]
+    needs: [detect-changes, test, smoke-test-osaipo-eng]
     permissions:
       contents: read
     steps:
-      - name: Evaluate smoke test results
+      - name: Evaluate CI results
         run: |
           if [ "${{ needs.detect-changes.result }}" != "success" ]; then
             echo "::error::Change detection failed — cannot evaluate results"
@@ -208,22 +200,21 @@ jobs:
           fi
 
           APP="${{ needs.detect-changes.outputs.app }}"
+          DEPLOY="${{ needs.detect-changes.outputs.deploy }}"
           TEST="${{ needs.test.result }}"
           SMOKE="${{ needs.smoke-test-osaipo-eng.result }}"
 
-          if [ "$APP" != "true" ]; then
-            echo "No code changes — smoke tests skipped"
-            exit 0
-          fi
-
           FAILED=false
 
-          if [ "$TEST" != "success" ]; then
-            echo "::error::Test & Build failed (result: $TEST)"
+          # "Lint, Test & Build" runs for app or deploy changes; gate on its
+          # result in both cases (previously deploy-only kustomize failures
+          # slipped through this check).
+          if { [ "$APP" = "true" ] || [ "$DEPLOY" = "true" ]; } && [ "$TEST" != "success" ]; then
+            echo "::error::Lint, Test & Build failed (result: $TEST)"
             FAILED=true
           fi
 
-          if [ "$SMOKE" != "success" ]; then
+          if [ "$APP" = "true" ] && [ "$SMOKE" != "success" ]; then
             echo "::error::Smoke tests failed (result: $SMOKE)"
             FAILED=true
           fi

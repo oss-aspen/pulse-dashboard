@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   detect-changes:
-    name: Detect Changed Test Suites
+    name: Detect Integration Suites
     runs-on: ubuntu-latest
     outputs:
       modules: ${{ steps.detect.outputs.modules }}
@@ -57,7 +57,7 @@ jobs:
           echo "Selected suites: $MODULES"
 
   run-tests:
-    name: Test ${{ matrix.module }}
+    name: Integration — ${{ matrix.module }}
     needs: detect-changes
     if: needs.detect-changes.outputs.modules != '[]'
     runs-on: ubuntu-latest
@@ -73,14 +73,22 @@ jobs:
         with:
           module: ${{ matrix.module }}
 
+  # Single aggregate gate for this workflow and the only check that needs
+  # to be required in branch protection ("Integration Tests"). It always
+  # reports a result even when no suites were selected for a PR.
   integration-test-status:
-    name: Integration Test Status
+    name: Integration Tests
     runs-on: ubuntu-latest
     if: always()
     needs: [detect-changes, run-tests]
     steps:
       - name: Evaluate results
         run: |
+          if [ "${{ needs.detect-changes.result }}" != "success" ]; then
+            echo "::error::Suite detection failed — cannot evaluate results"
+            exit 1
+          fi
+
           MODULES='${{ needs.detect-changes.outputs.modules }}'
           if [ "$MODULES" = "[]" ]; then
             echo "No current OSAIPO integration suite changes"
