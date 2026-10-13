@@ -93,16 +93,10 @@ jobs:
       # This replaces the old `npm audit` gate, which scanned the whole
       # lockfile and failed PRs on pre-existing advisories before
       # lint/test/build could run. Continuous monitoring of existing debt
-      # is Dependabot's job (alerts + weekly version updates), once
-      # Dependency graph is enabled for this repo.
-      # TODO: remove continue-on-error once Dependency graph is enabled in
-      # repo settings (Settings → Code security and analysis). Until then
-      # the action fails with "not supported on this repository" because
-      # the graph is not indexed for this repo.
+      # is Dependabot's job (alerts + weekly version updates).
       - name: Review dependency changes
         if: github.event_name == 'pull_request' && needs.detect-changes.outputs.app == 'true'
         uses: actions/dependency-review-action@v4
-        continue-on-error: true
 
       - name: Validate module manifests
         if: needs.detect-changes.outputs.app == 'true'
