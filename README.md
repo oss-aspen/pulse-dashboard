@@ -111,6 +111,8 @@ npm run setup                   # Symlink core platform into workspace
 npm run validate:modules      # Validate module manifests
 npm run validate:openapi      # Validate OpenAPI annotations
 npm run validate:dockerfile-deps  # Verify Dockerfile deps match package.json
+npm run own-file -- <path>        # Take ownership of a core frontend file (copies to app/, see app/README.md)
+npm run owned-files               # Report owned app/ shadow files + upstream drift
 npm run update:view-owners        # Regenerate platform/view-owners/owners.js from git history
 
 # Container-based tests (requires Docker/Podman)
