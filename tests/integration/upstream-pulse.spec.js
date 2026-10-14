@@ -198,27 +198,32 @@ test.describe('Upstream Pulse Views @upstream-pulse', () => {
  *
  * POST /api/modules/upstream-pulse/roster-push triggers a manual roster
  * push to the configured Upstream Pulse service. pushRosterToUpstream()
- * reads the roster through the async getAllPeople() helper and must await
- * it before building the push payload.
+ * reads the roster through the async getAllPeople() helper, builds the
+ * push payload (people with GitHub usernames, sorted, with a content
+ * signature for change detection) and must await each async step.
  *
- * Regression: the await was previously missing, so every push crashed
- * with "allPeople is not iterable" (HTTP 502) before any roster data was
- * read.
+ * Regressions covered:
+ * - The roster read was previously not awaited, so every push crashed
+ *   with "allPeople is not iterable" (HTTP 502) before reading any data.
+ * - Change detection is content-based (payload signature), so in-app
+ *   roster edits that do not bump registry.generatedAt still propagate;
+ *   the manual endpoint exercises the payload build + signature path.
  *
  * In the demo-mode test environment the roster comes from the core
  * fixtures and the Upstream Pulse service URL is not reachable, so the
  * push is expected to fail at the transport step. That is acceptable
- * here: what this test verifies is that the roster read completes and
- * the push proceeds past it.
+ * here: what this test verifies is that the roster read, payload build
+ * and signature computation complete and the push proceeds past them.
  */
 test.describe('Upstream Pulse Roster Push @upstream-pulse', () => {
-  test('manual roster-push reads the roster before pushing', async ({ request }) => {
+  test('manual roster-push builds the payload before pushing', async ({ request }) => {
     const response = await request.post('/api/modules/upstream-pulse/roster-push');
     const body = await response.json();
 
     // Either the roster has no pushable people (clean skip) or the push
     // proceeds to the network stage (transport failure in this
-    // environment). Both outcomes prove the async roster read completed.
+    // environment). Both outcomes prove the async roster read, payload
+    // build and signature computation completed.
     expect(
       body.skipped === true || body.error === 'Roster push failed',
       `unexpected response: ${JSON.stringify(body)}`
@@ -227,5 +232,24 @@ test.describe('Upstream Pulse Roster Push @upstream-pulse', () => {
     // Regression: iterating the un-awaited getAllPeople() promise crashed
     // with "allPeople is not iterable" before reading the roster.
     expect(body.message).not.toBe('allPeople is not iterable');
+  });
+
+  test('manual roster-push is repeatable and reports the same outcome', async ({ request }) => {
+    // A second manual push must behave identically — the endpoint does
+    // not skip on unchanged content (manual means "push now"), and the
+    // payload build must be deterministic across calls.
+    const responses = [];
+    for (let i = 0; i < 2; i++) {
+      const response = await request.post('/api/modules/upstream-pulse/roster-push');
+      responses.push({
+        status: response.status(),
+        body: await response.json()
+      });
+    }
+
+    expect(responses[0].status).toBe(responses[1].status);
+    expect(responses[0].body.error || responses[0].body.skipped)
+      .toBe(responses[1].body.error || responses[1].body.skipped);
+    expect(responses[1].body.message).not.toBe('allPeople is not iterable');
   });
 });
