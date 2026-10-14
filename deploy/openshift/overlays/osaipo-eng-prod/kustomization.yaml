@@ -25,6 +25,6 @@ patches:
 
 images:
 - name: quay.io/osaipo-data/osaipo-pulse-backend
-  newTag: ab29ee5c72b1f1cfc4582fe604b7a0df4d8eb9eb
+  newTag: b7955bef2f4a33b9be276350819fa5e2e18b9308
 - name: quay.io/osaipo-data/osaipo-pulse-frontend
-  newTag: 715493605b00dd3a0b19f39f4241a057a187d044
+  newTag: b7955bef2f4a33b9be276350819fa5e2e18b9308
