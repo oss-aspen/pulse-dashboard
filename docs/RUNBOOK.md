@@ -146,7 +146,7 @@ ArgoCD watches the source repo with **automated sync policy**. The flow is:
 
 ### Branch Protection
 
-- `main` branch requires PRs with passing "Test & Build" status check
+- `main` branch requires PRs with passing "CI" status check (the aggregate gate in `ci.yml`)
 - A GitHub App (`APP_ID`/`APP_PRIVATE_KEY`) has bypass for CI commits (version bumps, deploy tag updates)
 
 ### Image Strategy
