@@ -15,6 +15,11 @@ module.exports = defineConfig({
   // Integration tests use tags (e.g., @ai-impact) to filter by module
   testDir: './tests',
 
+  // tests/unit holds Vitest specs (ESM, run by `npm test`); Playwright would
+  // try to load them during collection and fail with
+  // "require is not defined in ES module scope".
+  testIgnore: '**/unit/**',
+
   // Each test can run for a max of 30 seconds
   timeout: 30 * 1000,
 
