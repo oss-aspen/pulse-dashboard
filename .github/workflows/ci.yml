@@ -96,7 +96,7 @@ jobs:
       # is Dependabot's job (alerts + weekly version updates).
       - name: Review dependency changes
         if: github.event_name == 'pull_request' && needs.detect-changes.outputs.app == 'true'
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@v5
 
       - name: Validate module manifests
         if: needs.detect-changes.outputs.app == 'true'
