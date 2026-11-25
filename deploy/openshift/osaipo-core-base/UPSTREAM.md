@@ -1,7 +1,7 @@
 # OSAIPO Core Deployment Base
 
 - Upstream repository: https://github.com/red-hat-data-services/org-pulse-core
-- Upstream release: v2.0.69
+- Upstream release: v2.0.99
 - Synced by: scripts/sync-osaipo-core-base.sh
 
 ## Local transformations
