@@ -27,6 +27,6 @@ configMapGenerator:
   name: nginx-config-template
 images:
 - name: quay.io/osaipo-data/org-pulse-core-backend
-  newTag: d1b9ca4555bc0f676350cacf390de878a8351fad
+  newTag: 4bf40819c4f8d5a136e1469a88465171ae1336fd
 - name: quay.io/osaipo-data/org-pulse-core-frontend
-  newTag: d1b9ca4555bc0f676350cacf390de878a8351fad
+  newTag: 4bf40819c4f8d5a136e1469a88465171ae1336fd
