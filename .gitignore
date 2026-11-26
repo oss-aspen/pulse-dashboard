@@ -55,4 +55,4 @@ journal/
 # Core platform symlinks (managed by setup script)
 modules/team-tracker
 shared
-src
+/src

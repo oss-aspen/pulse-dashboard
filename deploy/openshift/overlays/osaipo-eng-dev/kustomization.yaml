@@ -11,7 +11,7 @@ patches:
   - path: api-route-patch.yaml
 
 configMapGenerator:
-  - name: osaipo-pulse-config
+  - name: team-tracker-config
     behavior: merge
     literals:
       - ADMIN_EMAILS=

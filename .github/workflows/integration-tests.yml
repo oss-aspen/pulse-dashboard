@@ -11,206 +11,90 @@ concurrency:
 
 jobs:
   detect-changes:
-    name: Detect Changed Modules
+    name: Detect Integration Suites
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: read
     outputs:
-      # This captures the dynamic JSON array of modules to test
-      enabled-modules: ${{ steps.build-matrix.outputs.modules }}
-
+      modules: ${{ steps.detect.outputs.modules }}
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      # For PRs, use dorny/paths-filter (GitHub API mode, fast)
-      - uses: dorny/paths-filter@v4
-        if: github.event_name == 'pull_request'
-        id: filter
-        with:
-          # This determines which keys get added to the 'changes' output array
-          # Adding a new module here automatically adds it to the test matrix
-          filters: |
-            shared-test-files:
-              - 'tests/integration/constants.js'
-              - 'tests/integration/helpers.js'
-            ai-impact:
-              - 'modules/ai-impact/**'
-              - 'tests/integration/ai-impact.spec.js'
-            system-health:
-              - 'modules/system-health/**'
-              - 'tests/integration/system-health.spec.js'
-            upstream-pulse:
-              - 'modules/upstream-pulse/**'
-              - 'tests/integration/upstream-pulse.spec.js'
-            package-analysis:
-              - 'modules/product-builds/server/analysis.js'
-              - 'modules/product-builds/server/index.js'
-              - 'modules/product-builds/server/package-index.js'
-              - 'modules/product-builds/server/wheel-parser.js'
-              - 'modules/product-builds/client/views/PackageAnalysisView.vue'
-              - 'modules/product-builds/client/views/PackageSearchView.vue'
-              - 'modules/product-builds/client/composables/usePackageSearch.js'
-              - 'tests/integration/package-analysis.spec.js'
-            releases:
-              - 'modules/releases/server/execution/**'
-              - 'modules/releases/server/planning/**'
-              - 'modules/releases/client/views/FeatureDetailView.vue'
-              - 'modules/releases/client/execute/**'
-              - 'modules/releases/client/plan/**'
-              - 'tests/integration/execution-data.spec.js'
-              - 'tests/integration/releases.spec.js'
-            tv-fv-delta:
-              - 'modules/releases/server/tv-fv-delta/**'
-              - 'modules/releases/server/index.js'
-              - 'modules/releases/client/views/TvFvDeltaView.vue'
-              - 'modules/releases/client/composables/use*TvFv*'
-              - 'modules/releases/client/composables/useReleasePicker.js'
-              - 'modules/releases/client/composables/useComponentBreakdown.js'
-              - 'modules/releases/client/components/FeatureTable.vue'
-              - 'modules/releases/client/components/ClickableCount.vue'
-              - 'tests/integration/tv-fv-delta.spec.js'
-            about-tabs:
-              - 'platform/about-tabs/**'
-              - 'tests/integration/about-tabs.spec.js'
-            sotu-dashboard:
-              - 'modules/*/client/widgets/**'
-              - 'modules/*/module.json'
-              - 'tests/integration/sotu-dashboard.spec.js'
-            catalyst-showcase:
-              - 'modules/catalyst-showcase/**'
-              - 'tests/integration/catalyst-showcase.spec.js'
-            feature-pressure:
-              - 'modules/releases/server/feature-pressure/**'
-              - 'modules/releases/server/index.js'
-              - 'modules/releases/client/views/FeaturePressureView.vue'
-              - 'modules/releases/client/composables/useFeaturePressureData.js'
-              - 'modules/releases/client/composables/useComponentPressure.js'
-              - 'modules/releases/client/components/PressureHeatmap.vue'
-              - 'modules/releases/client/components/MonthlyFlowChart.vue'
-              - 'modules/releases/client/components/ClickableCount.vue'
-              - 'tests/integration/feature-pressure.spec.js'
-            pm-pipeline:
-              - 'modules/pm-pipeline/**'
-              - 'tests/integration/pm-pipeline.spec.js'
-
-      # For merge_group events, dorny/paths-filter doesn't support this event type.
-      # Use git diff directly, mirroring the filter definitions above.
-      - name: Detect changes via git diff
-        if: github.event_name == 'merge_group'
-        id: git-filter
-        run: |
-          BASE_SHA="${{ github.event.merge_group.base_sha }}"
-          if [ -z "$BASE_SHA" ]; then
-            echo "::error::BASE_SHA is empty — cannot detect changes"
-            exit 1
-          fi
-
-          CHANGED=$(git diff --name-only ${BASE_SHA} HEAD)
-          echo "Changed files:"
-          echo "$CHANGED"
-
-          ALL_MODULES='["about-tabs", "ai-impact", "catalyst-showcase", "system-health", "upstream-pulse", "package-analysis", "releases", "tv-fv-delta", "feature-pressure", "pm-pipeline", "sotu-dashboard"]'
-
-          # If shared test infrastructure changed, test all modules
-          if echo "$CHANGED" | grep -qE '^tests/integration/(constants|helpers)\.js$'; then
-            echo "modules=$ALL_MODULES" >> "$GITHUB_OUTPUT"
-            echo "Shared test files changed — testing all modules"
-            exit 0
-          fi
-
-          MODULES="[]"
-
-          check_module() {
-            local name="$1"
-            local pattern="$2"
-            if echo "$CHANGED" | grep -qE "$pattern"; then
-              MODULES=$(echo "$MODULES" | jq -c ". + [\"$name\"]")
-            fi
-          }
-
-          check_module "about-tabs" \
-            "^(platform/about-tabs/|tests/integration/about-tabs\.spec\.js)"
-          check_module "ai-impact" \
-            "^(modules/ai-impact/|tests/integration/ai-impact\.spec\.js)"
-          check_module "catalyst-showcase" \
-            "^(modules/catalyst-showcase/|tests/integration/catalyst-showcase\.spec\.js)"
-          check_module "system-health" \
-            "^(modules/system-health/|tests/integration/system-health\.spec\.js)"
-          check_module "upstream-pulse" \
-            "^(modules/upstream-pulse/|tests/integration/upstream-pulse\.spec\.js)"
-          check_module "package-analysis" \
-            "^(modules/product-builds/server/(analysis|index)\.js|modules/product-builds/client/views/PackageAnalysisView\.vue|tests/integration/package-analysis\.spec\.js)"
-          check_module "releases" \
-            "^(modules/releases/server/(execution|planning)/|modules/releases/client/views/FeatureDetailView\.vue|modules/releases/client/(execute|plan)/|tests/integration/(execution-data|releases)\.spec\.js)"
-          check_module "tv-fv-delta" \
-            "^(modules/releases/server/(tv-fv-delta/|index\.js)|modules/releases/client/views/TvFvDeltaView\.vue|modules/releases/client/composables/use.*(TvFv|ReleasePicker|ComponentBreakdown)\.js|modules/releases/client/components/(FeatureTable|ClickableCount)\.vue|tests/integration/tv-fv-delta\.spec\.js)"
-          check_module "feature-pressure" \
-            "^(modules/releases/server/(feature-pressure/|index\.js)|modules/releases/client/views/FeaturePressureView\.vue|modules/releases/client/composables/use(FeaturePressureData|ComponentPressure)\.js|modules/releases/client/components/(PressureHeatmap|MonthlyFlowChart|ClickableCount)\.vue|tests/integration/feature-pressure\.spec\.js)"
-          check_module "pm-pipeline" \
-            "^(modules/pm-pipeline/|tests/integration/pm-pipeline\.spec\.js)"
-          check_module "sotu-dashboard" \
-            "^(modules/.*/client/widgets/|modules/.*/module\.json|tests/integration/sotu-dashboard\.spec\.js)"
-
-          echo "modules=$MODULES" >> "$GITHUB_OUTPUT"
-          echo "Testing modules: $MODULES"
-
-      - name: Build module matrix
-        id: build-matrix
+      - name: Detect current OSAIPO suites
+        id: detect
+        shell: bash
         run: |
           if [ "${{ github.event_name }}" = "merge_group" ]; then
-            MODULES='${{ steps.git-filter.outputs.modules }}'
-          elif [ "${{ steps.filter.outputs.shared-test-files }}" == "true" ]; then
-            MODULES='["about-tabs", "ai-impact", "catalyst-showcase", "system-health", "upstream-pulse", "package-analysis", "releases", "tv-fv-delta", "feature-pressure", "pm-pipeline", "sotu-dashboard"]'
+            BASE_SHA="${{ github.event.merge_group.base_sha }}"
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
           else
-            # Use the modules that have direct changes
-            MODULES='${{ steps.filter.outputs.changes }}'
-            # Remove 'shared-test-files' from the array if it's present
-            MODULES=$(echo "$MODULES" | jq -c 'map(select(. != "shared-test-files"))')
+            BASE_SHA="HEAD^"
           fi
 
-          echo "modules=$MODULES" >> $GITHUB_OUTPUT
-          echo "Testing modules: $MODULES"
+          CHANGED=$(git diff --name-only "$BASE_SHA" HEAD)
+          echo "$CHANGED"
+          MODULES='[]'
+
+          add_module() {
+            MODULES=$(jq -c --arg name "$1" '. + [$name] | unique' <<<"$MODULES")
+          }
+
+          if grep -qE '^(tests/integration/((constants|helpers)\.js|people-teams\.spec\.js)|platform/(allocation|jira-taxonomy)/|modules/team-tracker/)' <<<"$CHANGED"; then
+            add_module people-teams
+          fi
+          if grep -qE '^(platform/about-tabs/|tests/integration/about-tabs\.spec\.js)' <<<"$CHANGED"; then
+            add_module about-tabs
+          fi
+          if grep -qE '^(modules/upstream-pulse/|tests/integration/upstream-pulse\.spec\.js)' <<<"$CHANGED"; then
+            add_module upstream-pulse
+          fi
+          if grep -qE '^(platform/|modules/.*/|tests/integration/sotu-dashboard\.spec\.js|tests/integration/(constants|helpers)\.js)' <<<"$CHANGED"; then
+            add_module sotu-dashboard
+          fi
+
+          echo "modules=$MODULES" >> "$GITHUB_OUTPUT"
+          echo "Selected suites: $MODULES"
 
   run-tests:
-    name: Test ${{ matrix.module }}
+    name: Integration — ${{ matrix.module }}
     needs: detect-changes
-    # Only run if one or more modules need testing
-    if: needs.detect-changes.outputs.enabled-modules != '[]'
+    if: needs.detect-changes.outputs.modules != '[]'
     runs-on: ubuntu-latest
     permissions:
       contents: read
     strategy:
-      fail-fast: false  # Allows other modules to finish even if one fails
+      fail-fast: false
       matrix:
-        module: ${{ fromJson(needs.detect-changes.outputs.enabled-modules) }}
-
+        module: ${{ fromJson(needs.detect-changes.outputs.modules) }}
     steps:
       - uses: actions/checkout@v7
-
-      - name: Run Module Test
-        uses: ./.github/actions/test-org-pulse-module
+      - uses: ./.github/actions/test-org-pulse-module
         with:
           module: ${{ matrix.module }}
 
+  # Single aggregate gate for this workflow and the only check that needs
+  # to be required in branch protection ("Integration Tests"). It always
+  # reports a result even when no suites were selected for a PR.
   integration-test-status:
-    name: Integration Test Status
+    name: Integration Tests
     runs-on: ubuntu-latest
     if: always()
     needs: [detect-changes, run-tests]
     steps:
-      - name: Evaluate integration test results
+      - name: Evaluate results
         run: |
-          MODULES='${{ needs.detect-changes.outputs.enabled-modules }}'
-          if [ "$MODULES" = "[]" ] || [ -z "$MODULES" ]; then
-            echo "No module changes — integration tests skipped"
-          elif [ "${{ needs.run-tests.result }}" = "success" ]; then
-            echo "All integration tests passed"
-          elif [ "${{ needs.run-tests.result }}" = "skipped" ]; then
-            echo "No module changes — integration tests skipped"
-          else
-            echo "Integration tests failed"
+          if [ "${{ needs.detect-changes.result }}" != "success" ]; then
+            echo "::error::Suite detection failed — cannot evaluate results"
             exit 1
+          fi
+
+          MODULES='${{ needs.detect-changes.outputs.modules }}'
+          if [ "$MODULES" = "[]" ]; then
+            echo "No current OSAIPO integration suite changes"
+          elif [ "${{ needs.run-tests.result }}" != "success" ]; then
+            echo "Integration tests failed or were cancelled"
+            exit 1
+          else
+            echo "All selected integration suites passed"
           fi

@@ -1,0 +1,92 @@
+name: Build & Push Osaipo Core Images
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'deploy/openshift/osaipo-core-base/CORE_VERSION'
+      - 'scripts/sync-osaipo-core-base.sh'
+      - 'scripts/verify-osaipo-core-images.sh'
+      - '.github/workflows/build-osaipo-core-images.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: osaipo-core-images-${{ github.ref_name }}
+  cancel-in-progress: true
+
+env:
+  CORE_BACKEND_IMAGE: quay.io/osaipo-data/org-pulse-core-backend
+  CORE_FRONTEND_IMAGE: quay.io/osaipo-data/org-pulse-core-frontend
+
+jobs:
+  build-and-push:
+    name: Build and push pinned core images
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Read pinned core version
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+          VERSION=$(tr -d '[:space:]' < deploy/openshift/osaipo-core-base/CORE_VERSION)
+          VERSION="${VERSION#v}"
+          test -n "$VERSION"
+          echo "version=v${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Core version: v${VERSION}"
+
+      - name: Download pinned core source
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/osaipo-core
+          curl --fail --location --silent --show-error \
+            "https://github.com/red-hat-data-services/org-pulse-core/archive/refs/tags/${{ steps.version.outputs.version }}.tar.gz" \
+            --output /tmp/osaipo-core/core.tar.gz
+          tar -xzf /tmp/osaipo-core/core.tar.gz -C /tmp/osaipo-core
+          SOURCE_DIR=$(find /tmp/osaipo-core -mindepth 1 -maxdepth 1 -type d -print -quit)
+          test -n "$SOURCE_DIR"
+          echo "SOURCE_DIR=$SOURCE_DIR" >> "$GITHUB_ENV"
+
+      - name: Build Osaipo-owned core images
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker build \
+            -f "$SOURCE_DIR/deploy/core.backend.Dockerfile" \
+            --build-arg GIT_SHA=${GITHUB_SHA} \
+            --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
+            -t "$CORE_BACKEND_IMAGE:${{ steps.version.outputs.version }}" \
+            "$SOURCE_DIR"
+          docker build \
+            -f "$SOURCE_DIR/deploy/core.frontend-builder.Dockerfile" \
+            -t "$CORE_FRONTEND_IMAGE-builder:${{ steps.version.outputs.version }}" \
+            "$SOURCE_DIR"
+          docker build \
+            -f "$SOURCE_DIR/deploy/core.frontend-runtime.Dockerfile" \
+            -t "$CORE_FRONTEND_IMAGE-runtime:${{ steps.version.outputs.version }}" \
+            "$SOURCE_DIR"
+
+      - name: Login to Quay.io
+        uses: docker/login-action@v4
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+
+      - name: Push Osaipo-owned core images
+        shell: bash
+        run: |
+          set -euo pipefail
+          for image in \
+            "$CORE_BACKEND_IMAGE" \
+            "$CORE_FRONTEND_IMAGE-builder" \
+            "$CORE_FRONTEND_IMAGE-runtime"; do
+            docker tag "$image:${{ steps.version.outputs.version }}" "$image:latest"
+            docker push "$image:${{ steps.version.outputs.version }}"
+            docker push "$image:latest"
+          done

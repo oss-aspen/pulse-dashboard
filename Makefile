@@ -80,8 +80,8 @@ help:
 pull-core-images: ## Pull core images from Quay (version from @org-pulse/core)
 	@echo "Pulling core images tagged $(CORE_TAG)..."
 	$(CONTAINER_RUNTIME) pull quay.io/osaipo-data/org-pulse-core-backend:$(CORE_TAG)
-	$(CONTAINER_RUNTIME) pull quay.io/osaipo-data/osaipo-pulse-frontend-builder:$(CORE_TAG)
-	$(CONTAINER_RUNTIME) pull quay.io/osaipo-data/osaipo-pulse-frontend-runtime:$(CORE_TAG)
+	$(CONTAINER_RUNTIME) pull quay.io/osaipo-data/org-pulse-core-frontend-builder:$(CORE_TAG)
+	$(CONTAINER_RUNTIME) pull quay.io/osaipo-data/org-pulse-core-frontend-runtime:$(CORE_TAG)
 
 # ========================================
 # Image Builds — AI Engineering (full)
@@ -136,7 +136,10 @@ test-module: ## Run integration tests for a module (MODULE=<name>)
 	fi
 	@echo "Running integration tests for module: $(MODULE)"
 	# Start backend container
-	$(call start-container,$(BACKEND_CONTAINER),$(BACKEND_IMAGE),$(BACKEND_PORT),/api/healthz,-e DEMO_MODE=true)
+	# UPSTREAM_PULSE_API_URL points at a closed port so the roster-push
+	# integration test gets an instant, deterministic connection refusal
+	# instead of waiting on DNS resolution of the default service URL.
+	$(call start-container,$(BACKEND_CONTAINER),$(BACKEND_IMAGE),$(BACKEND_PORT),/api/healthz,-e DEMO_MODE=true -e UPSTREAM_PULSE_API_URL=http://127.0.0.1:9)
 	# Start frontend container
 	@if [ "$(CONTAINER_RUNTIME)" = "podman" ] && [ "$(OS)" = "Darwin" ]; then \
 		BACKEND_HOST=$$($(CONTAINER_RUNTIME) run --rm alpine ip route | awk '/default/ {print $$3}'); \

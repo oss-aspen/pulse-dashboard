@@ -2,6 +2,7 @@ import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import navDiscovery from '@org-pulse/core/build/vite-plugin-nav-discovery.js'
 import path from 'path'
+import { shadowCorePlugin } from './scripts/shadow-plugin.mjs'
 
 let coreDir
 try {
@@ -20,7 +21,9 @@ const sharedExclude = [
 ]
 
 const sharedConfig = {
-  plugins: [vue(), navDiscovery()],
+  // Mirror the production build's module resolution: app/ shadow files
+  // replace their core counterparts, so tests exercise what ships.
+  plugins: [vue(), navDiscovery(), shadowCorePlugin({ coreDir, appDir: path.join(__dirname, 'app') })],
   resolve: {
     alias: {
       '@/': path.resolve(coreDir, 'src') + '/',

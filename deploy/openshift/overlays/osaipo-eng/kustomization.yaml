@@ -6,7 +6,7 @@ kind: Kustomization
 # (osaipo-eng-dev, osaipo-eng-preprod, osaipo-eng-prod) extend this.
 
 resources:
-  - https://github.com/red-hat-data-services/org-pulse-core//deploy/openshift/base?ref=v2.0.69
+  - ../../osaipo-core-base
 
 patches:
   - path: backend-secrets-patch.yaml
@@ -31,7 +31,7 @@ patches:
             optional: true
 
 configMapGenerator:
-  - name: osaipo-pulse-config
+  - name: team-tracker-config
     behavior: merge
     literals:
       - ADMIN_EMAILS=adredwar@redhat.com,adredwar@cluster.local,mscherer@redhat.com

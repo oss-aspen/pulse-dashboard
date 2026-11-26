@@ -1,7 +1,7 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: osaipo-pulse-api
+  name: team-tracker-api
   labels:
     shard: internal
     paas.redhat.com/appcode: OSPO-004
@@ -9,4 +9,4 @@ metadata:
     # PM Hub component-release-load does live multi-project Jira; default 30s → 504
     haproxy.router.openshift.io/timeout: 120s
 spec:
-  host: api-osaipo-pulse.apps.int.spoke.prod.us-east-1.aws.paas.redhat.com
+  host: api-pulse-dashboard.apps.int.spoke.prod.us-east-1.aws.paas.redhat.com

@@ -6,21 +6,16 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 jobs:
   upgrade:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/create-github-app-token@v3
-        id: app-token
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
-
       - uses: actions/checkout@v7
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-node@v7
         with:
@@ -28,7 +23,9 @@ jobs:
 
       - name: Check for new core version
         id: check
+        shell: bash
         run: |
+          set -euo pipefail
           LATEST=$(npm view @org-pulse/core version)
           CURRENT=$(node -p "require('./package.json').dependencies['@org-pulse/core'].replace(/^\^/, '')")
           echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
@@ -39,21 +36,26 @@ jobs:
             echo "needs_upgrade=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Upgrade core dependency
-        if: steps.check.outputs.needs_upgrade == 'true'
-        run: npm install @org-pulse/core@${{ steps.check.outputs.latest }}
-
-      - name: Update kustomize remote ref
+      - name: Upgrade core dependency and deployment base
         if: steps.check.outputs.needs_upgrade == 'true'
         run: |
-          sed -i "s|org-pulse-core//deploy/openshift/base?ref=v[0-9.]*|org-pulse-core//deploy/openshift/base?ref=v${{ steps.check.outputs.latest }}|" deploy/openshift/overlays/osaipo-eng/kustomization.yaml
+          npm install @org-pulse/core@${{ steps.check.outputs.latest }}
+          scripts/sync-osaipo-core-base.sh "${{ steps.check.outputs.latest }}"
+
+      - name: Validate deployment base
+        if: steps.check.outputs.needs_upgrade == 'true'
+        run: |
+          npx --yes kustomize build deploy/openshift/overlays/osaipo-eng-prod >/dev/null
+          npm run validate:dockerfile-deps
 
       - uses: peter-evans/create-pull-request@v8
         if: steps.check.outputs.needs_upgrade == 'true'
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'chore(deps): upgrade @org-pulse/core to v${{ steps.check.outputs.latest }}'
           title: 'chore(deps): upgrade @org-pulse/core to v${{ steps.check.outputs.latest }}'
           body: |
-            Automated upgrade from `v${{ steps.check.outputs.current }}` to `v${{ steps.check.outputs.latest }}`.
+            Automated OSAIPO core upgrade from `v${{ steps.check.outputs.current }}` to `v${{ steps.check.outputs.latest }}`.
+
+            This updates both the npm dependency and the vendored OSAIPO-owned deployment base.
           branch: chore/core-upgrade-v${{ steps.check.outputs.latest }}

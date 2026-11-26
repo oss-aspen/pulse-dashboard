@@ -1,7 +1,7 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: osaipo-pulse-api
+  name: team-tracker-api
   labels:
     shard: internal
     paas.redhat.com/appcode: OSPO-004

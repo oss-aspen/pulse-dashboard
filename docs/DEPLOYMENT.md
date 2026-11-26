@@ -1,197 +1,99 @@
-# Deploying Org Pulse for Your Org
+# OSAIPO Pulse deployment
 
-This guide covers how to deploy Org Pulse with your own modules on OpenShift.
+This repository contains the OSAIPO-specific application image and OpenShift
+overlay. Deployment is managed through Argo CD from the separate
+`osaipo/pulse-gitops` repository.
 
-## Overview
+## Runtime architecture
 
-Org Pulse uses a layered container image architecture. The **core** images contain the platform shell and the People & Teams module. Your org extends these with custom modules.
+- Core platform: `@org-pulse/core` and the matching core container images.
+- OSAIPO backend: `quay.io/osaipo-data/osaipo-pulse-backend`.
+- OSAIPO frontend: `quay.io/osaipo-data/osaipo-pulse-frontend`.
+- Current local module: `upstream-pulse`.
+- Current platform extensions: allocation, Jira taxonomy, and About tabs.
 
-### Image Registry
+## Production target
 
-| Image | Description |
-|-------|-------------|
-| `quay.io/org-pulse/org-pulse-core-backend:v1.x` | Backend: Express server + team-tracker module |
-| `quay.io/org-pulse/org-pulse-core-frontend:v1.x` | Frontend: pre-built Vue SPA with team-tracker only |
-| `quay.io/org-pulse/org-pulse-core-frontend-builder:v1.x` | Frontend build stage (for orgs adding modules) |
-| `quay.io/org-pulse/org-pulse-core-frontend-runtime:v1.x` | Frontend nginx runtime (for orgs adding modules) |
-
-## Option A: Core Only (no custom modules)
-
-If you only need the People & Teams module, use the core images directly.
-
-### 1. Create your Kustomize overlay
-
-```
-your-org/
-  kustomization.yaml
-  route-patch.yaml       # Your Route host
-  api-route-patch.yaml   # Your API Route host
+```text
+Cluster:   prod-spoke-aws-us-east-1
+Namespace: osaipo-aspen--pulse-dashboard
+Argo app:  pulse-dashboard
+Overlay:   deploy/openshift/overlays/osaipo-eng-prod
 ```
 
-```yaml
-# kustomization.yaml
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
+The Argo CD Application is defined in:
 
-namespace: your-namespace
-
-resources:
-  - https://github.com/red-hat-data-services/org-pulse-core//deploy/openshift/base?ref=v2.0.8
-
-patches:
-  - path: route-patch.yaml
-  - path: api-route-patch.yaml
-
-configMapGenerator:
-  - name: team-tracker-config
-    behavior: merge
-    literals:
-      - ADMIN_EMAILS=admin@redhat.com
-      - CRON_ADMIN_EMAIL=admin@redhat.com
-
-images:
-  - name: quay.io/org-pulse/org-pulse-core-backend
-    newTag: v1.0.0
-  - name: quay.io/org-pulse/org-pulse-core-frontend
-    newTag: v1.0.0
+```text
+osaipo/pulse-gitops/clusters/prod-spoke-aws-us-east-1/apps/pulse-dashboard.yaml
 ```
 
-### 2. Create secrets
+## CI/CD
+
+A merge to `main` runs:
 
 ```bash
-oc create secret generic team-tracker-secrets \
-  -n your-namespace \
-  --from-literal=JIRA_EMAIL=you@redhat.com \
-  --from-literal=JIRA_TOKEN=your-jira-api-token
-
-# Optional: GitHub/GitLab contribution stats
-oc patch secret team-tracker-secrets -n your-namespace \
-  --type merge \
-  -p '{"stringData":{"GITHUB_TOKEN":"your-token","GITLAB_TOKEN":"your-token"}}'
-
-# Optional: roster sync (LDAP + Google Sheets)
-oc create secret generic ipa-credentials -n your-namespace \
-  --from-literal=IPA_BIND_DN='uid=svc-account,cn=users,...' \
-  --from-literal=IPA_BIND_PASSWORD='password'
-
-oc create secret generic google-sa-key -n your-namespace \
-  --from-file=google-sa-key.json=./path/to/service-account.json
+npm ci
+npm run setup
+npm run lint
+npm test
+npm run build
+npm run validate:modules
+npm run validate:openapi
+npm run validate:dockerfile-deps
 ```
 
-### 3. Deploy
+The image workflow then publishes immutable image tags to Quay and updates the
+production overlay. Argo CD reconciles the updated overlay; do not manually
+apply application manifests for routine deployment changes.
+
+## OpenShift prerequisites
+
+The tenant namespace is provisioned by `pulse-gitops`. Runtime secrets remain
+outside Git:
+
+| Secret | Required | Purpose |
+|---|---:|---|
+| `frontend-proxy-cookie` | Yes | OAuth proxy session cookie |
+| `frontend-proxy-tls` | Generated | OpenShift service-serving certificate |
+| `team-tracker-secrets` | Optional | Jira/GitHub/GitLab credentials |
+| `osaipo-pulse-secrets` | Optional | OSAIPO integration credentials |
+| `google-sa-key` | Optional | Google Sheets roster credential |
+
+Create secrets through the approved enterprise secret-management process. Do
+not commit secret values or copy them into manifests.
+
+## Validation
 
 ```bash
-kustomize build your-org/ | oc apply -f -
+npm run setup
+npm run lint
+npm test
+npm run build
+npm run validate:modules
+npm run validate:openapi
+npm run validate:dockerfile-deps
+npx kustomize build deploy/openshift/overlays/osaipo-eng-prod
 ```
 
-## Option B: Core + Custom Modules
-
-If you have custom modules, build your own images extending the core.
-
-### 1. Create your backend Dockerfile
-
-```dockerfile
-# Dockerfile.backend
-FROM quay.io/org-pulse/org-pulse-core-backend:v1.x
-
-USER 0
-
-# Add your modules (auto-discovered at startup)
-COPY modules/my-module/ ./modules/my-module/
-
-USER 65532
-```
-
-### 2. Create your frontend Dockerfile
-
-```dockerfile
-# Dockerfile.frontend
-FROM quay.io/org-pulse/org-pulse-core-frontend-builder:v1.x AS build
-
-# Add your modules
-COPY modules/my-module/ ./modules/my-module/
-
-# Build the Vue SPA (Vite discovers modules at build time)
-RUN npm run build
-
-# Serve with nginx
-FROM quay.io/org-pulse/org-pulse-core-frontend-runtime:v1.x
-COPY --from=build /app/dist /usr/share/nginx/html
-```
-
-### 3. Build and push
+## Live verification
 
 ```bash
-podman build -f Dockerfile.backend -t quay.io/your-org/org-pulse-backend:latest .
-podman build -f Dockerfile.frontend -t quay.io/your-org/org-pulse-frontend:latest .
-podman push quay.io/your-org/org-pulse-backend:latest
-podman push quay.io/your-org/org-pulse-frontend:latest
+oc get application pulse-dashboard -n osaipo-aspen--argocd
+oc get pods -n osaipo-aspen--pulse-dashboard
+oc get routes -n osaipo-aspen--pulse-dashboard
+oc get pvc -n osaipo-aspen--pulse-dashboard
 ```
 
-### 4. Create your Kustomize overlay
+Expected routes:
 
-Same as Option A, but override the image names:
-
-```yaml
-images:
-  - name: quay.io/org-pulse/org-pulse-core-backend
-    newName: quay.io/your-org/org-pulse-backend
-    newTag: latest
-  - name: quay.io/org-pulse/org-pulse-core-frontend
-    newName: quay.io/your-org/org-pulse-frontend
-    newTag: latest
+```text
+pulse-dashboard.apps.int.spoke.prod.us-east-1.aws.paas.redhat.com
+api-pulse-dashboard.apps.int.spoke.prod.us-east-1.aws.paas.redhat.com
 ```
 
-## Secrets
+Expected health checks:
 
-See [deploy/SECRETS.md](../deploy/SECRETS.md) for the full secret catalog.
-
-### Required
-
-| Secret | Keys | Description |
-|--------|------|-------------|
-| `team-tracker-secrets` | `JIRA_EMAIL`, `JIRA_TOKEN` | Jira Cloud API access |
-
-### Optional (platform)
-
-| Secret | Keys | Description |
-|--------|------|-------------|
-| `team-tracker-secrets` | `GITHUB_TOKEN` | GitHub contribution stats |
-| `team-tracker-secrets` | `GITLAB_TOKEN` | GitLab contribution stats |
-| `ipa-credentials` | `IPA_BIND_DN`, `IPA_BIND_PASSWORD` | LDAP roster sync |
-| `google-sa-key` | `google-sa-key.json` | Google Sheets roster enrichment |
-| `proxy-auth-secret` | `secret` | Shared secret between OAuth proxy and backend |
-
-### Module-specific secrets
-
-Your modules declare secrets in `module.json` under `secrets`. See [docs/MODULES.md](MODULES.md) for the secrets guide.
-
-## CronJob
-
-The base includes a CronJob (`team-tracker-sync-refresh`) that fires every 15 minutes (`*/15 * * * *`) and triggers a cadence-aware refresh via `POST /api/admin/refresh-all`. Each handler declares its own cadence (e.g., `24h` for roster sync, `12h` for execution pipeline). Handlers that have run within their cadence window are skipped — most ticks complete in seconds.
-
-- `concurrencyPolicy: Forbid` prevents overlapping runs
-- `activeDeadlineSeconds: 1800` (30 min) accommodates the heaviest handler (`team-tracker:metrics`)
-- Backup runs as a refresh handler (`platform:backup`, cadence `24h`), not as a separate script step
-
-Set `CRON_ADMIN_EMAIL` in your ConfigMap to the email of an admin user — this is used as the `X-Forwarded-Email` header for API calls.
-
-## Configuration
-
-All configuration is via ConfigMap (`team-tracker-config`):
-
-| Key | Default | Description |
-|-----|---------|-------------|
-| `NODE_ENV` | `production` | Node.js environment |
-| `API_PORT` | `3001` | Backend port |
-| `JIRA_HOST` | `https://redhat.atlassian.net` | Jira Cloud instance URL |
-| `ADMIN_EMAILS` | *(empty)* | Comma-separated admin emails. When empty, first authenticated user is auto-added. |
-| `CRON_ADMIN_EMAIL` | *(empty)* | Admin email for CronJob API calls |
-
-## Module Development
-
-See [docs/MODULES.md](MODULES.md) for the full module development guide covering:
-- Module structure and manifest
-- Server context API (storage, auth, refresh hooks, diagnostics)
-- Secrets declaration and access
-- Frontend navigation and shared composables
+```text
+GET /healthz
+GET /api/healthz
+```

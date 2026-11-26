@@ -72,7 +72,7 @@
 | Component | Image | Base |
 |-----------|-------|------|
 | Backend | `quay.io/osaipo-data/osaipo-pulse-backend` | Extends `org-pulse-core-backend` |
-| Frontend | `quay.io/osaipo-data/osaipo-pulse-frontend` | Built from `osaipo-pulse-frontend-builder` + `osaipo-pulse-frontend-runtime` |
+| Frontend | `quay.io/osaipo-data/osaipo-pulse-frontend` | Built from `org-pulse-core-frontend-builder` + `org-pulse-core-frontend-runtime` |
 | OAuth Proxy | `quay.io/openshift/origin-oauth-proxy:4.16` | Sidecar on frontend pod |
 
 ### Ports
@@ -135,18 +135,18 @@ ArgoCD watches the source repo with **automated sync policy**. The flow is:
 
 1. Code merges to `main`
 2. CI runs (`ci.yml`): lint, test, build, kustomize validate
-3. `build-images.yml` triggers:
-   a. Bumps patch version, creates git tag
-   b. Builds core images, then AI Eng images (extending core)
-   c. Runs Playwright smoke tests
+3. The image workflows trigger:
+   a. `build-osaipo-core-images.yml` publishes the pinned OSAIPO-owned core build inputs
+   b. `build-images.yml` waits for those inputs, bumps the patch version, and creates a git tag
+   c. Builds the AI Eng images (extending core) and runs Playwright smoke tests
    d. Pushes images to Quay (`:<sha>` + `:latest`)
-   e. Commits image tag update to `deploy/openshift/overlays/osaipo-eng-prod/kustomization.yaml` on `main`
+   e. Commits image tag updates to `deploy/openshift/overlays/osaipo-eng-prod/kustomization.yaml` on `main`
 4. ArgoCD detects the kustomization change and syncs
 5. ConfigMap names include content hashes — any data change triggers a pod rollout automatically
 
 ### Branch Protection
 
-- `main` branch requires PRs with passing "Test & Build" status check
+- `main` branch requires PRs with passing "CI" status check (the aggregate gate in `ci.yml`)
 - A GitHub App (`APP_ID`/`APP_PRIVATE_KEY`) has bypass for CI commits (version bumps, deploy tag updates)
 
 ### Image Strategy
@@ -276,7 +276,6 @@ Secrets are managed via the **Vault Secrets Operator (VSO)**. Each secret is def
 | `frontend-proxy-cookie` | `org-pulse-frontend-proxy-cookie` | (single value) | OAuth proxy session secret |
 | `google-sa-key` | `org-pulse-google-sa` | `google-sa-key.json` | Google service account JSON key, volume-mounted to `/etc/secrets/google-sa-key.json` |
 | `aws-backup-credentials` | `org-pulse-aws-backup` | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_BACKUP_BUCKET` | AWS S3 backup credentials and bucket name |
-| `chatbot-secrets` | `org-pulse-chatbot-secrets` | LLM/Gate/Embedding endpoints and API keys | Chatbot service credentials |
 
 ### Secret Diagnostics
 

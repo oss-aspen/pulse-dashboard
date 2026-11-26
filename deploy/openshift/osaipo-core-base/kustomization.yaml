@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- backend-deployment.yaml
+- backend-service.yaml
+- backend-pvc.yaml
+- frontend-deployment.yaml
+- frontend-service.yaml
+- frontend-route.yaml
+- api-route.yaml
+- serviceaccount.yaml
+- cronjob-sync-refresh.yaml
+- db-service.yaml
+
+configMapGenerator:
+- literals:
+  - NODE_ENV=production
+  - API_PORT=3001
+  - JIRA_HOST=https://redhat.atlassian.net
+  - ADMIN_EMAILS=
+  - CRON_ADMIN_EMAIL=
+  - DB_NAME=org-pulse
+  name: team-tracker-config
+- files:
+  - app.conf.template=nginx-app.conf.template
+  name: nginx-config-template
+images:
+- name: quay.io/osaipo-data/org-pulse-core-backend
+  newTag: d1b9ca4555bc0f676350cacf390de878a8351fad
+- name: quay.io/osaipo-data/org-pulse-core-frontend
+  newTag: d1b9ca4555bc0f676350cacf390de878a8351fad
