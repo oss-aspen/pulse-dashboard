@@ -39,7 +39,7 @@ jobs:
           if echo "$CHANGED" | grep -qE '^(server/index\.js|modules/|platform/|package|vite\.config|tailwind\.config|postcss\.config|vitest\.config|index\.html|public/|tests/|playwright\.config|Makefile)'; then
             echo "app=true" >> "$GITHUB_OUTPUT"
           fi
-          if echo "$CHANGED" | grep -q '^deploy/'; then
+          if echo "$CHANGED" | grep -qE '^(deploy/|docker-compose.*\.yml|\.env\.docker\.example|scripts/dev-.*\.sh)'; then
             echo "deploy=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -115,6 +115,17 @@ jobs:
       - name: Build
         if: needs.detect-changes.outputs.app == 'true'
         run: npm run build
+
+      - name: Validate Docker Compose config
+        if: needs.detect-changes.outputs.deploy == 'true'
+        run: |
+          trap 'rm -f .env' EXIT
+          cp .env.docker.example .env
+          mkdir -p /tmp/upstream-pulse/backend
+          COMPOSE_PROFILES= UPSTREAM_PULSE_DIR=/tmp/upstream-pulse docker compose config --quiet
+          COMPOSE_PROFILES=upstream UPSTREAM_PULSE_DIR=/tmp/upstream-pulse docker compose config --quiet
+          COMPOSE_PROFILES= UPSTREAM_PULSE_DIR=/tmp/upstream-pulse docker compose -f docker-compose.yml -f docker-compose.demo.yml config --quiet
+          sh -n deploy/dev-entrypoint.sh scripts/dev-*.sh
 
       - name: Install kustomize
         if: needs.detect-changes.outputs.deploy == 'true'

@@ -1,0 +1,103 @@
+x-upstream-app: &upstream-app
+  image: upstream-pulse-backend:local
+  build:
+    context: ${UPSTREAM_PULSE_DIR:-../upstream-pulse}/backend
+  profiles: ["upstream"]
+
+x-upstream-env: &upstream-env
+  DATABASE_URL: &upstream-database-url postgresql://postgres:password@upstream-pulse-postgres:5432/upstream_pulse
+  REDIS_URL: &upstream-redis-url redis://upstream-pulse-redis:6379
+  NODE_ENV: &upstream-node-env development
+  GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+  GITHUB_TEAM_TOKEN: ${GITHUB_TEAM_TOKEN:-}
+  GITHUB_TEAM_ORG: ${GITHUB_TEAM_ORG:-opendatahub-io}
+  ORG_NAME: ${ORG_NAME:-Red Hat}
+  TEAM_EMAIL_DOMAIN: ${TEAM_EMAIL_DOMAIN:-redhat.com}
+  GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY:-}
+  COLLECTOSS_DATABASE_URL: ${COLLECTOSS_DATABASE_URL:-}
+  COLLECTOSS_SCHEMA: ${COLLECTOSS_SCHEMA:-data}
+  DEFAULT_DATA_SOURCE: ${DEFAULT_DATA_SOURCE:-github}
+  COLLECTOSS_FALLBACK_TO_GITHUB: ${COLLECTOSS_FALLBACK_TO_GITHUB:-true}
+
+services:
+  upstream-pulse-postgres:
+    image: postgres:16-alpine
+    profiles: ["upstream"]
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: upstream_pulse
+    ports:
+      - "${UPSTREAM_DB_PORT:-5433}:5432"
+    volumes:
+      - upstream_pulse_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d upstream_pulse"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  upstream-pulse-redis:
+    image: redis:7-alpine
+    profiles: ["upstream"]
+    volumes:
+      - upstream_pulse_redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  upstream-pulse-migrate:
+    <<: *upstream-app
+    restart: "no"
+    # Same entrypoint upstream-pulse's OpenShift init container uses (the image ships dist/, not tsx).
+    command: ["node", "dist/shared/database/run-migrate.js"]
+    environment:
+      HOME: /tmp
+      DATABASE_URL: *upstream-database-url
+      REDIS_URL: *upstream-redis-url
+      NODE_ENV: *upstream-node-env
+    depends_on:
+      upstream-pulse-postgres:
+        condition: service_healthy
+
+  upstream-pulse-backend:
+    <<: *upstream-app
+    ports:
+      - "4321:4321"
+    environment:
+      <<: *upstream-env
+      PORT: 4321
+      ADMIN_USERS: ${UPSTREAM_ADMIN_USERS:-roster-sync-service}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4321/ready"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    depends_on:
+      upstream-pulse-migrate:
+        condition: service_completed_successfully
+      upstream-pulse-redis:
+        condition: service_healthy
+
+  upstream-pulse-worker:
+    <<: *upstream-app
+    command: ["node", "dist/worker.js"]
+    environment:
+      <<: *upstream-env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      upstream-pulse-migrate:
+        condition: service_completed_successfully
+      upstream-pulse-postgres:
+        condition: service_healthy
+      upstream-pulse-redis:
+        condition: service_healthy
+
+volumes:
+  upstream_pulse_pgdata:
+  upstream_pulse_redisdata:

@@ -53,7 +53,34 @@ This starts both the Vite frontend (port 5173) and the Express dev server (port 
 - **Frontend:** http://localhost:5173
 - **API:** http://localhost:3001/api
 
-### 4. Run tests
+### 4. Containerized alternative (Docker/Podman)
+
+Use Compose v2.20+ and clone `upstream-pulse` at `../upstream-pulse`, or set `UPSTREAM_PULSE_DIR` to its location. Then:
+
+```bash
+cp .env.docker.example .env  # Fill in live credentials, including GITHUB_TOKEN
+make dev-up
+```
+
+Use `make dev-up-core` without the Upstream Pulse checkout, or `make dev-up-demo` for fixture mode. The same Compose files support Docker and Podman; on Apple Silicon, images build and run natively as `arm64` without `--platform linux/amd64`.
+
+On the first run, `make dev-up` enables Upstream Pulse and queues GitHub team sync when no team members exist. Use **Upstream Pulse → Portfolio → Add Project** (the Dashboard's + Add only appears once a project exists) in the UI to paste a GitHub repo URL and pick an existing org; Portfolio orgs only group repos and show no data until repos are added. Data persists across `dev-down`/`dev-up` and is wiped only by `dev-reset`; team sync also runs weekly.
+
+Container development details:
+
+- The repository is bind-mounted at `/app`; `pulse_node_modules` keeps Linux-native dependencies separate from host packages. Only `pulse-backend` runs `npm ci`; `pulse-frontend` sets `SKIP_INSTALL=1` and waits up to 120 seconds for the lockfile hash.
+- Core links (`src`, core modules, and `shared/{server,client}`) are rewritten as relative symlinks. Existing real directories are left untouched with a warning.
+- The backend restarts on code changes but not on writes under `data/`. `DEV_POLLING=true` (the `.env.docker.example` default) switches the backend to a polling watcher (`deploy/dev-watch.js`) and Vite to polling; it is required on macOS with Podman, where bind-mount file events don't propagate. Set `DEV_POLLING=false` on Linux or Docker Desktop if file events work.
+- Containers run as `node` (UID 1000). On hosts with a different UID, add a local Compose `user: "<uid>:0"` override for both Pulse services.
+- Red Hat VPN is required for IPA LDAP and internal GitLab. If VPN DNS stops working after connecting, restart the Podman machine or Docker Desktop.
+
+For CollectOSS, configure `COLLECTOSS_DATABASE_URL` with a read-only PostgreSQL URL and run `make dev-check-collectoss`. `COLLECTOSS_SCHEMA` defaults to `data` (`augur_data` for legacy Augur databases). Use `host.docker.internal` in the URL for a host database or tunnel (Docker or Podman >= 5.x); Linux tunnels must bind `0.0.0.0` (`oc port-forward --address 0.0.0.0` or `ssh -L 0.0.0.0:5411:…`). See README for the 8Knot `AUGUR_*` mapping. Set `DEFAULT_DATA_SOURCE=collectoss` to make newly added projects use CollectOSS, and use `COLLECTOSS_FALLBACK_TO_GITHUB=false` to disable GitHub fallback.
+
+To self-host CollectOSS, run `docker compose up` inside `../collectoss-dev` as a separate stack or restore its sample database dump from docs.collectoss.org, then point `COLLECTOSS_DATABASE_URL` at it. A fresh CollectOSS database starts empty and needs harvesting before it contains useful data.
+
+`make dev-down` preserves all data and volumes. `make dev-reset` also removes the named dependency, Postgres, and Redis volumes but preserves `./data`.
+
+### 5. Run tests
 
 ```bash
 npm test            # single run

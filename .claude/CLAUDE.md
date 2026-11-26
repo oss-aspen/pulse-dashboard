@@ -8,13 +8,29 @@ hard constraints, and code style: see AGENTS.md (imported above).
 
 ## Local Development
 
-### Quick Start
+### Quick Start (host)
 
 ```bash
 npm install
 cp .env.example .env   # Edit with your credentials
 npm run dev:full       # Starts Vite (5173) + Express (3001)
 ```
+
+### Quick Start (Docker/Podman)
+
+Requires Compose v2.20+ and a sibling `upstream-pulse` checkout (default `../upstream-pulse`):
+
+```bash
+cp .env.docker.example .env  # Fill in live credentials, including GITHUB_TOKEN
+make dev-up                  # Full live stack; dev-up-core skips upstream
+make dev-up-demo             # Fixture mode without upstream or credentials
+```
+
+`make dev-up` automatically enables Upstream Pulse and queues GitHub team sync when the team is empty. Add repos through **Upstream Pulse → Portfolio → Add Project** (the Dashboard's + Add only appears once a project exists; Portfolio orgs are only groupings); data survives `dev-down`/`dev-up`, only `dev-reset` wipes it, and team sync runs weekly.
+
+The dev containers run as `node` (UID 1000); use a local `user: "<uid>:0"` override on hosts with a different UID. Core links are relative symlinks, only `pulse-backend` runs `npm ci`, and `pulse-frontend` uses `SKIP_INSTALL=1` while waiting for the lockfile hash. `DEV_POLLING=true` (default in `.env.docker.example`) makes the backend use `deploy/dev-watch.js` and Vite use polling; needed on macOS with Podman, set `false` where file events work. Base Compose forces demo flags to `false`; the demo override sets both to `true`.
+
+CollectOSS uses `COLLECTOSS_DATABASE_URL` and `COLLECTOSS_SCHEMA` (default `data`; `augur_data` for legacy Augur) on the upstream backend and worker. `DEFAULT_DATA_SOURCE=collectoss` selects CollectOSS for newly added projects, and `COLLECTOSS_FALLBACK_TO_GITHUB` controls GitHub fallback. See README for the 8Knot `AUGUR_*` mapping and use `host.docker.internal` in the URL for host tunnels (Docker or Podman >= 5.x). `make dev-check-collectoss` runs a read-only connectivity and schema probe.
 
 ### Required Environment Variables
 
@@ -28,7 +44,7 @@ npm run dev:full       # Starts Vite (5173) + Express (3001)
 
 | Variable | Description |
 |----------|-------------|
-| `GITHUB_TOKEN` | Classic PAT with `read:user` scope (for contribution stats). Fine-grained tokens don't work with GraphQL API. |
+| `GITHUB_TOKEN` | Classic PAT with `read:user` scope (for contribution stats). Fine-grained tokens don't work with GraphQL API. Required for the Docker full stack, which also uses `repo` and `read:org`. |
 | `GITLAB_TOKEN` | GitLab PAT with `read_api` scope (for contribution stats). |
 | `GITLAB_BASE_URL` | GitLab instance URL (default: `https://gitlab.com`) |
 | `IPA_BIND_DN` | LDAP bind DN for IPA roster sync (service account). Required for roster sync. |
