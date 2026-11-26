@@ -1,4 +1,4 @@
-.PHONY: build-frontend-image build-backend-image pull-core-images smoke-test _start-frontend clean-smoke-test clean-integration-test test-module help
+.PHONY: build-frontend-image build-backend-image pull-core-images smoke-test _start-frontend clean-smoke-test clean-integration-test test-module help dev-up dev-up-core dev-up-demo dev-down dev-logs dev-reset dev-enable-upstream dev-check-collectoss
 
 FRONTEND_IMAGE ?= frontend-smoke-local
 BACKEND_IMAGE ?= backend-smoke-local
@@ -12,6 +12,7 @@ WORKSPACE := /workspace
 
 # Used for configuring container-based commands
 CONTAINER_RUNTIME ?= $(shell basename $$(command -v podman 2>/dev/null) || echo "docker")
+COMPOSE ?= $(CONTAINER_RUNTIME) compose
 OS := $(shell uname -s)
 
 # Environment variables for Playwright container
@@ -154,6 +155,57 @@ test-module: ## Run integration tests for a module (MODULE=<name>)
 		(EXIT_CODE=$$?; $(MAKE) clean-integration-test; exit $$EXIT_CODE)
 	@echo "Integration tests for $(MODULE) passed!"
 	@$(MAKE) clean-integration-test
+
+# ========================================
+# Docker Local Development
+# ========================================
+dev-up: ## Start the full live-data development stack
+	@mkdir -p data secrets
+	@sh scripts/dev-bootstrap.sh preflight
+	$(COMPOSE) up --build -d
+	@COMPOSE="$(COMPOSE)" sh scripts/dev-bootstrap.sh || echo "WARNING: first-run bootstrap did not complete; continuing."
+
+dev-up-core: ## Start only the Pulse frontend and backend
+	mkdir -p data secrets
+	COMPOSE_PROFILES= $(COMPOSE) up --build -d
+
+dev-up-demo: ## Start Pulse with fixture data and no upstream services
+	mkdir -p data secrets
+	COMPOSE_PROFILES= $(COMPOSE) -f docker-compose.yml -f docker-compose.demo.yml up --build -d
+
+dev-down: ## Stop all development containers, preserving data and volumes
+	$(COMPOSE) --profile upstream down
+
+dev-logs: ## Follow logs from all development services
+	$(COMPOSE) --profile upstream logs -f
+
+dev-reset: ## Remove development containers and named volumes, preserving ./data
+	$(COMPOSE) --profile upstream down -v
+	@echo "Named volumes removed; ./data was preserved (run rm -rf data separately for a full Pulse reset)."
+
+dev-enable-upstream: ## Run the idempotent Upstream Pulse first-run bootstrap
+	@COMPOSE="$(COMPOSE)" sh scripts/dev-bootstrap.sh
+
+dev-check-collectoss: ## Check CollectOSS reachability and read-only schema access
+	@test -f .env || { echo "ERROR: copy .env.docker.example to .env and configure COLLECTOSS_* first"; exit 1; }
+	@. scripts/dev-env.sh; \
+		URL="$$(envval COLLECTOSS_DATABASE_URL)"; \
+		SCHEMA="$$(envval COLLECTOSS_SCHEMA)"; \
+		SCHEMA="$${SCHEMA:-data}"; \
+		if [ -z "$$URL" ]; then echo "ERROR: set COLLECTOSS_DATABASE_URL in .env"; exit 1; fi; \
+		if ! printf '%s' "$$SCHEMA" | grep -Eq '^[a-z_][a-z0-9_]*$$'; then \
+			echo "ERROR: COLLECTOSS_SCHEMA must match ^[a-z_][a-z0-9_]*$$"; exit 1; \
+		fi; \
+		COLLECTOSS_DATABASE_URL="$$URL" COLLECTOSS_SCHEMA="$$SCHEMA" \
+		$(CONTAINER_RUNTIME) run --rm \
+			--add-host=host.docker.internal:host-gateway \
+			-e COLLECTOSS_DATABASE_URL \
+			-e COLLECTOSS_SCHEMA \
+			postgres:16-alpine sh -c '\
+			set -e; \
+			pg_isready -d "$$COLLECTOSS_DATABASE_URL"; \
+			PGOPTIONS="-c default_transaction_read_only=on" \
+				psql -d "$$COLLECTOSS_DATABASE_URL" -c "SELECT count(*) AS repo_count FROM $${COLLECTOSS_SCHEMA}.repo;"'
 
 # ========================================
 # Clean targets

@@ -1,0 +1,54 @@
+include:
+  - docker-compose.upstream.yml
+
+x-pulse-dev: &pulse-dev
+  image: pulse-dashboard-dev:local
+  build:
+    context: .
+    dockerfile: deploy/dev.Dockerfile
+
+services:
+  pulse-backend:
+    <<: *pulse-dev
+    env_file:
+      - path: .env
+        required: false
+    ports:
+      - "3001:3001"
+    environment:
+      DEMO_MODE: "false"
+      DEV_POLLING: ${DEV_POLLING:-false}
+      UPSTREAM_PULSE_API_URL: http://upstream-pulse-backend:4321
+      GOOGLE_SERVICE_ACCOUNT_KEY_FILE: /etc/secrets/google-sa-key.json
+    volumes:
+      - .:/app:z
+      - pulse_node_modules:/app/node_modules
+      - ./secrets:/etc/secrets:ro,z
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://127.0.0.1:3001/api/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 60
+      start_period: 120s
+
+  pulse-frontend:
+    <<: *pulse-dev
+    command: ["npx", "vite", "--host", "0.0.0.0"]
+    ports:
+      - "5173:5173"
+    environment:
+      SKIP_INSTALL: "1"
+      VITE_DEMO_MODE: "false"
+      VITE_API_TARGET: http://pulse-backend:3001
+      VITE_USE_POLLING: ${DEV_POLLING:-false}
+    volumes:
+      - .:/app:z
+      - pulse_node_modules:/app/node_modules
+    depends_on:
+      pulse-backend:
+        condition: service_healthy
+
+volumes:
+  pulse_node_modules:

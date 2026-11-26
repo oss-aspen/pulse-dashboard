@@ -20,6 +20,31 @@ npm run dev:full
 
 Open http://localhost:5173.
 
+## Quick Start (Docker — Live Data)
+
+Run Pulse and the full Upstream Pulse stack with hot reload. You need Docker or Podman with Compose v2.20+ and a sibling `upstream-pulse` checkout at `../upstream-pulse` (or set `UPSTREAM_PULSE_DIR`).
+
+```bash
+cp .env.docker.example .env
+# Edit .env: JIRA_EMAIL, JIRA_TOKEN, ADMIN_EMAILS, and GITHUB_TOKEN are required.
+make dev-up
+```
+
+`GITHUB_TOKEN` must be a classic PAT with `read:user`, `repo`, and `read:org` for the full stack. Use `make dev-up-core` to run only Pulse without the sibling checkout, or `make dev-up-demo` for fixture data without credentials.
+
+For an existing CollectOSS database, set `COLLECTOSS_DATABASE_URL` to a read-only PostgreSQL URL. `COLLECTOSS_SCHEMA` defaults to `data`; use `augur_data` for legacy Augur databases. With 8Knot, compose `AUGUR_USERNAME`, `AUGUR_PASSWORD`, `AUGUR_HOST`, `AUGUR_PORT`, and `AUGUR_DATABASE` into the URL, and map `AUGUR_SCHEMA=augur_data` to `COLLECTOSS_SCHEMA=augur_data` (`AUGUR_LOGIN_ENABLED` is 8Knot UI configuration only). For a database or tunnel on your host, use `host.docker.internal` in the URL with Docker or Podman >= 5.x; on Linux, bind tunnels to `0.0.0.0` (`oc port-forward --address 0.0.0.0` or `ssh -L 0.0.0.0:5411:…`) so containers can reach them. Run `make dev-check-collectoss` to verify reachability, credentials, and read-only schema access. Set `DEFAULT_DATA_SOURCE=collectoss` to make newly added projects use CollectOSS; `COLLECTOSS_FALLBACK_TO_GITHUB=true` keeps GitHub fallback enabled.
+
+First data:
+
+1. `make dev-up` enables Upstream Pulse and syncs the GitHub team automatically on the first run.
+2. In the UI, open **Upstream Pulse → Portfolio → Add Project** (the Dashboard's + Add only appears once a project exists), paste a GitHub repo URL, and pick an existing org. Portfolio orgs are only groupings and show no data until repos are added.
+3. Data persists across `make dev-down` and `make dev-up`; only `make dev-reset` wipes it. Team sync re-runs weekly.
+
+### Troubleshooting
+
+- **`column ... does not exist` or missing tables:** update the sibling checkout to current `main` by running `git switch main && git pull` inside `../upstream-pulse`, then run `make dev-up` again.
+- **People & Teams shows "Failed to refresh" or empty views:** no roster has been synced yet. Connect to Red Hat VPN with IPA credentials, or configure a Google Sheet and service-account key, then use **Settings → Sync Now**.
+
 ## Quick Start (Full Setup)
 
 For real Jira and GitHub data:
@@ -114,6 +139,16 @@ npm run validate:dockerfile-deps  # Verify Dockerfile deps match package.json
 npm run own-file -- <path>        # Take ownership of a core frontend file (copies to app/, see app/README.md)
 npm run owned-files               # Report owned app/ shadow files + upstream drift
 npm run update:view-owners        # Regenerate platform/view-owners/owners.js from git history
+
+# Docker/Podman local development (Compose v2.20+)
+make dev-up                       # Start the full live-data stack
+make dev-up-core                  # Start only Pulse frontend + backend
+make dev-up-demo                  # Start Pulse with fixture data
+make dev-down                     # Stop containers, preserving data and volumes
+make dev-logs                     # Follow development logs
+make dev-reset                    # Remove containers and named volumes, preserving ./data
+make dev-enable-upstream          # Run the idempotent first-run bootstrap manually
+make dev-check-collectoss         # Verify CollectOSS access with a read-only probe
 
 # Container-based tests (requires Docker/Podman)
 make smoke-test                 # Run smoke tests against OSAIPO images

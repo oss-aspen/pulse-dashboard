@@ -16,4 +16,16 @@ const config = createViteConfig();
 const plugins = Array.isArray(config.plugins) ? config.plugins : [];
 config.plugins = [...plugins, shadowCorePlugin({ coreDir, appDir: path.join(__dirname, 'app') })];
 
+// Docker dev: route /api and /modules to the backend container.
+const apiTarget = process.env.VITE_API_TARGET;
+if (apiTarget) {
+  config.server.proxy['/api'].target = apiTarget;
+  config.server.proxy['/modules'].target = apiTarget;
+}
+
+// Only needed when host filesystem events don't reach the container.
+if (process.env.VITE_USE_POLLING === 'true') {
+  config.server.watch = { usePolling: true, interval: 300 };
+}
+
 export default config;

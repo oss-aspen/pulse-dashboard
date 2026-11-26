@@ -1,0 +1,8 @@
+# Fixture-backed demo mode: no credentials needed.
+services:
+  pulse-backend:
+    environment:
+      DEMO_MODE: "true"
+  pulse-frontend:
+    environment:
+      VITE_DEMO_MODE: "true"
